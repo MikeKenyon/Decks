@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Decks", "Decks\Decks.csproj", "{5FF8F81E-0926-4483-9B03-1D782F01EA1D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Decks.Tests", "Decks.Tests\Decks.Tests.csproj", "{1DEE2E8B-BCA9-4902-8DB0-2CE9DD19D882}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5FF8F81E-0926-4483-9B03-1D782F01EA1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FF8F81E-0926-4483-9B03-1D782F01EA1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FF8F81E-0926-4483-9B03-1D782F01EA1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FF8F81E-0926-4483-9B03-1D782F01EA1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DEE2E8B-BCA9-4902-8DB0-2CE9DD19D882}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DEE2E8B-BCA9-4902-8DB0-2CE9DD19D882}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DEE2E8B-BCA9-4902-8DB0-2CE9DD19D882}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DEE2E8B-BCA9-4902-8DB0-2CE9DD19D882}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {27B01595-7475-4F09-AF72-94A141C87356}
+	EndGlobalSection
+EndGlobal
