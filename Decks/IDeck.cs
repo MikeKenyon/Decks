@@ -50,6 +50,13 @@ namespace Decks
         /// </summary>
         /// <param name="retreiveDiscards">Whether or not to clear out the discards.</param>
         void Shuffle(bool retreiveDiscards = true);
+        /// <summary>
+        /// Determines if an area contains an element.
+        /// </summary>
+        /// <param name="element">The element to look for.</param>
+        /// <param name="location">The location to check.</param>
+        /// <returns><see langword="true"/> if the element is in that location.</returns>
+        bool Contains(TElement element, Location location = Location.TopDeck);
 
         #region Adding
         /// <summary>

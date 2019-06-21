@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Decks
 {
-    public partial class Deck<TElement> : IEnumerable<TElement> where TElement: class
+    public partial class Deck<TElement> : IEnumerable<TElement> where TElement : class
     {
         #region Data
         private bool Initialized { get; set; }
@@ -63,6 +63,29 @@ namespace Decks
             HasBeenShuffled = true;
         }
         /// <summary>
+        /// Determines if an area contains an element.
+        /// </summary>
+        /// <param name="element">The element to look for.</param>
+        /// <param name="location">The location to check.</param>
+        /// <returns><see langword="true"/> if the element is in that location.</returns>
+        public bool Contains(TElement element, Location location = Location.TopDeck)
+        {
+            Contract.Requires(Enum.IsDefined(typeof(Location), location));
+
+            switch(location)
+            {
+                case Location.DiscardPile:
+                    return DiscardPile.Contains(element);
+                case Location.Hand:
+                    return DealtHands.Any(hand => hand.Contains(element));
+                case Location.Table:
+                    return Table.Contains(element);   
+                case Location.TopDeck:
+                    return TopDeck.Contains(element);
+            }
+            return false;
+        }
+        /// <summary>
         /// Adds a card to the deck.
         /// </summary>
         /// <param name="element">The element to add.</param>
@@ -96,11 +119,11 @@ namespace Decks
         {
             Contract.Requires(Enum.IsDefined(typeof(DeckSide), side));
             Contract.Requires(Enum.IsDefined(typeof(Location), location));
-            
+
             switch (location)
             {
                 case Location.TopDeck:
-                    switch(side)
+                    switch (side)
                     {
                         case DeckSide.Top:
                             TopDeck.Insert(0, element);
@@ -150,7 +173,7 @@ namespace Decks
         }
         protected void Check(ValidOperations operation)
         {
-            if(Initialized && !Options.Allow.HasFlag(operation))
+            if (Initialized && !Options.Allow.HasFlag(operation))
             {
                 MissingOperation(operation);
             }

@@ -45,6 +45,28 @@ namespace Decks.Tests
             Assert.AreEqual(5, deck.TotalCount);
         }
         [TestMethod]
+        public void ContainsElements()
+        {
+            // Arrange
+            var options = new DeckOptions() { HandSize = 1 };
+            var deck = new Deck<string>(options);
+            // Act
+            deck.Add("This");
+            deck.Add("is", Location.DiscardPile);
+            deck.Add("a", Location.Table);
+            deck.Add("sample");
+            deck.Add("deck.", Location.DiscardPile);
+            var hand = deck.Deal();
+            // Act
+            // Assert
+            Assert.IsTrue(deck.Contains("is", Location.DiscardPile));
+            Assert.IsFalse(deck.Contains("is", Location.TopDeck));
+            Assert.IsTrue(deck.Contains("This"));
+            Assert.IsTrue(deck.Contains("a", Location.Table));
+            Assert.IsTrue(deck.Contains("sample", Location.Hand));
+            Assert.IsTrue(hand.Contains("sample"));
+        }
+        [TestMethod]
         public void ShuffleWithRetreival()
         {
             // Arrange

@@ -12,5 +12,12 @@ namespace Decks
 
         void Muck();
         bool HasBeenMucked { get; }
+
+        /// <summary>
+        /// Checks if this hand contains that element.
+        /// </summary>
+        /// <param name="element"></param>
+        /// <returns></returns>
+        bool Contains(TElement element);
     }
 }

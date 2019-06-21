@@ -36,6 +36,16 @@ namespace Decks
             InvalidCheck();
             return Contents.GetEnumerator();
         }
+        /// <summary>
+        /// Checks if this hand contains that element.
+        /// </summary>
+        /// <param name="element"></param>
+        /// <returns></returns>
+        public bool Contains(TElement element)
+        {
+            InvalidCheck();
+            return Contents.Contains(element);
+        }
 
         private void InvalidCheck()
         {
