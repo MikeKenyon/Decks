@@ -1,8 +1,0 @@
-C:\Code\Decks\.vs\Decks\lut\0\b\Decks\Debug\netstandard2.0\Decks.deps.json
-C:\Code\Decks\.vs\Decks\lut\0\b\Decks\Debug\netstandard2.0\Decks.dll
-C:\Code\Decks\.vs\Decks\lut\0\i\Decks\Debug\netstandard2.0\Decks.csprojAssemblyReference.cache
-C:\Code\Decks\.vs\Decks\lut\0\i\Decks\Debug\netstandard2.0\Decks.csproj.CoreCompileInputs.cache
-C:\Code\Decks\.vs\Decks\lut\0\i\Decks\Debug\netstandard2.0\Decks.AssemblyInfoInputs.cache
-C:\Code\Decks\.vs\Decks\lut\0\i\Decks\Debug\netstandard2.0\Decks.AssemblyInfo.cs
-C:\Code\Decks\.vs\Decks\lut\0\i\Decks\Debug\netstandard2.0\Decks.csproj.CopyComplete
-C:\Code\Decks\.vs\Decks\lut\0\i\Decks\Debug\netstandard2.0\Decks.dll
