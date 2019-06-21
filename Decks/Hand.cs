@@ -14,7 +14,17 @@ namespace Decks
         public int Count { get { return Contents.Count; } }
         private Deck<TElement> Deck { get; }
         internal List<TElement> Contents { get; } = new List<TElement>();
-        internal bool Invalidated { get; set; }
+        public bool HasBeenMucked { get; internal set; }
+
+        public void Draw(DeckSide side = DeckSide.Top)
+        {
+            var card = Deck.Draw(side);
+            Contents.Add(card);
+        }
+        public void Muck()
+        {
+            Deck.Muck(this);
+        }
         public IEnumerator<TElement> GetEnumerator()
         {
             InvalidCheck();
@@ -29,7 +39,7 @@ namespace Decks
 
         private void InvalidCheck()
         {
-            if(Invalidated)
+            if(HasBeenMucked)
             {
                 throw new ObjectDisposedException("Hand");
             }

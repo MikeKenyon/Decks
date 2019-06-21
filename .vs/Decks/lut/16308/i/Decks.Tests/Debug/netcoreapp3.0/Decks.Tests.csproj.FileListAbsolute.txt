@@ -1,0 +1,13 @@
+C:\Code\Decks\.vs\Decks\lut\0\b\Decks.Tests\Debug\netcoreapp3.0\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Code\Decks\.vs\Decks\lut\0\b\Decks.Tests\Debug\netcoreapp3.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Code\Decks\.vs\Decks\lut\0\b\Decks.Tests\Debug\netcoreapp3.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Code\Decks\.vs\Decks\lut\0\b\Decks.Tests\Debug\netcoreapp3.0\Decks.Tests.deps.json
+C:\Code\Decks\.vs\Decks\lut\0\b\Decks.Tests\Debug\netcoreapp3.0\Decks.Tests.runtimeconfig.json
+C:\Code\Decks\.vs\Decks\lut\0\b\Decks.Tests\Debug\netcoreapp3.0\Decks.Tests.runtimeconfig.dev.json
+C:\Code\Decks\.vs\Decks\lut\0\b\Decks.Tests\Debug\netcoreapp3.0\Decks.Tests.dll
+C:\Code\Decks\.vs\Decks\lut\0\i\Decks.Tests\Debug\netcoreapp3.0\Decks.Tests.csprojAssemblyReference.cache
+C:\Code\Decks\.vs\Decks\lut\0\i\Decks.Tests\Debug\netcoreapp3.0\Decks.Tests.csproj.CoreCompileInputs.cache
+C:\Code\Decks\.vs\Decks\lut\0\i\Decks.Tests\Debug\netcoreapp3.0\Decks.Tests.AssemblyInfoInputs.cache
+C:\Code\Decks\.vs\Decks\lut\0\i\Decks.Tests\Debug\netcoreapp3.0\Decks.Tests.AssemblyInfo.cs
+C:\Code\Decks\.vs\Decks\lut\0\i\Decks.Tests\Debug\netcoreapp3.0\Decks.Tests.csproj.CopyComplete
+C:\Code\Decks\.vs\Decks\lut\0\i\Decks.Tests\Debug\netcoreapp3.0\Decks.Tests.dll

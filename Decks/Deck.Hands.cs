@@ -73,7 +73,7 @@ namespace Decks
         {
             Contract.Requires(Hands.Contains(hand), "The hand provided is not dealt from this deck.");
             Contract.Requires(hand is Hand<TElement> h);
-            Contract.Requires(!h.Invalidated);
+            Contract.Requires(!h.HasBeenMucked);
 
             h = (Hand<TElement>)hand;
             while(h.Contents.Count > 0)
@@ -82,7 +82,7 @@ namespace Decks
                 h.Contents.RemoveAt(0);
                 DiscardPile.Add(card);
             }
-            h.Invalidated = true;
+            h.HasBeenMucked = true;
             DealtHands.Remove(h);
         }
 
