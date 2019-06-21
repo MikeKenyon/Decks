@@ -107,5 +107,13 @@ namespace Decks
         /// </summary>
         IReadOnlyCollection<IHand<TElement>> Hands { get;}
         #endregion
+
+        #region Table
+        /// <summary>
+        /// Plays the top card from the deck to the table.
+        /// </summary>
+        /// <returns>The element played.</returns>
+        TElement Play();
+        #endregion
     }
 }

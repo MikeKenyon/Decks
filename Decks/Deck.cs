@@ -154,6 +154,17 @@ namespace Decks
             Known.Add(element);
         }
 
+        /// <summary>
+        /// Plays the top card from the deck to the table.
+        /// </summary>
+        /// <returns>The element played.</returns>
+        public TElement Play()
+        {
+            var card = Draw();
+            Table.Add(card);
+            return card;
+        }
+
         #endregion
 
         #region Protected Interface
