@@ -7,6 +7,8 @@
     <Authors>Mike Kenyon</Authors>
     <Description>A library that provides stuctures for supporting board games.    The structures here are Decks of cards/tiles/etc.</Description>
     <Copyright>2019</Copyright>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
