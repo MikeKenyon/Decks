@@ -5,15 +5,18 @@ using System.Text;
 
 namespace Decks
 {
-    internal class Hand<TElement> : IHand<TElement> where TElement : class
+    /// <summary>
+    /// An implementation of the <see cref="IHand{TElement}"/>.
+    /// </summary>
+    /// <typeparam name="TElement">The type of the "card" in the hand.</typeparam>
+    internal class Hand<TElement> : DeckStack<TElement>, IHand<TElement> 
+        where TElement : class
     {
         internal Hand(Deck<TElement> deck)
         {
             Deck = deck;
         }
-        public int Count { get { return Contents.Count; } }
         private Deck<TElement> Deck { get; }
-        internal List<TElement> Contents { get; } = new List<TElement>();
         public bool HasBeenMucked { get; internal set; }
 
         public void Draw(DeckSide side = DeckSide.Top)
@@ -25,26 +28,37 @@ namespace Decks
         {
             Deck.Muck(this);
         }
-        public IEnumerator<TElement> GetEnumerator()
+        /// <summary>
+        /// Plays this element onto the table.
+        /// </summary>
+        /// <param name="element">The element to play.</param>
+        /// <exception cref="InvalidElementException">
+        /// The element isn't part of this hand.
+        /// </exception>
+        public void Play(TElement element)
         {
             InvalidCheck();
-            return Contents.GetEnumerator();
+            Deck.InPlay.EnabledCheck();
+            if(Contains(element))
+            {
+                Contents.Remove(element);
+                Deck.InPlay.Contents.Add(element);
+            }
+            else
+            {
+                throw new InvalidElementException("Element isn't part of this hand, cannot play it.");
+            }
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        public override bool Contains(TElement element)
         {
             InvalidCheck();
-            return Contents.GetEnumerator();
+            return base.Contains(element);
         }
-        /// <summary>
-        /// Checks if this hand contains that element.
-        /// </summary>
-        /// <param name="element"></param>
-        /// <returns></returns>
-        public bool Contains(TElement element)
+        public override IEnumerator<TElement> GetEnumerator()
         {
             InvalidCheck();
-            return Contents.Contains(element);
+            return base.GetEnumerator();
         }
 
         private void InvalidCheck()

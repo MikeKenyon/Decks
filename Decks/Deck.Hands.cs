@@ -6,7 +6,8 @@ using System.Text;
 
 namespace Decks
 {
-    public partial class Deck<TElement> : IEnumerable<TElement> where TElement : class
+    // Portion of the Deck that deals with hands.
+    public partial class Deck<TElement> : IDeck<TElement> where TElement : class
     {
         private List<IHand<TElement>> DealtHands { get; } = new List<IHand<TElement>>();
         /// <summary>

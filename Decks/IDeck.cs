@@ -37,10 +37,6 @@ namespace Decks
         /// </summary>
         int DiscardCount { get; }
         /// <summary>
-        /// The cards on the table.
-        /// </summary>
-        int TableCount { get; }
-        /// <summary>
         /// The total cards in the system.
         /// </summary>
         int TotalCount { get; }
@@ -109,6 +105,10 @@ namespace Decks
         #endregion
 
         #region Table
+        /// <summary>
+        /// Gets the tabled portion of the deck, those cards currently "in play".
+        /// </summary>
+        ITable<TElement> Table { get; }
         /// <summary>
         /// Plays the top card from the deck to the table.
         /// </summary>

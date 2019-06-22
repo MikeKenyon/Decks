@@ -4,9 +4,8 @@ using System.Text;
 
 namespace Decks
 {
-    public interface IHand<TElement> : IEnumerable<TElement> where TElement : class
+    public interface IHand<TElement> : IDeckStack<TElement> where TElement : class
     {
-        int Count { get; }
 
         void Draw(DeckSide from = DeckSide.Top);
 
@@ -14,10 +13,12 @@ namespace Decks
         bool HasBeenMucked { get; }
 
         /// <summary>
-        /// Checks if this hand contains that element.
+        /// Plays this element onto the table.
         /// </summary>
-        /// <param name="element"></param>
-        /// <returns></returns>
-        bool Contains(TElement element);
+        /// <param name="element">The element to play.</param>
+        /// <exception cref="InvalidElementException">
+        /// The element isn't part of this hand.
+        /// </exception>
+        void Play(TElement element);
     }
 }

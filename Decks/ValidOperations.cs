@@ -12,6 +12,7 @@ namespace Decks
         Reshuffle   = 1 << 1 | ShuffleOnce,
         Add         = 1 << 2,
         DrawMuck    = 1 << 3,
-        All = Reshuffle | Add | DrawMuck
+        PlayToTable = 1 << 4,
+        All = Reshuffle | Add | DrawMuck | PlayToTable
     }
 }

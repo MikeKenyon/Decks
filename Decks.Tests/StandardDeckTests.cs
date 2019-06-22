@@ -1,9 +1,11 @@
-﻿using Decks.Common;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
+using Decks.Common;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Decks.Tests
 {
@@ -51,7 +53,7 @@ namespace Decks.Tests
             }
             Assert.AreEqual(32, deck.Count);
             Assert.AreEqual(0, deck.DiscardCount);
-            Assert.AreEqual(0, deck.TableCount);
+            Assert.AreEqual(0, deck.Table.Count);
             Assert.AreEqual(52, deck.TotalCount);
 
             deck.Muck(hands.ElementAt(3));

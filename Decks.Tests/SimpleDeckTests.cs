@@ -1,5 +1,6 @@
+﻿using System;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace Decks.Tests
 {
@@ -21,7 +22,7 @@ namespace Decks.Tests
             deck.Shuffle();
             // Assert
             Assert.AreEqual(5, deck.Count);
-            Assert.AreEqual(0, deck.TableCount);
+            Assert.AreEqual(0, deck.Table.Count);
             Assert.AreEqual(0, deck.DiscardCount);
             Assert.AreEqual(5, deck.TotalCount);
         }
@@ -40,7 +41,7 @@ namespace Decks.Tests
             deck.Shuffle(false);
             // Assert
             Assert.AreEqual(2, deck.Count);
-            Assert.AreEqual(1, deck.TableCount);
+            Assert.AreEqual(1, deck.Table.Count);
             Assert.AreEqual(2, deck.DiscardCount);
             Assert.AreEqual(5, deck.TotalCount);
         }
@@ -81,7 +82,7 @@ namespace Decks.Tests
             deck.Shuffle();
             // Assert
             Assert.AreEqual(4, deck.Count);
-            Assert.AreEqual(1, deck.TableCount);
+            Assert.AreEqual(1, deck.Table.Count);
             Assert.AreEqual(0, deck.DiscardCount);
             Assert.AreEqual(5, deck.TotalCount);
         }

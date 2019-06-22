@@ -1,8 +1,10 @@
-﻿using Decks.Common;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+
+using Decks.Common;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Decks.Tests
 {

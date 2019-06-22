@@ -13,8 +13,7 @@ namespace Decks
         private bool Initialized { get; set; }
         private List<TElement> Known { get; } = new List<TElement>();
         private List<TElement> TopDeck { get; } = new List<TElement>();
-        private List<TElement> DiscardPile { get; } = new List<TElement>();
-        private List<TElement> Table { get; } = new List<TElement>();
+        internal List<TElement> DiscardPile { get; } = new List<TElement>();
         private bool HasBeenShuffled { get; set; }
         #endregion
 
@@ -23,6 +22,7 @@ namespace Decks
         {
             Options = options;
             Hands = new ReadOnlyCollection<IHand<TElement>>(DealtHands);
+            InPlay = new Table<TElement>(this);
             Initialize();
             Initialized = true;
         }
@@ -35,7 +35,6 @@ namespace Decks
         public int Count { get { return TopDeck.Count; } }
         public int DiscardCount { get { return DiscardPile.Count; } }
         public int TotalCount { get { return Known.Count; } }
-        public int TableCount { get { return Table.Count; } }
         #endregion
         #endregion
 
@@ -102,7 +101,8 @@ namespace Decks
                     DiscardPile.Insert(0, element);
                     break;
                 case Location.Table:
-                    Table.Add(element);
+                    InPlay.EnabledCheck();
+                    InPlay.Contents.Add(element);
                     break;
                 case Location.Hand:
                     throw new InvalidOperationException("Cannot add directly to a hand.");
@@ -153,18 +153,6 @@ namespace Decks
             }
             Known.Add(element);
         }
-
-        /// <summary>
-        /// Plays the top card from the deck to the table.
-        /// </summary>
-        /// <returns>The element played.</returns>
-        public TElement Play()
-        {
-            var card = Draw();
-            Table.Add(card);
-            return card;
-        }
-
         #endregion
 
         #region Protected Interface

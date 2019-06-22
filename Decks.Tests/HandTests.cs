@@ -1,8 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Decks.Tests
 {
@@ -25,12 +26,36 @@ namespace Decks.Tests
             hand.Draw();
             // Assert
             Assert.AreEqual(4, deck.Count);
-            Assert.AreEqual(0, deck.TableCount);
+            Assert.AreEqual(0, deck.Table.Count);
             Assert.AreEqual(0, deck.DiscardCount);
             Assert.AreEqual(5, deck.TotalCount);
 
             Assert.AreEqual(1, hand.Count);
             Assert.AreEqual("deck.", hand.First());
+        }
+
+        [TestMethod]
+        public void PlayFromHand()
+        {
+            // Arrange
+            var options = new DeckOptions() { HandSize = 0 };
+            var deck = new Deck<string>(options);
+            deck.Add("This");
+            deck.Add("is");
+            deck.Add("a");
+            deck.Add("sample");
+            deck.Add("deck.");
+            var hand = deck.Deal();
+            hand.Draw();
+            // Act
+            Assert.AreEqual(1, hand.Count);
+            Assert.AreEqual("deck.", hand.First());
+            // Assert
+            hand.Play(hand.First());
+            Assert.AreEqual(4, deck.Count);
+            Assert.AreEqual(1, deck.Table.Count);
+            Assert.AreEqual(0, deck.DiscardCount);
+            Assert.AreEqual(5, deck.TotalCount);
         }
 
         [TestMethod]
