@@ -1,7 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Company>Hoarked</Company>
+    <Authors>Mike Kenyon</Authors>
+    <Description>A library that provides stuctures for supporting board games.    The structures here are Decks of cards/tiles/etc.</Description>
+    <Copyright>2019</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
