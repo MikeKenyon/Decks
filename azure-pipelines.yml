@@ -11,6 +11,10 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: 
+
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
@@ -26,10 +30,16 @@ steps:
     command: 'test'
     projects: '**/*.csproj'
 
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/*.csproj'
+    versioningScheme: 'byBuildNumber'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    vstsFeed: '/a5bf1ac3-138f-4906-826a-6e7d94ad0edd'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'NuGet'
