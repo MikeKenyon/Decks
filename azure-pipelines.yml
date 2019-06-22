@@ -36,3 +36,10 @@ steps:
     packagesToPack: '**/*.csproj'
     versioningScheme: 'byBuildNumber'
 
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    vstsFeed: '/a5bf1ac3-138f-4906-826a-6e7d94ad0edd'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'NuGet'
