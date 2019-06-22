@@ -16,7 +16,7 @@ namespace Decks
             EnabledCheck();
             if (Contains(element))
             {
-                Deck.DiscardPile.Add(element);
+                Deck.Discards.Contents.Add(element);
                 Contents.Remove(element);
             }
             else
@@ -27,7 +27,7 @@ namespace Decks
         public void Muck()
         {
             EnabledCheck();
-            Deck.DiscardPile.AddRange(Contents);
+            Deck.Discards.Contents.AddRange(Contents);
             Contents.Clear();
         }
         public bool Enabled {

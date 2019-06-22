@@ -33,10 +33,6 @@ namespace Decks
         /// </summary>
         int Count { get; }
         /// <summary>
-        /// The cards in the discard pile.
-        /// </summary>
-        int DiscardCount { get; }
-        /// <summary>
         /// The total cards in the system.
         /// </summary>
         int TotalCount { get; }
@@ -101,7 +97,7 @@ namespace Decks
         /// <summary>
         /// All of the hands that are currently dealt.
         /// </summary>
-        IReadOnlyCollection<IHand<TElement>> Hands { get;}
+        IReadOnlyCollection<IHand<TElement>> Hands { get; }
         #endregion
 
         #region Table
@@ -114,6 +110,10 @@ namespace Decks
         /// </summary>
         /// <returns>The element played.</returns>
         TElement Play();
+        #endregion
+
+        #region Discards
+        IDiscardPile<TElement> DiscardPile { get; }
         #endregion
     }
 }

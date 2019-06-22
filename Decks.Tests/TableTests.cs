@@ -27,7 +27,7 @@ namespace Decks.Tests
             deck.Table.Discard(deck.Table.First());
             // Assert
             Assert.AreEqual(0, hand.Count);
-            Assert.AreEqual(1, deck.DiscardCount);
+            Assert.AreEqual(1, deck.DiscardPile.Count);
         }
         [TestMethod]
         public void MuckPlay()
@@ -49,7 +49,7 @@ namespace Decks.Tests
             deck.Table.Muck();
             // Assert
             Assert.AreEqual(0, hand.Count);
-            Assert.AreEqual(2, deck.DiscardCount);
+            Assert.AreEqual(2, deck.DiscardPile.Count);
         }
     }
 }

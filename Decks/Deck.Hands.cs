@@ -81,7 +81,7 @@ namespace Decks
             {
                 var card = h.Contents[0];
                 h.Contents.RemoveAt(0);
-                DiscardPile.Add(card);
+                Discards.Contents.Add(card);
             }
             h.HasBeenMucked = true;
             DealtHands.Remove(h);
@@ -91,7 +91,7 @@ namespace Decks
         {
             Contract.Requires(Enum.IsDefined(typeof(DeckSide), side));
 
-            if((Count == 0 && DiscardCount == 0) ||
+            if((Count == 0 && DiscardPile.Count == 0) ||
                 (Count == 0 && !Options.AutoShuffle))
             {
                 throw new BottomDeckException();

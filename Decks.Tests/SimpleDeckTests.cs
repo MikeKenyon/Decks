@@ -23,7 +23,7 @@ namespace Decks.Tests
             // Assert
             Assert.AreEqual(5, deck.Count);
             Assert.AreEqual(0, deck.Table.Count);
-            Assert.AreEqual(0, deck.DiscardCount);
+            Assert.AreEqual(0, deck.DiscardPile.Count);
             Assert.AreEqual(5, deck.TotalCount);
         }
         [TestMethod]
@@ -42,7 +42,7 @@ namespace Decks.Tests
             // Assert
             Assert.AreEqual(2, deck.Count);
             Assert.AreEqual(1, deck.Table.Count);
-            Assert.AreEqual(2, deck.DiscardCount);
+            Assert.AreEqual(2, deck.DiscardPile.Count);
             Assert.AreEqual(5, deck.TotalCount);
         }
         [TestMethod]
@@ -83,7 +83,7 @@ namespace Decks.Tests
             // Assert
             Assert.AreEqual(4, deck.Count);
             Assert.AreEqual(1, deck.Table.Count);
-            Assert.AreEqual(0, deck.DiscardCount);
+            Assert.AreEqual(0, deck.DiscardPile.Count);
             Assert.AreEqual(5, deck.TotalCount);
         }
         [TestMethod]

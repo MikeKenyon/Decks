@@ -27,7 +27,7 @@ namespace Decks.Tests
             // Assert
             Assert.AreEqual(4, deck.Count);
             Assert.AreEqual(0, deck.Table.Count);
-            Assert.AreEqual(0, deck.DiscardCount);
+            Assert.AreEqual(0, deck.DiscardPile.Count);
             Assert.AreEqual(5, deck.TotalCount);
 
             Assert.AreEqual(1, hand.Count);
@@ -54,7 +54,7 @@ namespace Decks.Tests
             hand.Play(hand.First());
             Assert.AreEqual(4, deck.Count);
             Assert.AreEqual(1, deck.Table.Count);
-            Assert.AreEqual(0, deck.DiscardCount);
+            Assert.AreEqual(0, deck.DiscardPile.Count);
             Assert.AreEqual(5, deck.TotalCount);
         }
 
@@ -75,7 +75,7 @@ namespace Decks.Tests
             Assert.AreEqual(3, hand.Count);
             Assert.AreEqual(5, deck.TotalCount);
             Assert.AreEqual(2, deck.Count);
-            Assert.AreEqual(0, deck.DiscardCount);
+            Assert.AreEqual(0, deck.DiscardPile.Count);
             // Act 2
             hand.Muck();
             // Assert 2
@@ -83,7 +83,7 @@ namespace Decks.Tests
             Assert.IsTrue(hand.HasBeenMucked);
             Assert.AreEqual(5, deck.TotalCount);
             Assert.AreEqual(2, deck.Count);
-            Assert.AreEqual(3, deck.DiscardCount);
+            Assert.AreEqual(3, deck.DiscardPile.Count);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Decks
         private bool Initialized { get; set; }
         private List<TElement> Known { get; } = new List<TElement>();
         private List<TElement> TopDeck { get; } = new List<TElement>();
-        internal List<TElement> DiscardPile { get; } = new List<TElement>();
+        internal DiscardPile<TElement> Discards { get; }
         private bool HasBeenShuffled { get; set; }
         #endregion
 
@@ -23,6 +23,7 @@ namespace Decks
             Options = options;
             Hands = new ReadOnlyCollection<IHand<TElement>>(DealtHands);
             InPlay = new Table<TElement>(this);
+            Discards = new DiscardPile<TElement>(this);
             Initialize();
             Initialized = true;
         }
@@ -33,12 +34,12 @@ namespace Decks
 
         #region Counts
         public int Count { get { return TopDeck.Count; } }
-        public int DiscardCount { get { return DiscardPile.Count; } }
         public int TotalCount { get { return Known.Count; } }
         #endregion
         #endregion
 
         #region Public Interface
+        public IDiscardPile<TElement> DiscardPile { get { return Discards; } }
         /// <summary>
         /// Optionally gets the discards back and then randomly orders the cards.
         /// </summary>
@@ -56,7 +57,7 @@ namespace Decks
             if (retreiveDiscards)
             {
                 TopDeck.AddRange(DiscardPile);
-                DiscardPile.Clear();
+                Discards.Contents.Clear();
             }
             TopDeck.Shuffle();
             HasBeenShuffled = true;
@@ -98,7 +99,7 @@ namespace Decks
                     TopDeck.Insert(0, element);
                     break;
                 case Location.DiscardPile:
-                    DiscardPile.Insert(0, element);
+                    Discards.Contents.Insert(0, element);
                     break;
                 case Location.Table:
                     InPlay.EnabledCheck();
@@ -137,10 +138,10 @@ namespace Decks
                     switch (side)
                     {
                         case DeckSide.Top:
-                            DiscardPile.Insert(0, element);
+                            Discards.Contents.Insert(0, element);
                             break;
                         case DeckSide.Bottom:
-                            DiscardPile.Add(element);
+                            Discards.Contents.Add(element);
                             break;
                     }
                     break;
