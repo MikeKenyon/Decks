@@ -29,7 +29,7 @@ namespace Decks.Common
             }
         }
 
-        private PlayingCardOptions CardOptions
+        protected PlayingCardOptions CardOptions
         {
             get {
                 return (PlayingCardOptions)Options;
