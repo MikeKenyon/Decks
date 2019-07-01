@@ -36,11 +36,11 @@ namespace Decks
         public void Play(TElement element)
         {
             InvalidCheck();
-            Deck.InPlay.EnabledCheck();
+            Deck.TableStack.EnabledCheck();
             if(Contains(element))
             {
                 Contents.Remove(element);
-                Deck.InPlay.Contents.Add(element);
+                Deck.TableStack.Contents.Add(element);
             }
             else
             {

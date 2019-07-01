@@ -75,7 +75,7 @@ namespace Decks
                 }
                 var element = Contents[index];
                 Contents.RemoveAt(index);
-                Deck.Discards.Contents.Add(element);
+                Deck.DiscardPileStack.Contents.Add(element);
             }
         }
         /// <summary>
@@ -87,7 +87,7 @@ namespace Decks
             CheckOperation(ValidOperations.PlayTableauToTable);
             CheckIsMyElement(element, "Cannot play an element not in the tableau.");
             Contents.Remove(element);
-            Deck.InPlay.Contents.Add(element);
+            Deck.TableStack.Contents.Add(element);
             CheckProperSize();
         }
 

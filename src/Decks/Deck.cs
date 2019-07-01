@@ -14,8 +14,8 @@ namespace Decks
         private bool Initialized { get; set; }
         private List<TElement> Known { get; } = new List<TElement>();
         private List<TElement> TopDeck { get; } = new List<TElement>();
-        internal DiscardPile<TElement> Discards { get; }
-        internal Tableau<TElement> TableauArea { get; }
+        internal DiscardPile<TElement> DiscardPileStack { get; }
+        internal Tableau<TElement> TableauStack { get; }
         private bool HasBeenShuffled { get; set; }
         #endregion
 
@@ -23,10 +23,10 @@ namespace Decks
         public Deck(IDeckOptions options)
         {
             Options = options;
-            Hands = new ReadOnlyCollection<IHand<TElement>>(DealtHands);
-            InPlay = new Table<TElement>(this);
-            Discards = new DiscardPile<TElement>(this);
-            TableauArea = new Tableau<TElement>(this);
+            Hands = new ReadOnlyCollection<IHand<TElement>>(HandSet);
+            TableStack = new Table<TElement>(this);
+            DiscardPileStack = new DiscardPile<TElement>(this);
+            TableauStack = new Tableau<TElement>(this);
             Initialize();
             Initialized = true;
         }
@@ -34,8 +34,8 @@ namespace Decks
 
         #region Properties
         public IDeckOptions Options { get; }
+        public ITableau<TElement> Tableau { get { return TableauStack; } }
 
-        public ITableau<TElement> Tableau { get { return TableauArea; } }
 
         #region Counts
         public int Count { get { return TopDeck.Count; } }
@@ -44,7 +44,7 @@ namespace Decks
         #endregion
 
         #region Public Interface
-        public IDiscardPile<TElement> DiscardPile { get { return Discards; } }
+        public IDiscardPile<TElement> DiscardPile { get { return DiscardPileStack; } }
         /// <summary>
         /// Optionally gets the discards back and then randomly orders the cards.
         /// </summary>
@@ -62,7 +62,7 @@ namespace Decks
             if (retreiveDiscards)
             {
                 TopDeck.AddRange(DiscardPile);
-                Discards.Contents.Clear();
+                DiscardPileStack.Contents.Clear();
             }
             TopDeck.Shuffle();
             HasBeenShuffled = true;
@@ -82,7 +82,7 @@ namespace Decks
                 case Location.DiscardPile:
                     return DiscardPile.Contains(element);
                 case Location.Hand:
-                    return DealtHands.Any(hand => hand.Contains(element));
+                    return HandSet.Any(hand => hand.Contains(element));
                 case Location.Table:
                     return Table.Contains(element);   
                 case Location.TopDeck:
@@ -105,15 +105,15 @@ namespace Decks
                     TopDeck.Insert(0, element);
                     break;
                 case Location.DiscardPile:
-                    Discards.Contents.Insert(0, element);
+                    DiscardPileStack.Contents.Insert(0, element);
                     break;
                 case Location.Table:
-                    InPlay.EnabledCheck();
-                    InPlay.Contents.Add(element);
+                    TableStack.EnabledCheck();
+                    TableStack.Contents.Add(element);
                     break;
                 case Location.Tableau:
-                    TableauArea.CheckEnabled();
-                    TableauArea.Contents.Add(element);
+                    TableauStack.CheckEnabled();
+                    TableauStack.Contents.Add(element);
                     break;
                 case Location.Hand:
                     throw new InvalidOperationException("Cannot add directly to a hand.");
@@ -150,10 +150,10 @@ namespace Decks
                     switch (side)
                     {
                         case DeckSide.Top:
-                            Discards.Contents.Insert(0, element);
+                            DiscardPileStack.Contents.Insert(0, element);
                             break;
                         case DeckSide.Bottom:
-                            Discards.Contents.Add(element);
+                            DiscardPileStack.Contents.Add(element);
                             break;
                     }
                     break;

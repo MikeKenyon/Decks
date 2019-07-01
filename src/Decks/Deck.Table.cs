@@ -14,13 +14,13 @@ namespace Decks
         /// <returns>The element played.</returns>
         public TElement Play()
         {
-            InPlay.EnabledCheck();
+            TableStack.EnabledCheck();
             var card = Draw();
-            InPlay.Contents.Add(card);
+            TableStack.Contents.Add(card);
             return card;
         }
 
-        internal Table<TElement> InPlay { get; }
-        public ITable<TElement> Table { get { return InPlay; } }
+        internal Table<TElement> TableStack { get; }
+        public ITable<TElement> Table { get { return TableStack; } }
     }
 }

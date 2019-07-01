@@ -10,7 +10,7 @@ namespace Decks
     // Portion of the Deck that deals with hands.
     public partial class Deck<TElement> : IDeck<TElement> where TElement : class
     {
-        private List<IHand<TElement>> DealtHands { get; } = new List<IHand<TElement>>();
+        private List<IHand<TElement>> HandSet { get; } = new List<IHand<TElement>>();
         /// <summary>
         /// All of the hands that are currently dealt.
         /// </summary>
@@ -56,7 +56,7 @@ namespace Decks
                     hands[deck].Contents.Add(Draw());
                 }
             }
-            DealtHands.AddRange(hands);
+            HandSet.AddRange(hands);
             return hands;
         }
         /// <summary>
@@ -64,7 +64,7 @@ namespace Decks
         /// </summary>
         public void Muck()
         {
-            var hands = DealtHands.ToArray();
+            var hands = HandSet.ToArray();
             hands.Apply(h => Muck(h));
         }
         /// <summary>
@@ -82,10 +82,10 @@ namespace Decks
             {
                 var card = h.Contents[0];
                 h.Contents.RemoveAt(0);
-                Discards.Contents.Add(card);
+                DiscardPileStack.Contents.Add(card);
             }
             h.HasBeenMucked = true;
-            DealtHands.Remove(h);
+            HandSet.Remove(h);
         }
 
         protected internal TElement Draw(DeckSide side = DeckSide.Top)
