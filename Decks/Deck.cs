@@ -14,6 +14,7 @@ namespace Decks
         private List<TElement> Known { get; } = new List<TElement>();
         private List<TElement> TopDeck { get; } = new List<TElement>();
         internal DiscardPile<TElement> Discards { get; }
+        internal Tableau<TElement> TableauArea { get; }
         private bool HasBeenShuffled { get; set; }
         #endregion
 
@@ -24,6 +25,7 @@ namespace Decks
             Hands = new ReadOnlyCollection<IHand<TElement>>(DealtHands);
             InPlay = new Table<TElement>(this);
             Discards = new DiscardPile<TElement>(this);
+            TableauArea = new Tableau<TElement>(this);
             Initialize();
             Initialized = true;
         }
@@ -31,6 +33,8 @@ namespace Decks
 
         #region Properties
         public IDeckOptions Options { get; }
+
+        public ITableau<TElement> Tableau { get { return TableauArea; } }
 
         #region Counts
         public int Count { get { return TopDeck.Count; } }
@@ -90,7 +94,8 @@ namespace Decks
         /// </summary>
         /// <param name="element">The element to add.</param>
         /// <param name="location">The location to add it to.</param>
-        public void Add(TElement element, Location location = Location.TopDeck)
+        /// <returns>This same deck (for FLUID interface reasons).</returns>
+        public IDeck<TElement> Add(TElement element, Location location = Location.TopDeck)
         {
             Contract.Requires(Enum.IsDefined(typeof(Location), location));
             switch (location)
@@ -105,10 +110,15 @@ namespace Decks
                     InPlay.EnabledCheck();
                     InPlay.Contents.Add(element);
                     break;
+                case Location.Tableau:
+                    TableauArea.EnabledCheck();
+                    TableauArea.Contents.Add(element);
+                    break;
                 case Location.Hand:
                     throw new InvalidOperationException("Cannot add directly to a hand.");
             }
             Known.Add(element);
+            return this;
         }
         /// <summary>
         /// Adds a card to a specific location in the deck.
@@ -116,7 +126,8 @@ namespace Decks
         /// <param name="element">The element to add.</param>
         /// <param name="side">What side of the deck the item goes to.</param>
         /// <param name="location">The location to add it to.</param>
-        public void Add(TElement element, DeckSide side, Location location = Location.TopDeck)
+        /// <returns>This same deck (for FLUID interface reasons).</returns>
+        public IDeck<TElement> Add(TElement element, DeckSide side, Location location = Location.TopDeck)
         {
             Contract.Requires(Enum.IsDefined(typeof(DeckSide), side));
             Contract.Requires(Enum.IsDefined(typeof(Location), location));
@@ -147,13 +158,17 @@ namespace Decks
                     break;
                 case Location.Table:
                     throw new InvalidOperationException("Cannot add to the table on a specific side.");
+                case Location.Tableau:
+                    throw new InvalidOperationException("Cannot add to the tableau on a specific side.");
                 case Location.Hand:
                     throw new InvalidOperationException("Cannot add directly to a hand.");
                 default:
                     throw new NotImplementedException($"Don't know about the {location} location.");
             }
             Known.Add(element);
+            return this;
         }
+
         #endregion
 
         #region Protected Interface

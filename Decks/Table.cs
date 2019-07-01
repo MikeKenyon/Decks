@@ -7,9 +7,8 @@ namespace Decks
     internal class Table<TElement> : DeckStack<TElement>, ITable<TElement>
         where TElement : class
     {
-        public Table(Deck<TElement> deck)
+        public Table(Deck<TElement> deck) : base(deck)
         {
-            Deck = deck;
         }
         public void Discard(TElement element)
         {
@@ -42,6 +41,5 @@ namespace Decks
                 throw new InvalidOperationException("Play table isn't enabled.");
             }
         }
-        private Deck<TElement> Deck { get; }
     }
 }

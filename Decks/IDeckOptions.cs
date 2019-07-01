@@ -28,5 +28,18 @@ namespace Decks
         /// and one isn't available.
         /// </summary>
         bool AutoShuffle { get; }
+        /// <summary>
+        /// The number of elements in the tableau.
+        /// </summary>
+        uint TableauSize { get; }
+        /// <summary>
+        /// Whether the system automatically adjusts the tableau after something modifies 
+        /// it's contents.
+        /// </summary>
+        bool TableauMaintainSize { get; }
+        /// <summary>
+        /// What to do what a tableau gets to be oversized.
+        /// </summary>
+        TableauOverflowRule TableauOverflow { get; }
     }
 }

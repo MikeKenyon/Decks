@@ -16,6 +16,21 @@ namespace Decks
         /// </summary>
         public uint HandSize { get; set; } = 5;
         /// <summary>
+        /// The number of elements in the tableau, set to 0 to disable the tableau.
+        /// </summary>
+        public uint TableauSize { get; set; } = 0;
+
+        /// <summary>
+        /// Whether the system automatically adjusts the tableau after something modifies 
+        /// it's contents.
+        /// </summary>
+        public bool TableauMaintainSize { get; set; }
+        /// <summary>
+        /// What to do what a tableau gets to be oversized.
+        /// </summary>
+        public TableauOverflowRule TableauOverflow { get; set; }
+
+        /// <summary>
         /// Automatically shuffles the deck when you need another card 
         /// and one isn't available.
         /// </summary>

@@ -12,11 +12,9 @@ namespace Decks
     internal class Hand<TElement> : DeckStack<TElement>, IHand<TElement> 
         where TElement : class
     {
-        internal Hand(Deck<TElement> deck)
+        internal Hand(Deck<TElement> deck) : base(deck)
         {
-            Deck = deck;
         }
-        private Deck<TElement> Deck { get; }
         public bool HasBeenMucked { get; internal set; }
 
         public void Draw(DeckSide side = DeckSide.Top)

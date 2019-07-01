@@ -21,6 +21,10 @@ namespace Decks
         /// <summary>
         /// On the "table".
         /// </summary>
-        Table = 3
+        Table = 3,
+        /// <summary>
+        /// The visible cards sitting there to be drawn from.
+        /// </summary>
+        Tableau = 4
     }
 }

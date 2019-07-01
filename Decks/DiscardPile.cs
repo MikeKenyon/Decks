@@ -7,11 +7,8 @@ namespace Decks
     internal class DiscardPile<TElement> : DeckStack<TElement>, IDiscardPile<TElement>
         where TElement : class
     {
-        private Deck<TElement> Deck { get; }
-
-        public DiscardPile(Deck<TElement> deck)
+        public DiscardPile(Deck<TElement> deck) : base(deck)
         {
-            Deck = deck;
         }
     }
 }

@@ -50,20 +50,27 @@ namespace Decks
         /// <returns><see langword="true"/> if the element is in that location.</returns>
         bool Contains(TElement element, Location location = Location.TopDeck);
 
+        /// <summary>
+        /// The tableau for this deck.
+        /// </summary>
+        ITableau<TElement> Tableau { get; }
+
         #region Adding
         /// <summary>
         /// Adds a card 
         /// </summary>
         /// <param name="element">The element to add.</param>
         /// <param name="location">The location to add it to.</param>
-        void Add(TElement element, Location location = Location.TopDeck);
+        /// <returns>This same deck (for FLUID interface reasons).</returns>
+        IDeck<TElement> Add(TElement element, Location location = Location.TopDeck);
         /// <summary>
         /// Adds a card to a specific location in the deck.
         /// </summary>
         /// <param name="element">The element to add.</param>
         /// <param name="side">What side of the deck the item goes to.</param>
         /// <param name="location">The location to add it to.</param>
-        void Add(TElement element, DeckSide side, Location location = Location.TopDeck);
+        /// <returns>This same deck (for FLUID interface reasons).</returns>
+        IDeck<TElement> Add(TElement element, DeckSide side, Location location = Location.TopDeck);
         #endregion
 
         #region Hands
