@@ -38,14 +38,26 @@ namespace Decks
         {
             return this.GetEnumerator();
         }
-        protected void MyElementCheck(TElement element)
+
+        #region Helpers for Deck Stack Types
+        /// <summary>
+        /// Confirms that the element you're about to perform this on is in face your element.  
+        /// </summary>
+        /// <param name="element">The element to check.</param>
+        /// <param name="message">The custome message</param>
+        protected void CheckIsMyElement(TElement element, string message)
         {
             if (!Contents.Contains(element))
             {
-                throw new InvalidOperationException("Cannot add element from the tableau that's not in the tableau.");
+                throw new InvalidElementException(message);
             }
         }
-        protected void HandCheck(IHand<TElement> hand, bool checkMucked = true)
+        /// <summary>
+        /// Confirm that the operation in question is bin
+        /// </summary>
+        /// <param name="hand"></param>
+        /// <param name="checkMucked"></param>
+        protected void CheckOwnHand(IHand<TElement> hand, bool checkMucked = true)
         {
             if(!Deck.Hands.Contains(hand))
             {
@@ -56,9 +68,14 @@ namespace Decks
                 throw new InvalidOperationException("Cannot use this hand, it's been mucked.");
             }
         }
+        /// <summary>
+        /// Checks to see if you have access to perform some operation, or fails.
+        /// </summary>
+        /// <param name="operation">The operation you are about to do.</param>
         protected void CheckOperation(ValidOperations operation)
         {
-            Deck.Check(operation);
+            Deck.CheckOperation(operation);
         }
+        #endregion
     }
 }

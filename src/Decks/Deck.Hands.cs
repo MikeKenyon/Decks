@@ -43,7 +43,7 @@ namespace Decks
         {
             Contract.Requires(handSize > 0);
 
-            Check(ValidOperations.DealMuck);
+            CheckOperation(ValidOperations.DealMuck);
             var hands = new Hand<TElement>[numberOfHands];
             for (int i = 0; i < hands.Length; ++i)
             {

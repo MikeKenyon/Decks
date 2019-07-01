@@ -43,7 +43,7 @@ namespace Decks
         {
             Contract.Requires(Enum.IsDefined(typeof(TableauOverflowRule),
                 Deck.Options.TableauOverflow));
-            EnabledCheck(overrideSize);
+            CheckEnabled(overrideSize);
 
             var size = overrideSize == 0 ? Deck.Options.TableauSize : overrideSize;
 
@@ -85,10 +85,10 @@ namespace Decks
         public void Play(TElement element)
         {
             CheckOperation(ValidOperations.PlayTableauToTable);
-            MyElementCheck(element);
+            CheckIsMyElement(element, "Cannot play an element not in the tableau.");
             Contents.Remove(element);
             Deck.InPlay.Contents.Add(element);
-            MaintainCheck();
+            CheckProperSize();
         }
 
         /// <summary>
@@ -99,11 +99,11 @@ namespace Decks
         public void DrawInto(TElement element, IHand<TElement> hand)
         {
             CheckOperation(ValidOperations.PlayTableauToHand);
-            MyElementCheck(element);
-            HandCheck(hand);
+            CheckIsMyElement(element, "Cannot play an element not in the tableau.");
+            CheckOwnHand(hand);
             Contents.Remove(element);
             ((Hand<TElement>)hand).Contents.Add(element); //TODO: Elegance?
-            MaintainCheck();
+            CheckProperSize();
         }
 
 
@@ -112,7 +112,7 @@ namespace Decks
         /// </summary>
         /// <param name="overrideSize">If greater than 0, this is the size to use to determin
         /// enabled-ness.</param>
-        internal void EnabledCheck(uint overrideSize = 0)
+        internal void CheckEnabled(uint overrideSize = 0)
         {
             if (!Enabled && overrideSize == 0)
             {
@@ -120,7 +120,7 @@ namespace Decks
             }
         }
 
-        private void MaintainCheck()
+        private void CheckProperSize()
         {
             if (Deck.Options.TableauMaintainSize)
             {

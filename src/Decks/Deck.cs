@@ -53,11 +53,11 @@ namespace Decks
         {
             if (HasBeenShuffled)
             {
-                Check(ValidOperations.Reshuffle);
+                CheckOperation(ValidOperations.Reshuffle);
             }
             else
             {
-                Check(ValidOperations.ShuffleOnce);
+                CheckOperation(ValidOperations.ShuffleOnce);
             }
             if (retreiveDiscards)
             {
@@ -112,7 +112,7 @@ namespace Decks
                     InPlay.Contents.Add(element);
                     break;
                 case Location.Tableau:
-                    TableauArea.EnabledCheck();
+                    TableauArea.CheckEnabled();
                     TableauArea.Contents.Add(element);
                     break;
                 case Location.Hand:
@@ -187,7 +187,7 @@ namespace Decks
         {
             throw new InvalidOperationException($"Can not perform action, deck is not allowed {validOperations}.");
         }
-        protected internal void Check(ValidOperations operation)
+        protected internal void CheckOperation(ValidOperations operation)
         {
             if (Initialized && !Options.Allow.HasFlag(operation))
             {
