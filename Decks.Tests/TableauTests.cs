@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Decks;
 using System.Linq;
+using Decks.Configuration;
 
 namespace Decks.Tests
 {

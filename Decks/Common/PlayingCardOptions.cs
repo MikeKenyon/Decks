@@ -1,4 +1,6 @@
-﻿namespace Decks.Common
+﻿using Decks.Configuration;
+
+namespace Decks.Common
 {
     public class PlayingCardOptions : DeckOptions
     {

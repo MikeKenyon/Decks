@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Decks.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Decks.Tests

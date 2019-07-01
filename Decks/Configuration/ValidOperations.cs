@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Decks
+namespace Decks.Configuration
 {
     /// <summary>
     /// Operations that may or may not be valid for a particular deck.

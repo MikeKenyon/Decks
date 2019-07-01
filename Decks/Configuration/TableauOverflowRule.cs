@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Decks
+namespace Decks.Configuration
 {
     /// <summary>
     /// By default, a <see cref="ITable{TElement}"/> has a maximum size the same as its

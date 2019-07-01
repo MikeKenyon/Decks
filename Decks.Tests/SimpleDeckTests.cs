@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Decks.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Decks.Tests
