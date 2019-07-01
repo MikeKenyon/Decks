@@ -39,11 +39,6 @@ namespace Decks
         int TotalCount { get; }
 
         /// <summary>
-        /// Optionally gets the discards back and then randomly orders the cards.
-        /// </summary>
-        /// <param name="retreiveDiscards">Whether or not to clear out the discards.</param>
-        void Shuffle(bool retreiveDiscards = true);
-        /// <summary>
         /// Determines if an area contains an element.
         /// </summary>
         /// <param name="element">The element to look for.</param>

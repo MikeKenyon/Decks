@@ -12,6 +12,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="DrawPile\DrawPile.xaml" />
+    <None Remove="DrawPile\DrawPileDetail.xaml" />
+    <None Remove="DrawPile\DrawPileMaster.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="System.Diagnostics.Contracts" Version="4.3.0" />
   </ItemGroup>

@@ -13,10 +13,9 @@ namespace Decks
         #region Data
         private bool Initialized { get; set; }
         private List<TElement> Known { get; } = new List<TElement>();
-        private List<TElement> TopDeck { get; } = new List<TElement>();
+        private DrawPile<TElement> DrawPileStack { get; }
         internal DiscardPile<TElement> DiscardPileStack { get; }
         internal Tableau<TElement> TableauStack { get; }
-        private bool HasBeenShuffled { get; set; }
         #endregion
 
         #region Construction
@@ -24,9 +23,11 @@ namespace Decks
         {
             Options = options;
             Hands = new ReadOnlyCollection<IHand<TElement>>(HandSet);
-            TableStack = new Table<TElement>(this);
+            DrawPileStack = new DrawPile<TElement>(this);
             DiscardPileStack = new DiscardPile<TElement>(this);
+            TableStack = new Table<TElement>(this);
             TableauStack = new Tableau<TElement>(this);
+
             Initialize();
             Initialized = true;
         }
@@ -38,35 +39,14 @@ namespace Decks
 
 
         #region Counts
-        public int Count { get { return TopDeck.Count; } }
+        public int Count { get { return DrawPileStack.Count; } }
         public int TotalCount { get { return Known.Count; } }
         #endregion
         #endregion
 
         #region Public Interface
         public IDiscardPile<TElement> DiscardPile { get { return DiscardPileStack; } }
-        /// <summary>
-        /// Optionally gets the discards back and then randomly orders the cards.
-        /// </summary>
-        /// <param name="retreiveDiscards">Whether or not to clear out the discards.</param>
-        public void Shuffle(bool retreiveDiscards = true)
-        {
-            if (HasBeenShuffled)
-            {
-                CheckOperation(ValidOperations.Reshuffle);
-            }
-            else
-            {
-                CheckOperation(ValidOperations.ShuffleOnce);
-            }
-            if (retreiveDiscards)
-            {
-                TopDeck.AddRange(DiscardPile);
-                DiscardPileStack.Contents.Clear();
-            }
-            TopDeck.Shuffle();
-            HasBeenShuffled = true;
-        }
+        public IDrawPile<TElement> DrawPile { get { return DrawPileStack; } }
         /// <summary>
         /// Determines if an area contains an element.
         /// </summary>
@@ -86,7 +66,7 @@ namespace Decks
                 case Location.Table:
                     return Table.Contains(element);   
                 case Location.TopDeck:
-                    return TopDeck.Contains(element);
+                    return DrawPile.Contains(element);
             }
             return false;
         }
@@ -102,7 +82,7 @@ namespace Decks
             switch (location)
             {
                 case Location.TopDeck:
-                    TopDeck.Insert(0, element);
+                    DrawPileStack.Contents.Insert(0, element);
                     break;
                 case Location.DiscardPile:
                     DiscardPileStack.Contents.Insert(0, element);
@@ -139,10 +119,10 @@ namespace Decks
                     switch (side)
                     {
                         case DeckSide.Top:
-                            TopDeck.Insert(0, element);
+                            DrawPileStack.Contents.Insert(0, element);
                             break;
                         case DeckSide.Bottom:
-                            TopDeck.Add(element);
+                            DrawPileStack.Contents.Add(element);
                             break;
                     }
                     break;
@@ -202,12 +182,12 @@ namespace Decks
         #region IEnumerable
         public IEnumerator<TElement> GetEnumerator()
         {
-            return TopDeck.GetEnumerator();
+            return DrawPileStack.Contents.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return TopDeck.GetEnumerator();
+            return DrawPileStack.Contents.GetEnumerator();
         }
         #endregion
     }

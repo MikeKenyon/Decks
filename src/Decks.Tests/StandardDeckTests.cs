@@ -44,7 +44,7 @@ namespace Decks.Tests
             });
             // Act
             // Assert
-            deck.Shuffle();
+            deck.DrawPile.Shuffle();
             var hands = deck.Deal(10, 2);
             Assert.AreEqual(10, hands.Count());
             foreach(var hand in hands)

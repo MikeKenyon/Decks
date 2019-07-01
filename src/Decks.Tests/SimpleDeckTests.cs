@@ -19,7 +19,7 @@ namespace Decks.Tests
             deck.Add("a");
             deck.Add("sample");
             deck.Add("deck.");
-            deck.Shuffle();
+            deck.DrawPile.Shuffle();
             // Assert
             Assert.AreEqual(5, deck.Count);
             Assert.AreEqual(0, deck.Table.Count);
@@ -38,7 +38,7 @@ namespace Decks.Tests
             deck.Add("a", Location.Table);
             deck.Add("sample");
             deck.Add("deck.", Location.DiscardPile);
-            deck.Shuffle(false);
+            deck.DrawPile.Shuffle(false);
             // Assert
             Assert.AreEqual(2, deck.Count);
             Assert.AreEqual(1, deck.Table.Count);
@@ -79,7 +79,7 @@ namespace Decks.Tests
             deck.Add("a", Location.Table);
             deck.Add("sample");
             deck.Add("deck.", Location.DiscardPile);
-            deck.Shuffle();
+            deck.DrawPile.Shuffle();
             // Assert
             Assert.AreEqual(4, deck.Count);
             Assert.AreEqual(1, deck.Table.Count);
@@ -95,7 +95,7 @@ namespace Decks.Tests
             var deck = new Deck<string>(options);
             // Act
             deck.Add("This");
-            deck.Shuffle();
+            deck.DrawPile.Shuffle();
         }
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
@@ -106,8 +106,8 @@ namespace Decks.Tests
             var deck = new Deck<string>(options);
             // Act
             deck.Add("This");
-            deck.Shuffle();
-            deck.Shuffle();
+            deck.DrawPile.Shuffle();
+            deck.DrawPile.Shuffle();
         }
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]

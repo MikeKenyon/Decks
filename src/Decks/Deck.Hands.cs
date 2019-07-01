@@ -99,19 +99,19 @@ namespace Decks
             }
             else if(Count == 0) // Must be auto-shuffle with a discard.
             {
-                Shuffle();
+                DrawPile.Shuffle();
             }
 
             TElement card = null;
             switch(side)
             {
                 case DeckSide.Bottom:
-                    card = TopDeck.Last();
-                    TopDeck.RemoveAt(TopDeck.Count - 1);
+                    card = DrawPileStack.Contents.Last();
+                    DrawPileStack.Contents.RemoveAt(DrawPileStack.Contents.Count - 1);
                     break;
                 case DeckSide.Top:
-                    card = TopDeck[0];
-                    TopDeck.RemoveAt(0);
+                    card = DrawPileStack.Contents[0];
+                    DrawPileStack.Contents.RemoveAt(0);
                     break;
             }
             return card;
