@@ -46,7 +46,9 @@ namespace Decks
 
             var size = overrideSize == 0 ? Deck.Options.TableauSize : overrideSize;
 
-            while(Count < size)
+            while(Count < size && 
+                (!Deck.Options.TableauDrawsUpSafely || 
+                (Deck.Count + Deck.DiscardPile.Count) > 0))
             {
                 var card = Deck.Draw(from);
                 Contents.Add(card);
@@ -81,6 +83,7 @@ namespace Decks
         /// <param name="element">The element to play to the table.</param>
         public void Play(TElement element)
         {
+            CheckOperation(ValidOperations.PlayTableauToTable);
             MyElementCheck(element);
             Contents.Remove(element);
             Deck.InPlay.Contents.Add(element);
@@ -94,6 +97,7 @@ namespace Decks
         /// <param name="hand">The hand to draw it into.</param>
         public void DrawInto(TElement element, IHand<TElement> hand)
         {
+            CheckOperation(ValidOperations.PlayTableauToHand);
             MyElementCheck(element);
             HandCheck(hand);
             Contents.Remove(element);

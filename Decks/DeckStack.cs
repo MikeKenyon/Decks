@@ -55,5 +55,9 @@ namespace Decks
                 throw new InvalidOperationException("Cannot use this hand, it's been mucked.");
             }
         }
+        protected void CheckOperation(ValidOperations operation)
+        {
+            Deck.Check(operation);
+        }
     }
 }

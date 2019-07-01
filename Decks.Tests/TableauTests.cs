@@ -30,6 +30,71 @@ namespace Decks.Tests
             var enabled = deck.Tableau.Enabled;
             Assert.IsTrue(enabled);
         }
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void PlayToHandRequiresPermissions()
+        {
+            // Arrange
+            var options = new DeckOptions
+            {
+                TableauSize = 1,
+                HandSize = 1,
+                Allow = ValidOperations.Add | ValidOperations.DealMuck |
+                    ValidOperations.PlayTableauToTable
+            };
+            var deck = new Deck<string>(options)
+                .Add("Thing");
+            deck.Tableau.DrawUp();
+            var hand = deck.Deal(1, 0).First();
+            // Act & Assert
+            deck.Tableau.DrawInto(deck.Tableau.First(), hand);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(BottomDeckException))]
+        public void DefaultTableauCanBottomDeck()
+        {
+            // Arrange
+            var options = new DeckOptions
+            {
+                TableauSize = 3,
+            };
+            var deck = new Deck<string>(options)
+                .Add("Thing");
+            // Act & Assert
+            deck.Tableau.DrawUp();
+        }
+
+        [TestMethod]
+        public void AlteredTableauCannotBottomDeck()
+        {
+            // Arrange
+            var options = new DeckOptions
+            {
+                TableauSize = 3,
+                TableauDrawsUpSafely = true
+            };
+            var deck = new Deck<string>(options)
+                .Add("Thing");
+            // Act & Assert
+            deck.Tableau.DrawUp();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void PlayToTableRequiresPermissions()
+        {
+            // Arrange
+            var options = new DeckOptions {
+                TableauSize = 1,
+                Allow = ValidOperations.Add | ValidOperations.PlayTableauToHand
+            };
+            var deck = new Deck<string>(options)
+                .Add("Thing");
+            deck.Tableau.DrawUp();
+            // Act & Assert
+            deck.Tableau.Play(deck.Tableau.First());
+        }
 
         [TestMethod]
         public void TableauAddToDrawFrom()

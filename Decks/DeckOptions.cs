@@ -31,6 +31,13 @@ namespace Decks
         public TableauOverflowRule TableauOverflow { get; set; }
 
         /// <summary>
+        /// In many games, if the tableau cannot safely draw up, it just shrinks in size.
+        /// If this option is set to <see langword="true"/> then the tableau cannot bottom
+        /// deck you.
+        /// </summary>
+        public bool TableauDrawsUpSafely { get; set; }
+
+        /// <summary>
         /// Automatically shuffles the deck when you need another card 
         /// and one isn't available.
         /// </summary>

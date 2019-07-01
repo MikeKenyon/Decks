@@ -41,5 +41,11 @@ namespace Decks
         /// What to do what a tableau gets to be oversized.
         /// </summary>
         TableauOverflowRule TableauOverflow { get; }
+        /// <summary>
+        /// In many games, if the tableau cannot safely draw up, it just shrinks in size.
+        /// If this option is set to <see langword="true"/> then the tableau cannot bottom
+        /// deck you.
+        /// </summary>
+        bool TableauDrawsUpSafely { get; }
     }
 }

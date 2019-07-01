@@ -186,7 +186,7 @@ namespace Decks
         {
             throw new InvalidOperationException($"Can not perform action, deck is not allowed {validOperations}.");
         }
-        protected void Check(ValidOperations operation)
+        protected internal void Check(ValidOperations operation)
         {
             if (Initialized && !Options.Allow.HasFlag(operation))
             {
