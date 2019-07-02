@@ -30,26 +30,32 @@ namespace Decks.Tests
         public void CreateIntoAllLocationsTests()
         {
             // Arrange
-            var options = new DeckOptions();
+            var options = new DeckOptions() {
+                HandSize = 0,
+                Table = new TableOptions { Enabled = true },
+                Tableau = new TableauOptions { Enabled = true },
+            };
             var deck = new Deck<string>(options);
             // Act
             deck.Add("This");
             deck.Add("is", Location.DiscardPile);
             deck.Add("a", Location.Table);
             deck.Add("sample");
+            deck.Add("string", Location.Tableau);
             deck.Add("deck.", Location.DiscardPile);
             deck.DrawPile.Shuffle(false);
             // Assert
             Assert.AreEqual(2, deck.Count);
             Assert.AreEqual(1, deck.Table.Count);
             Assert.AreEqual(2, deck.DiscardPile.Count);
-            Assert.AreEqual(5, deck.TotalCount);
+            Assert.AreEqual(1, deck.Tableau.Count);
+            Assert.AreEqual(6, deck.TotalCount);
         }
         [TestMethod]
         public void ContainsElements()
         {
             // Arrange
-            var options = new DeckOptions() { HandSize = 1 };
+            var options = new DeckOptions() { HandSize = 1, Table = new TableOptions { Enabled = true } };
             var deck = new Deck<string>(options);
             // Act
             deck.Add("This");
@@ -71,7 +77,7 @@ namespace Decks.Tests
         public void ShuffleWithRetreival()
         {
             // Arrange
-            var options = new DeckOptions();
+            var options = new DeckOptions() { Table = new TableOptions { Enabled = true } };
             var deck = new Deck<string>(options);
             // Act
             deck.Add("This");

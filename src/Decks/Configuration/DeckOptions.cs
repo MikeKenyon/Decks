@@ -21,6 +21,15 @@ namespace Decks.Configuration
         /// and one isn't available.
         /// </summary>
         public bool AutoShuffle { get; set; }
+        /// <summary>
+        /// Options for the play table.  This is the common shared space for all players.
+        /// </summary>
+        public TableOptions Table { get; set; }
+
+        /// <summary>
+        /// Options for the play table.  This is the common shared space for all players.
+        /// </summary>
+        ITableOptions IDeckOptions.Table { get { return this.Table; } }
 
         /// <summary>
         /// Options for the tableau.

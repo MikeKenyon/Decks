@@ -38,7 +38,7 @@ namespace Decks.Tests
         public void PlayFromHand()
         {
             // Arrange
-            var options = new DeckOptions() { HandSize = 0 };
+            var options = new DeckOptions() { HandSize = 0, Table = new TableOptions { Enabled = true } };
             var deck = new Deck<string>(options);
             deck.Add("This");
             deck.Add("is");

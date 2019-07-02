@@ -35,14 +35,8 @@ namespace Decks.Configuration
         /// </summary>
         DealMuck    = 1 << 3,
         /// <summary>
-        /// Allows play to the table.  Without this feature, the 
-        /// <see cref="Deck{TElement}.Table"/> is disabled and you must play in other enabled
-        /// areas.
-        /// </summary>
-        PlayToTable = 1 << 4,
-        /// <summary>
         /// The deck enables you to do everything.
         /// </summary>
-        All = Reshuffle | Add | DealMuck | PlayToTable
+        All = Reshuffle | Add | DealMuck 
     }
 }

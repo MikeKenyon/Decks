@@ -30,6 +30,11 @@ namespace Decks.Configuration
         bool AutoShuffle { get; }
 
         /// <summary>
+        /// Options for the play table.  This is the common shared space for all players.
+        /// </summary>
+        ITableOptions Table { get; }
+
+        /// <summary>
         /// Options for the tableau.
         /// </summary>
         ITableauOptions Tableau { get; }

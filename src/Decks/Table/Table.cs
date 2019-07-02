@@ -32,9 +32,18 @@ namespace Decks
         }
         public bool Enabled {
             get {
-                return Deck.Options.Allow.HasFlag(ValidOperations.PlayToTable);
+                return Options.Enabled;
             }
         }
+
+        public ITableOptions Options
+        {
+            get
+            {
+                return Deck.Options.Table;
+            }
+        }
+
         internal void EnabledCheck()
         {
             if(!Enabled)
