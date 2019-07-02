@@ -41,17 +41,8 @@ namespace Decks.Configuration
         /// </summary>
         PlayToTable = 1 << 4,
         /// <summary>
-        /// Allows you to draw from the tableau into your hand.
-        /// </summary>
-        PlayTableauToHand = 1 << 5,
-        /// <summary>
-        /// Allows you to play from the tableau straight to the table.
-        /// </summary>
-        PlayTableauToTable = 1 << 6,
-        /// <summary>
         /// The deck enables you to do everything.
         /// </summary>
-        All = Reshuffle | Add | DealMuck | PlayToTable 
-            | PlayTableauToHand | PlayTableauToTable
+        All = Reshuffle | Add | DealMuck | PlayToTable
     }
 }

@@ -17,13 +17,17 @@ namespace Decks
         {
         }
         /// <summary>
+        /// The options for this tableau.
+        /// </summary>
+        public ITableauOptions Options { get { return Deck.Options.Tableau; } }
+        /// <summary>
         /// Whether or not this setup uses a tableau.
         /// </summary>
         public bool Enabled
         {
             get
             {
-                return Deck.Options.TableauSize > 0;
+                return Options.Enabled;
             }
         }
         /// <summary>
@@ -35,47 +39,47 @@ namespace Decks
         /// the top deck.
         /// </remarks>
         /// <param name="from">Which side of the draw pile we're drawing from.</param>
-        /// <param name="overrideSize">
-        /// If set to something greater than zero, it ignores the configured size of the
-        /// Tableau and adjusts it to the size given here.
-        /// </param>
-        public void DrawUp(DeckSide from = DeckSide.Top, uint overrideSize = 0)
+        public void DrawUp(DeckSide from = DeckSide.Top)
         {
             Contract.Requires(Enum.IsDefined(typeof(TableauOverflowRule),
-                Deck.Options.TableauOverflow));
-            CheckEnabled(overrideSize);
+                Options.OverflowRule));
+            CheckEnabled();
 
-            var size = overrideSize == 0 ? Deck.Options.TableauSize : overrideSize;
+            var size = Options.InitialSize;
 
             while(Count < size && 
-                (!Deck.Options.TableauDrawsUpSafely || 
+                (!Options.DrawsUpSafely || 
                 (Deck.Count + Deck.DiscardPile.Count) > 0))
             {
                 var card = Deck.Draw(from);
                 Contents.Add(card);
             }
-            while (Count > size)
+            if(Options.MaximumSize.HasValue)
             {
-                var index = 0;
-                switch(Deck.Options.TableauOverflow)
+                var max = Options.MaximumSize.Value;
+                while (Count > max)
                 {
-                    case TableauOverflowRule.DiscardNewest:
-                        index = Count - 1;
-                        break;
-                    case TableauOverflowRule.DiscardOldest:
-                        index = 0;
-                        break;
-                    case TableauOverflowRule.DiscardRandom:
-                        index = Extensions.Rand.Next(0, Count);
-                        break;
-                    case TableauOverflowRule.Ignore:
-                        return; // Intentionally return from method, we do nothing here.
-                    default:
-                        throw new NotImplementedException($"Haven't coded for {Deck.Options.TableauMaintainSize} yet.");
+                    var index = 0;
+                    switch (Options.OverflowRule)
+                    {
+                        case TableauOverflowRule.DiscardNewest:
+                            index = Count - 1;
+                            break;
+                        case TableauOverflowRule.DiscardOldest:
+                            index = 0;
+                            break;
+                        case TableauOverflowRule.DiscardRandom:
+                            index = Extensions.Rand.Next(0, Count);
+                            break;
+                        case TableauOverflowRule.Ignore:
+                            return; // Intentionally return from method, we do nothing here.
+                        default:
+                            throw new NotImplementedException($"Haven't coded for {Options.MaintainSize} yet.");
+                    }
+                    var element = Contents[index];
+                    Contents.RemoveAt(index);
+                    Deck.DiscardPileStack.Contents.Add(element);
                 }
-                var element = Contents[index];
-                Contents.RemoveAt(index);
-                Deck.DiscardPileStack.Contents.Add(element);
             }
         }
         /// <summary>
@@ -84,7 +88,9 @@ namespace Decks
         /// <param name="element">The element to play to the table.</param>
         public void Play(TElement element)
         {
-            CheckOperation(ValidOperations.PlayTableauToTable);
+            CheckEnabled();
+
+            CheckOperation(Options.CanPlayToTable, "Playing to the table from the tableau is not allowed.");
             CheckIsMyElement(element, "Cannot play an element not in the tableau.");
             Contents.Remove(element);
             Deck.TableStack.Contents.Add(element);
@@ -98,7 +104,8 @@ namespace Decks
         /// <param name="hand">The hand to draw it into.</param>
         public void DrawInto(TElement element, IHand<TElement> hand)
         {
-            CheckOperation(ValidOperations.PlayTableauToHand);
+            CheckEnabled();
+            CheckOperation(Options.CanDrawIntoHand, "Drawing into a hand from the tableau is not allowed.");
             CheckIsMyElement(element, "Cannot play an element not in the tableau.");
             CheckOwnHand(hand);
             Contents.Remove(element);
@@ -112,9 +119,9 @@ namespace Decks
         /// </summary>
         /// <param name="overrideSize">If greater than 0, this is the size to use to determin
         /// enabled-ness.</param>
-        internal void CheckEnabled(uint overrideSize = 0)
+        internal void CheckEnabled()
         {
-            if (!Enabled && overrideSize == 0)
+            if (!Enabled)
             {
                 throw new InvalidOperationException("The tableau has been disabled.");
             }
@@ -122,7 +129,7 @@ namespace Decks
 
         private void CheckProperSize()
         {
-            if (Deck.Options.TableauMaintainSize)
+            if (Options.MaintainSize)
             {
                 DrawUp();
             }

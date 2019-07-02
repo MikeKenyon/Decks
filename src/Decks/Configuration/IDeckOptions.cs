@@ -28,24 +28,10 @@ namespace Decks.Configuration
         /// and one isn't available.
         /// </summary>
         bool AutoShuffle { get; }
+
         /// <summary>
-        /// The number of elements in the tableau.
+        /// Options for the tableau.
         /// </summary>
-        uint TableauSize { get; }
-        /// <summary>
-        /// Whether the system automatically adjusts the tableau after something modifies 
-        /// it's contents.
-        /// </summary>
-        bool TableauMaintainSize { get; }
-        /// <summary>
-        /// What to do what a tableau gets to be oversized.
-        /// </summary>
-        TableauOverflowRule TableauOverflow { get; }
-        /// <summary>
-        /// In many games, if the tableau cannot safely draw up, it just shrinks in size.
-        /// If this option is set to <see langword="true"/> then the tableau cannot bottom
-        /// deck you.
-        /// </summary>
-        bool TableauDrawsUpSafely { get; }
+        ITableauOptions Tableau { get; }
     }
 }

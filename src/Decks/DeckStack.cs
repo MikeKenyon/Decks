@@ -76,6 +76,18 @@ namespace Decks
         {
             Deck.CheckOperation(operation);
         }
+        /// <summary>
+        /// Checks to see if an operation is allowed or not.
+        /// </summary>
+        /// <param name="condition">Condition to check.</param>
+        /// <param name="message">The error message if it's not allowed.</param>
+        protected void CheckOperation(bool condition, string message)
+        {
+            if(!condition)
+            {
+                throw new InvalidOperationException(message);
+            }
+        }
         #endregion
     }
 }

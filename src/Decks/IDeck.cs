@@ -47,6 +47,10 @@ namespace Decks
         bool Contains(TElement element, Location location = Location.TopDeck);
 
         /// <summary>
+        /// The draw pile for this deck.
+        /// </summary>
+        IDrawPile<TElement> DrawPile { get; }
+        /// <summary>
         /// The tableau for this deck.
         /// </summary>
         ITableau<TElement> Tableau { get; }

@@ -16,6 +16,10 @@ namespace Decks
         where TElement : class
     {
         /// <summary>
+        /// The options for this tableau.
+        /// </summary>
+        Configuration.ITableauOptions Options { get; }
+        /// <summary>
         /// Whether or not this setup uses a tableau.
         /// </summary>
         bool Enabled { get; }
@@ -28,11 +32,7 @@ namespace Decks
         /// the top deck.
         /// </remarks>
         /// <param name="from">Which side of the draw pile we're drawing from.</param>
-        /// <param name="overrideSize">
-        /// If set to something greater than zero, it ignores the configured size of the
-        /// Tableau and adjusts it to the size given here.
-        /// </param>
-        void DrawUp(DeckSide from = DeckSide.Top, uint overrideSize = 0);
+        void DrawUp(DeckSide from = DeckSide.Top);
 
         /// <summary>
         /// Plays an element from this tableau to the table.

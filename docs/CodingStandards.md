@@ -69,6 +69,8 @@ and provides expected commonly used features.
 
 **DO** create a directory for your deck stack.
 
+**CONSIDER** adding an internal interface for your stack that contains methods you wouldn't want a user calling, but other stacks may need to call.  If you do, make the internal accessor to your deck be of this type, also derive it from *IDeckStackInternal* and name it *IXxxxInternal* for the same Xxxx.
+
 ### Non-Stack Collections ###
 
 Sometimes we have collections of things that are not, themselves, deck stacks (hands comes to mine).
@@ -77,3 +79,17 @@ In these cases, follow the following rules.
 **DO** add an internal accessor to your collection named *XxxxSet*.
 
 **DO** add a public accessor to your stack named *Xxxx*, for the same value of *Xxxx*.
+
+### Configuration Elements ###
+
+**DO** add a configuration class for your stack with it's configuration options.  Name it *XxxxOptions*, where Xxxx is your stack/set.
+
+**DO** put it in the Decks.Configuration NS and folder.
+
+**DO** add a readonly interface to that class, named *IXxxxOptions* where Xxxx is your Stack/Set.
+
+**DO** add a readonly accessor to the interface to *IDeckOptions* for Xxxx, where that is the name of your Stack/Set.
+
+**DO** add a read/write accessor the class to the DeckOptions class and an explicit accessor by the same name to it's readonly interface.  It should always be initialized to a defualt copy.
+
+**CONSIDER** adding a readonly accessor the the configuraiton interface to your Stack/Set with the name *Options*.

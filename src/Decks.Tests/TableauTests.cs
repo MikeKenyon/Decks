@@ -15,17 +15,27 @@ namespace Decks.Tests
         public void NoTableauByOptions()
         {
             // Arrange
-            var options = new DeckOptions { TableauSize = 0 };
+            var options = new DeckOptions {
+                Tableau = new TableauOptions
+                {
+                    InitialSize = 0,
+                }
+            };
             var deck = new Deck<string>(options);
             // Act & Assert
             var enabled = deck.Tableau.Enabled;
             Assert.IsFalse(enabled);
         }
         [TestMethod]
-        public void TableauByOptions()
+        public void TableauEnableByOptions()
         {
             // Arrange
-            var options = new DeckOptions { TableauSize = 3 };
+            var options = new DeckOptions {
+                Tableau = new TableauOptions
+                {
+                    Enabled = true,
+                }
+            };
             var deck = new Deck<string>(options);
             // Act & Assert
             var enabled = deck.Tableau.Enabled;
@@ -38,10 +48,14 @@ namespace Decks.Tests
             // Arrange
             var options = new DeckOptions
             {
-                TableauSize = 1,
+                Tableau = new TableauOptions
+                {
+                    InitialSize = 1,
+                    CanPlayToTable = false,
+                    CanDrawIntoHand = true,
+                },
                 HandSize = 1,
-                Allow = ValidOperations.Add | ValidOperations.DealMuck |
-                    ValidOperations.PlayTableauToTable
+                Allow = ValidOperations.Add | ValidOperations.DealMuck
             };
             var deck = new Deck<string>(options)
                 .Add("Thing");
@@ -58,7 +72,11 @@ namespace Decks.Tests
             // Arrange
             var options = new DeckOptions
             {
-                TableauSize = 3,
+                Tableau = new TableauOptions
+                {
+                    Enabled = true,
+                    InitialSize = 3,
+                }
             };
             var deck = new Deck<string>(options)
                 .Add("Thing");
@@ -72,8 +90,12 @@ namespace Decks.Tests
             // Arrange
             var options = new DeckOptions
             {
-                TableauSize = 3,
-                TableauDrawsUpSafely = true
+                Tableau = new TableauOptions
+                {
+                    Enabled = true,
+                    InitialSize = 3,
+                    DrawsUpSafely = true
+                }
             };
             var deck = new Deck<string>(options)
                 .Add("Thing");
@@ -87,8 +109,13 @@ namespace Decks.Tests
         {
             // Arrange
             var options = new DeckOptions {
-                TableauSize = 1,
-                Allow = ValidOperations.Add | ValidOperations.PlayTableauToHand
+                Tableau = new TableauOptions
+                {
+                    InitialSize = 1,
+                    CanPlayToTable = true,
+                    CanDrawIntoHand = false,
+                },
+                Allow = ValidOperations.Add
             };
             var deck = new Deck<string>(options)
                 .Add("Thing");
@@ -98,12 +125,50 @@ namespace Decks.Tests
         }
 
         [TestMethod]
+        public void OversizeAndShrink()
+        {
+            // Arrange
+            var options = new DeckOptions
+            {
+                Tableau = new TableauOptions
+                {
+                    Enabled = true,
+                    InitialSize = 2,
+                    MaximumSize = 3,
+                    OverflowRule = TableauOverflowRule.DiscardRandom
+                }
+            };
+            var deck = new Deck<String>(options)
+                .Add("This")
+                .Add("is", Location.Tableau)
+                .Add("a", Location.Tableau)
+                .Add("bunch")
+                .Add("of", Location.Tableau)
+                .Add("strings", Location.Tableau)
+                .Add("in")
+                .Add("the", Location.Tableau)
+                .Add("deck", Location.Tableau);
+            // Act & Assert
+            Assert.AreEqual(6, deck.Tableau.Count);
+            Assert.AreEqual(3, deck.DrawPile.Count);
+            Assert.AreEqual(0, deck.DiscardPile.Count);
+            deck.Tableau.DrawUp();
+            Assert.AreEqual(3, deck.Tableau.Count);
+            Assert.AreEqual(3, deck.DrawPile.Count);
+            Assert.AreEqual(3, deck.DiscardPile.Count);
+        }
+
+        [TestMethod]
         public void TableauAddToDrawFrom()
         {
             // Arrange
             var options = new DeckOptions {
-                TableauSize = 3,
-                TableauMaintainSize = true,
+                Tableau = new TableauOptions
+                {
+                    Enabled = true,
+                    InitialSize = 3,
+                    MaintainSize = true,
+                },
                 HandSize = 2
             };
             var deck = new Deck<string>(options);
