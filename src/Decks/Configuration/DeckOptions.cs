@@ -12,15 +12,21 @@ namespace Decks.Configuration
         public ValidOperations Allow { get; set; } = ValidOperations.All;
 
         /// <summary>
-        /// The (default) hand size for newly drawn hands.
-        /// </summary>
-        public uint HandSize { get; set; } = 5;
-
-        /// <summary>
         /// Automatically shuffles the deck when you need another card 
         /// and one isn't available.
         /// </summary>
         public bool AutoShuffle { get; set; }
+
+        /// <summary>
+        /// Options for player hands.
+        /// </summary>
+        public HandOptions Hands { get; set; }
+        /// <summary>
+        /// Options for player hands.
+        /// </summary>
+        IHandOptions IDeckOptions.Hands { get { return this.Hands; } }
+
+
         /// <summary>
         /// Options for the play table.  This is the common shared space for all players.
         /// </summary>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Decks.Common;
-
+using Decks.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Decks.Tests
@@ -21,7 +21,7 @@ namespace Decks.Tests
             {
                 AceMode = AceMode.High,
                 Order = PlayingCardSortOrder.PokerOrder,
-                HandSize = 5,
+                Hands = new HandOptions { InitialHandSize = 5 },
                 AutoShuffle = false,
                 HasJokers = false
             });
@@ -38,7 +38,7 @@ namespace Decks.Tests
             {
                 AceMode = AceMode.High,
                 Order = PlayingCardSortOrder.PokerOrder,
-                HandSize = 2,
+                Hands = new HandOptions { InitialHandSize = 2 },
                 AutoShuffle = false,
                 HasJokers = false
             });

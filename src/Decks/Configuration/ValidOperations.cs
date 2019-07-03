@@ -31,12 +31,8 @@ namespace Decks.Configuration
         /// </summary>
         Add         = 1 << 2,
         /// <summary>
-        /// Allows people to deal hands and muck those hands.
-        /// </summary>
-        DealMuck    = 1 << 3,
-        /// <summary>
         /// The deck enables you to do everything.
         /// </summary>
-        All = Reshuffle | Add | DealMuck 
+        All = Reshuffle | Add 
     }
 }

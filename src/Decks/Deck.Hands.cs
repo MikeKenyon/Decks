@@ -23,7 +23,7 @@ namespace Decks
         /// <returns></returns>
         public IEnumerable<IHand<TElement>> Deal(int numberOfHands)
         {
-            return Deal(numberOfHands, Options.HandSize);
+            return Deal(numberOfHands, Options.Hands.InitialHandSize);
         }
         /// <summary>
         /// Adds a hand, at its' default hand size.
@@ -31,7 +31,7 @@ namespace Decks
         /// <returns>A newly drawn hand.</returns>
         public IHand<TElement> Deal()
         {
-            return Deal(1, Options.HandSize).First();
+            return Deal(1, Options.Hands.InitialHandSize).First();
         }
         /// <summary>
         /// Deals out a number of hands to their default 
@@ -43,7 +43,7 @@ namespace Decks
         {
             Contract.Requires(handSize > 0);
 
-            CheckOperation(ValidOperations.DealMuck);
+            CheckOperation(Options.Hands.Enabled, "Hands are not a part of this deck.");
             var hands = new Hand<TElement>[numberOfHands];
             for (int i = 0; i < hands.Length; ++i)
             {

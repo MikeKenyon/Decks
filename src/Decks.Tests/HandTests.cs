@@ -14,7 +14,7 @@ namespace Decks.Tests
         public void DrawToHand()
         {
             // Arrange
-            var options = new DeckOptions() { HandSize = 0 };
+            var options = new DeckOptions() { Hands = new HandOptions { InitialHandSize = 0 } };
             var deck = new Deck<string>(options);
             // Act
             deck.Add("This");
@@ -38,7 +38,10 @@ namespace Decks.Tests
         public void PlayFromHand()
         {
             // Arrange
-            var options = new DeckOptions() { HandSize = 0, Table = new TableOptions { Enabled = true } };
+            var options = new DeckOptions() {
+                Hands = new HandOptions { InitialHandSize = 0 },
+                Table = new TableOptions { Enabled = true }
+            };
             var deck = new Deck<string>(options);
             deck.Add("This");
             deck.Add("is");
@@ -62,7 +65,7 @@ namespace Decks.Tests
         public void MuckFromHand()
         {
             // Arrange
-            var options = new DeckOptions() { HandSize = 3 };
+            var options = new DeckOptions() { Hands = new HandOptions { InitialHandSize = 3 } };
             var deck = new Deck<string>(options);
             // Act 1
             deck.Add("This");

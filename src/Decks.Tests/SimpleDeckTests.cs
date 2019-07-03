@@ -31,7 +31,7 @@ namespace Decks.Tests
         {
             // Arrange
             var options = new DeckOptions() {
-                HandSize = 0,
+                Hands = new HandOptions { InitialHandSize = 0 },
                 Table = new TableOptions { Enabled = true },
                 Tableau = new TableauOptions { Enabled = true },
             };
@@ -55,7 +55,9 @@ namespace Decks.Tests
         public void ContainsElements()
         {
             // Arrange
-            var options = new DeckOptions() { HandSize = 1, Table = new TableOptions { Enabled = true } };
+            var options = new DeckOptions() {
+                Hands = new HandOptions { InitialHandSize = 1 },
+                Table = new TableOptions { Enabled = true } };
             var deck = new Deck<string>(options);
             // Act
             deck.Add("This");

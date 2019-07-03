@@ -14,7 +14,10 @@ namespace Decks.Tests
         public void DiscardFromPlay()
         {
             // Arrange
-            var options = new DeckOptions() { HandSize = 0, Table = new TableOptions { Enabled = true } };
+            var options = new DeckOptions() {
+                Hands = new HandOptions { InitialHandSize = 0 },
+                Table = new TableOptions { Enabled = true }
+            };
             var deck = new Deck<string>(options);
             deck.Add("This");
             deck.Add("is");
@@ -34,7 +37,10 @@ namespace Decks.Tests
         public void MuckPlay()
         {
             // Arrange
-            var options = new DeckOptions() { HandSize = 0, Table = new TableOptions { Enabled = true } };
+            var options = new DeckOptions() {
+                Hands = new HandOptions { InitialHandSize = 0 },
+                Table = new TableOptions { Enabled = true }
+            };
             var deck = new Deck<string>(options);
             deck.Add("This");
             deck.Add("is");

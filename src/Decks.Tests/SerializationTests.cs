@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using Decks.Common;
-
+using Decks.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Newtonsoft.Json;
@@ -19,7 +19,7 @@ namespace Decks.Tests
             // Arrange
             var deck = new StandardCardDeck(new PlayingCardOptions
             {
-                HandSize = 5,
+                Hands = new HandOptions { InitialHandSize = 5 },
             });
             var hands = deck.Deal(5);
             // Act

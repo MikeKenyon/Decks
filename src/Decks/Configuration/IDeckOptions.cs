@@ -17,17 +17,15 @@ namespace Decks.Configuration
             get;
         }
         /// <summary>
-        /// The (default) hand size for newly drawn hands.
-        /// </summary>
-        uint HandSize
-        {
-            get;
-        }
-        /// <summary>
         /// Automatically shuffles the deck when you need another card 
         /// and one isn't available.
         /// </summary>
         bool AutoShuffle { get; }
+
+        /// <summary>
+        /// Options for player hands.
+        /// </summary>
+        IHandOptions Hands { get; }
 
         /// <summary>
         /// Options for the play table.  This is the common shared space for all players.

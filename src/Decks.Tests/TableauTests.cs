@@ -54,8 +54,8 @@ namespace Decks.Tests
                     CanPlayToTable = false,
                     CanDrawIntoHand = true,
                 },
-                HandSize = 1,
-                Allow = ValidOperations.Add | ValidOperations.DealMuck
+                Hands = new HandOptions { InitialHandSize = 1 },
+                Allow = ValidOperations.Add
             };
             var deck = new Deck<string>(options)
                 .Add("Thing");
@@ -169,7 +169,7 @@ namespace Decks.Tests
                     InitialSize = 3,
                     MaintainSize = true,
                 },
-                HandSize = 2
+                Hands = new HandOptions { InitialHandSize = 2 }
             };
             var deck = new Deck<string>(options);
             deck.Add("This")
