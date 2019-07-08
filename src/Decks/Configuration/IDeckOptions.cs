@@ -10,13 +10,15 @@ namespace Decks.Configuration
     public interface IDeckOptions
     {
         /// <summary>
-        /// What operations are allowed by this deck.
+        /// If set to <see langword="true"/> the deck is modifiable after the <see cref="Deck{TElement}.Initialize"/> method has finished.Default is 
+        /// to allow this.
         /// </summary>
-        ValidOperations Allow
-        {
-            get;
-        }
+        bool Modifiable { get;  }
 
+        /// <summary>
+        /// Options for the <see cref="IDeck{TElement}.DrawPile"/>.
+        /// </summary>
+        IDrawPileOptions DrawPile { get; }
         /// <summary>
         /// Options for how to deal with discards.
         /// </summary>

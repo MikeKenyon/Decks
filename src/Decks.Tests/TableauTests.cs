@@ -55,7 +55,6 @@ namespace Decks.Tests
                     CanDrawIntoHand = true,
                 },
                 Hands = new HandOptions { InitialHandSize = 1 },
-                Allow = ValidOperations.Add
             };
             var deck = new Deck<string>(options)
                 .Add("Thing");
@@ -115,7 +114,6 @@ namespace Decks.Tests
                     CanPlayToTable = true,
                     CanDrawIntoHand = false,
                 },
-                Allow = ValidOperations.Add
             };
             var deck = new Deck<string>(options)
                 .Add("Thing");

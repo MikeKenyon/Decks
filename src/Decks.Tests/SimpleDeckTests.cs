@@ -99,7 +99,7 @@ namespace Decks.Tests
         public void ShuffleFailsWithoutOnceAllowed()
         {
             // Arrange
-            var options = new DeckOptions() { Allow = ValidOperations.None };
+            var options = new DeckOptions() { DrawPile = new DrawPileOptions { MaximumShuffleCount = 0 } };
             var deck = new Deck<string>(options);
             // Act
             deck.Add("This");
@@ -110,7 +110,7 @@ namespace Decks.Tests
         public void ShuffleFailsWithoutResuffleAllowed() 
         {
             // Arrange
-            var options = new DeckOptions() { Allow = ValidOperations.ShuffleOnce };
+            var options = new DeckOptions() { DrawPile = new DrawPileOptions { MaximumShuffleCount = 1 } };
             var deck = new Deck<string>(options);
             // Act
             deck.Add("This");

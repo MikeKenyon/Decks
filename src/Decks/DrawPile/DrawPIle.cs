@@ -11,19 +11,16 @@ namespace Decks
         {
         }
         /// <summary>
+        /// The options related to the draw pile.
+        /// </summary>
+        public Configuration.IDrawPileOptions Options { get { return Deck.Options.DrawPile; } }
+        /// <summary>
         /// Optionally gets the discards back and then randomly orders the cards.
         /// </summary>
         /// <param name="retreiveDiscards">Whether or not to clear out the discards.</param>
         public void Shuffle(bool retreiveDiscards = true)
         {
-            if (HasBeenShuffled)
-            {
-                CheckOperation(ValidOperations.Reshuffle);
-            }
-            else
-            {
-                CheckOperation(ValidOperations.ShuffleOnce);
-            }
+            CheckValidToShuffle();
             if (retreiveDiscards)
             {
                 Contents.AddRange(Deck.DiscardPile);
@@ -39,5 +36,15 @@ namespace Decks
         public uint ShuffleCount { get; private set; }
 
         public bool HasBeenShuffled { get { return ShuffleCount > 0; } }
+
+        private void CheckValidToShuffle()
+        {
+            if(Options.MaximumShuffleCount >= 0 && Options.MaximumShuffleCount <= ShuffleCount)
+            {
+                throw new InvalidOperationException($"Cannot shuffle the deck.  Already shuffled {ShuffleCount} of an allowed {Options.MaximumShuffleCount} times.");
+            }
+        }
+
+
     }
 }

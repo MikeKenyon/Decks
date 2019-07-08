@@ -69,14 +69,6 @@ namespace Decks
             }
         }
         /// <summary>
-        /// Checks to see if you have access to perform some operation, or fails.
-        /// </summary>
-        /// <param name="operation">The operation you are about to do.</param>
-        protected void CheckOperation(ValidOperations operation)
-        {
-            Deck.CheckOperation(operation);
-        }
-        /// <summary>
         /// Checks to see if an operation is allowed or not.
         /// </summary>
         /// <param name="condition">Condition to check.</param>

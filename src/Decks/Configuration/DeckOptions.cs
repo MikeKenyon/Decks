@@ -7,10 +7,19 @@ namespace Decks.Configuration
     public class DeckOptions : IDeckOptions
     {
         /// <summary>
-        /// What operations are allowed by this deck.
+        /// If set to <see langword="true"/> the deck is modifiable after the <see cref="Deck{TElement}.Initialize"/> method has finished.  Default is 
+        /// to allow this.
         /// </summary>
-        public ValidOperations Allow { get; set; } = ValidOperations.All;
+        public virtual bool Modifiable { get; set; } = true;
 
+        /// <summary>
+        /// Options for the <see cref="IDeck{TElement}.DrawPile"/>.
+        /// </summary>
+        public DrawPileOptions DrawPile { get; set; } = new DrawPileOptions();
+        /// <summary>
+        /// Options for the <see cref="IDeck{TElement}.DrawPile"/>.
+        /// </summary>
+        IDrawPileOptions IDeckOptions.DrawPile { get { return this.DrawPile; } }
 
         /// <summary>
         /// Options for player hands.

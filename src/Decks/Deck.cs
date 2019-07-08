@@ -79,6 +79,8 @@ namespace Decks
         public IDeck<TElement> Add(TElement element, Location location = Location.TopDeck)
         {
             Contract.Requires(Enum.IsDefined(typeof(Location), location));
+            CheckAllowAdd();
+
             switch (location)
             {
                 case Location.TopDeck:
@@ -101,6 +103,7 @@ namespace Decks
             Known.Add(element);
             return this;
         }
+
         /// <summary>
         /// Adds a card to a specific location in the deck.
         /// </summary>
@@ -112,6 +115,7 @@ namespace Decks
         {
             Contract.Requires(Enum.IsDefined(typeof(DeckSide), side));
             Contract.Requires(Enum.IsDefined(typeof(Location), location));
+            CheckAllowAdd();
 
             switch (location)
             {
@@ -163,17 +167,6 @@ namespace Decks
         #endregion
 
         #region Protected Helpers
-        protected void MissingOperation(ValidOperations validOperations)
-        {
-            throw new InvalidOperationException($"Can not perform action, deck is not allowed {validOperations}.");
-        }
-        protected internal void CheckOperation(ValidOperations operation)
-        {
-            if (Initialized && !Options.Allow.HasFlag(operation))
-            {
-                MissingOperation(operation);
-            }
-        }
         /// <summary>
         /// Checks to see if an operation is allowed or not.
         /// </summary>
@@ -189,6 +182,14 @@ namespace Decks
         #endregion
 
         #region Private Helpers
+        private void CheckAllowAdd()
+        {
+            if(Initialized && !Options.Modifiable)
+            {
+                throw new InvalidOperationException("Cannot modify this deck directly, the deck has been initialized.");
+            }
+        }
+
         #endregion
 
         #region IEnumerable
