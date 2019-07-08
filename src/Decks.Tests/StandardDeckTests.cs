@@ -22,7 +22,7 @@ namespace Decks.Tests
                 AceMode = AceMode.High,
                 Order = PlayingCardSortOrder.PokerOrder,
                 Hands = new HandOptions { InitialHandSize = 5 },
-                AutoShuffle = false,
+                Discards = new DiscardOptions { AutoShuffle = true },
                 HasJokers = false
             });
             // Assert
@@ -39,7 +39,7 @@ namespace Decks.Tests
                 AceMode = AceMode.High,
                 Order = PlayingCardSortOrder.PokerOrder,
                 Hands = new HandOptions { InitialHandSize = 2 },
-                AutoShuffle = false,
+                Discards = new DiscardOptions { AutoShuffle = true },
                 HasJokers = false
             });
             // Act

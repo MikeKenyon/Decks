@@ -16,11 +16,11 @@ namespace Decks.Configuration
         {
             get;
         }
+
         /// <summary>
-        /// Automatically shuffles the deck when you need another card 
-        /// and one isn't available.
+        /// Options for how to deal with discards.
         /// </summary>
-        bool AutoShuffle { get; }
+        IDiscardOptions Discards { get; }
 
         /// <summary>
         /// Options for player hands.

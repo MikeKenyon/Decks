@@ -93,7 +93,7 @@ namespace Decks
             Contract.Requires(Enum.IsDefined(typeof(DeckSide), side));
 
             if((Count == 0 && DiscardPile.Count == 0) ||
-                (Count == 0 && !Options.AutoShuffle))
+                (Count == 0 && !Options.Discards.AutoShuffle))
             {
                 throw new BottomDeckException();
             }
