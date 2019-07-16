@@ -56,7 +56,7 @@ namespace Decks.Tests
             Assert.AreEqual(0, deck.Table.Count);
             Assert.AreEqual(52, deck.TotalCount);
 
-            deck.Muck(hands.ElementAt(3));
+            hands.ElementAt(3).Muck();
             Assert.AreEqual(9, deck.Hands.Count);
             Assert.AreEqual(2, deck.DiscardPile.Count);
             Assert.AreEqual(32, deck.Count);

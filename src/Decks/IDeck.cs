@@ -97,11 +97,6 @@ namespace Decks
         /// </summary>
         void Muck();
         /// <summary>
-        /// Mucks a specific hand, putting it into the discard pile.
-        /// </summary>
-        /// <param name="hand">The hand to muck.</param>
-        void Muck(IHand<TElement> hand);
-        /// <summary>
         /// All of the hands that are currently dealt.
         /// </summary>
         IReadOnlyCollection<IHand<TElement>> Hands { get; }

@@ -14,13 +14,13 @@ namespace Decks
         /// <returns>The element played.</returns>
         public TElement Play()
         {
-            TableStack.EnabledCheck();
-            var card = Draw();
-            TableStack.Contents.Add(card);
+            ((Internal.ITableInternal<TElement>)_table).CheckEnabled();
+            var card = ((Internal.IDrawPileInternal<TElement>)this._drawPile).Draw();
+            ((Internal.ITableInternal<TElement>)_table).Add(card);
             return card;
         }
 
-        internal Table<TElement> TableStack { get; }
-        public ITable<TElement> Table { get { return TableStack; } }
+        Internal.ITableInternal<TElement> Internal.IDeckInternal<TElement>.TableStack { get { return _table; } }
+        public ITable<TElement> Table { get { return _table; } }
     }
 }

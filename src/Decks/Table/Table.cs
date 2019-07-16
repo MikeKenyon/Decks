@@ -1,11 +1,12 @@
 ﻿using Decks.Configuration;
+using Decks.Internal;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Decks
 {
-    internal class Table<TElement> : DeckStack<TElement>, ITable<TElement>
+    internal class Table<TElement> : DeckStack<TElement>, ITable<TElement>, Internal.ITableInternal<TElement>
         where TElement : class
     {
         public Table(Deck<TElement> deck) : base(deck)
@@ -13,10 +14,10 @@ namespace Decks
         }
         public void Discard(TElement element)
         {
-            EnabledCheck();
+            ((IDeckStackInternal<TElement>)this).CheckEnabled();
             if (Contains(element))
             {
-                Deck.DiscardPileStack.Contents.Add(element);
+                Deck.DiscardPileStack.Add(element);
                 Contents.Remove(element);
             }
             else
@@ -26,8 +27,8 @@ namespace Decks
         }
         public void Muck()
         {
-            EnabledCheck();
-            Deck.DiscardPileStack.Contents.AddRange(Contents);
+            ((IDeckStackInternal<TElement>)this).CheckEnabled();
+            Contents.Apply(c => Deck.DiscardPileStack.Add(c));
             Contents.Clear();
         }
         public bool Enabled {
@@ -44,9 +45,15 @@ namespace Decks
             }
         }
 
-        internal void EnabledCheck()
+
+        void IDeckStackInternal<TElement>.Add(TElement element)
         {
-            if(!Enabled)
+            Contents.Add(element);
+        }
+
+        void IDeckStackInternal<TElement>.CheckEnabled()
+        {
+            if (!Enabled)
             {
                 throw new InvalidOperationException("Play table isn't enabled.");
             }

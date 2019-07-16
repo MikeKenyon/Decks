@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Text;
+using Decks.Internal;
 
 namespace Decks
 {
@@ -9,7 +11,7 @@ namespace Decks
     /// An implementation of the <see cref="IHand{TElement}"/>.
     /// </summary>
     /// <typeparam name="TElement">The type of the "card" in the hand.</typeparam>
-    internal class Hand<TElement> : DeckStack<TElement>, IHand<TElement> 
+    internal class Hand<TElement> : DeckStack<TElement>, IHand<TElement>, Internal.IHandInternal<TElement>
         where TElement : class
     {
         internal Hand(Deck<TElement> deck) : base(deck)
@@ -19,12 +21,17 @@ namespace Decks
 
         public void Draw(DeckSide side = DeckSide.Top)
         {
-            var card = Deck.Draw(side);
+            Contract.Requires(Enum.IsDefined(typeof(DeckSide), side));
+
+            var card = Deck.DrawPileStack.Draw(side);
             Contents.Add(card);
         }
         public void Muck()
         {
-            Deck.Muck(this);
+            Contents.Apply(c => Deck.DiscardPileStack.Add(c));
+            Contents.Clear();
+            HasBeenMucked = true;
+            Deck.RemoveHand(this);
         }
         /// <summary>
         /// Plays this element onto the table.
@@ -36,11 +43,11 @@ namespace Decks
         public void Play(TElement element)
         {
             InvalidCheck();
-            Deck.TableStack.EnabledCheck();
+            Deck.TableStack.CheckEnabled();
             if(Contains(element))
             {
                 Contents.Remove(element);
-                Deck.TableStack.Contents.Add(element);
+                Deck.TableStack.Add(element);
             }
             else
             {
@@ -65,6 +72,16 @@ namespace Decks
             {
                 throw new ObjectDisposedException("Hand");
             }
+        }
+
+        void IDeckStackInternal<TElement>.Add(TElement element)
+        {
+            Contents.Add(element);
+        }
+
+        void IDeckStackInternal<TElement>.CheckEnabled()
+        {
+            // No-op
         }
     }
 }

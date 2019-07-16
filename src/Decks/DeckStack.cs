@@ -12,11 +12,11 @@ namespace Decks
     /// <typeparam name="TElement"></typeparam>
     internal class DeckStack<TElement> : IDeckStack<TElement> where TElement : class
     {
-        public DeckStack(Deck<TElement> deck) {
+        public DeckStack(Internal.IDeckInternal<TElement> deck) {
             Deck = deck;
         }
-        protected Deck<TElement> Deck { get; }
-        protected internal List<TElement> Contents { get; } = new List<TElement>();
+        protected Internal.IDeckInternal<TElement> Deck { get; }
+        protected List<TElement> Contents { get; } = new List<TElement>();
 
         public int Count { get { return Contents.Count; } }
 

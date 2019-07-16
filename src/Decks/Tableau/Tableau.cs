@@ -1,4 +1,5 @@
 ﻿using Decks.Configuration;
+using Decks.Internal;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace Decks
 {
-    internal class Tableau<TElement> : DeckStack<TElement>, ITableau<TElement>
+    internal class Tableau<TElement> : DeckStack<TElement>, ITableau<TElement>, Internal.ITableauInternal<TElement>
         where TElement : class
     {
         /// <summary>
@@ -30,6 +31,23 @@ namespace Decks
                 return Options.Enabled;
             }
         }
+
+        ITableauOptions ITableau<TElement>.Options
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        bool ITableau<TElement>.Enabled
+        {
+            get
+            {
+                return Options.Enabled;
+            }
+        }
+
         /// <summary>
         /// Draws the tableau up to its configured size.
         /// </summary>
@@ -43,7 +61,7 @@ namespace Decks
         {
             Contract.Requires(Enum.IsDefined(typeof(TableauOverflowRule),
                 Options.OverflowRule));
-            CheckEnabled();
+            ((IDeckStackInternal<TElement>)this).CheckEnabled();
 
             var size = Options.InitialSize;
 
@@ -51,7 +69,7 @@ namespace Decks
                 (!Options.DrawsUpSafely || 
                 (Deck.Count + Deck.DiscardPile.Count) > 0))
             {
-                var card = Deck.Draw(from);
+                var card = Deck.DrawPileStack.Draw(from);
                 Contents.Add(card);
             }
             if(Options.MaximumSize.HasValue)
@@ -78,7 +96,7 @@ namespace Decks
                     }
                     var element = Contents[index];
                     Contents.RemoveAt(index);
-                    Deck.DiscardPileStack.Contents.Add(element);
+                    Deck.DiscardPileStack.Add(element);
                 }
             }
         }
@@ -88,12 +106,12 @@ namespace Decks
         /// <param name="element">The element to play to the table.</param>
         public void Play(TElement element)
         {
-            CheckEnabled();
+            ((IDeckStackInternal<TElement>)this).CheckEnabled();
 
             CheckOperation(Options.CanPlayToTable, "Playing to the table from the tableau is not allowed.");
             CheckIsMyElement(element, "Cannot play an element not in the tableau.");
             Contents.Remove(element);
-            Deck.TableStack.Contents.Add(element);
+            Deck.TableStack.Add(element);
             CheckProperSize();
         }
 
@@ -104,28 +122,20 @@ namespace Decks
         /// <param name="hand">The hand to draw it into.</param>
         public void DrawInto(TElement element, IHand<TElement> hand)
         {
-            CheckEnabled();
+            Contract.Requires(hand is Internal.IHandInternal<TElement>);
+            ((IDeckStackInternal<TElement>)this).CheckEnabled();
             CheckOperation(Options.CanDrawIntoHand, "Drawing into a hand from the tableau is not allowed.");
             CheckIsMyElement(element, "Cannot play an element not in the tableau.");
             CheckOwnHand(hand);
+
+            var h = hand as Internal.IHandInternal<TElement>;
+
             Contents.Remove(element);
-            ((Hand<TElement>)hand).Contents.Add(element); //TODO: Elegance?
+            h.Add(element); 
             CheckProperSize();
         }
 
 
-        /// <summary>
-        /// Checks to see if the tableau should be usable.
-        /// </summary>
-        /// <param name="overrideSize">If greater than 0, this is the size to use to determin
-        /// enabled-ness.</param>
-        internal void CheckEnabled()
-        {
-            if (!Enabled)
-            {
-                throw new InvalidOperationException("The tableau has been disabled.");
-            }
-        }
 
         private void CheckProperSize()
         {
@@ -135,5 +145,22 @@ namespace Decks
             }
         }
 
+        void IDeckStackInternal<TElement>.Add(TElement element)
+        {
+            Contents.Add(element);
+        }
+
+        /// <summary>
+        /// Checks to see if the tableau should be usable.
+        /// </summary>
+        /// <param name="overrideSize">If greater than 0, this is the size to use to determin
+        /// enabled-ness.</param>
+        void IDeckStackInternal<TElement>.CheckEnabled()
+        {
+            if (!Enabled)
+            {
+                throw new InvalidOperationException("The tableau has been disabled.");
+            }
+        }
     }
 }

@@ -8,14 +8,15 @@ using System.Linq;
 
 namespace Decks
 {
-    public partial class Deck<TElement> : IEnumerable<TElement> where TElement : class
+    public partial class Deck<TElement> : IEnumerable<TElement>, Internal.IDeckInternal<TElement> where TElement : class
     {
         #region Data
         private bool Initialized { get; set; }
         private List<TElement> Known { get; } = new List<TElement>();
-        private DrawPile<TElement> DrawPileStack { get; }
-        internal DiscardPile<TElement> DiscardPileStack { get; }
-        internal Tableau<TElement> TableauStack { get; }
+        private DrawPile<TElement> _drawPile;
+        private DiscardPile<TElement> _discards;
+        private Table<TElement> _table;
+        private Tableau<TElement> _tableau;
         #endregion
 
         #region Construction
@@ -23,10 +24,10 @@ namespace Decks
         {
             Options = options;
             Hands = new ReadOnlyCollection<IHand<TElement>>(HandSet);
-            DrawPileStack = new DrawPile<TElement>(this);
-            DiscardPileStack = new DiscardPile<TElement>(this);
-            TableStack = new Table<TElement>(this);
-            TableauStack = new Tableau<TElement>(this);
+            _drawPile = new DrawPile<TElement>(this);
+            _discards = new DiscardPile<TElement>(this);
+            _table = new Table<TElement>(this);
+            _tableau = new Tableau<TElement>(this);
 
             Initialize();
             Initialized = true;
@@ -34,19 +35,22 @@ namespace Decks
         #endregion
 
         #region Properties
+        Internal.IDrawPileInternal<TElement> Internal.IDeckInternal<TElement>.DrawPileStack { get { return _drawPile; } }
+        Internal.IDiscardPileInternal<TElement> Internal.IDeckInternal<TElement>.DiscardPileStack { get { return _discards; } }
+        Internal.ITableauInternal<TElement> Internal.IDeckInternal<TElement>.TableauStack { get { return _tableau; } }
         public IDeckOptions Options { get; }
-        public ITableau<TElement> Tableau { get { return TableauStack; } }
+        public ITableau<TElement> Tableau { get { return _tableau; } }
 
 
         #region Counts
-        public int Count { get { return DrawPileStack.Count; } }
+        public int Count { get { return _drawPile.Count; } }
         public int TotalCount { get { return Known.Count; } }
         #endregion
         #endregion
 
         #region Public Interface
-        public IDiscardPile<TElement> DiscardPile { get { return DiscardPileStack; } }
-        public IDrawPile<TElement> DrawPile { get { return DrawPileStack; } }
+        public IDiscardPile<TElement> DiscardPile { get { return _discards; } }
+        public IDrawPile<TElement> DrawPile { get { return _drawPile; } }
         /// <summary>
         /// Determines if an area contains an element.
         /// </summary>
@@ -84,18 +88,18 @@ namespace Decks
             switch (location)
             {
                 case Location.TopDeck:
-                    DrawPileStack.Contents.Insert(0, element);
+                    ((Internal.IDrawPileInternal<TElement>)this._drawPile).Add(element);
                     break;
                 case Location.DiscardPile:
-                    DiscardPileStack.Contents.Insert(0, element);
+                    ((Internal.IDiscardPileInternal<TElement>)this._discards).Add(element);
                     break;
                 case Location.Table:
-                    TableStack.EnabledCheck();
-                    TableStack.Contents.Add(element);
+                    ((Internal.ITableInternal<TElement>)_table).CheckEnabled();
+                    ((Internal.ITableInternal<TElement>)_table).Add(element);
                     break;
                 case Location.Tableau:
-                    TableauStack.CheckEnabled();
-                    TableauStack.Contents.Add(element);
+                    ((Internal.ITableauInternal<TElement>)this._tableau).CheckEnabled();
+                    ((Internal.ITableauInternal<TElement>)this._tableau).Add(element);
                     break;
                 case Location.Hand:
                     throw new InvalidOperationException("Cannot add directly to a hand.");
@@ -120,26 +124,10 @@ namespace Decks
             switch (location)
             {
                 case Location.TopDeck:
-                    switch (side)
-                    {
-                        case DeckSide.Top:
-                            DrawPileStack.Contents.Insert(0, element);
-                            break;
-                        case DeckSide.Bottom:
-                            DrawPileStack.Contents.Add(element);
-                            break;
-                    }
+                    ((Internal.IDrawPileInternal<TElement>)this._drawPile).Add(element, side);
                     break;
                 case Location.DiscardPile:
-                    switch (side)
-                    {
-                        case DeckSide.Top:
-                            DiscardPileStack.Contents.Insert(0, element);
-                            break;
-                        case DeckSide.Bottom:
-                            DiscardPileStack.Contents.Add(element);
-                            break;
-                    }
+                    ((Internal.IDiscardPileInternal<TElement>)this._discards).Add(element, side);
                     break;
                 case Location.Table:
                     throw new InvalidOperationException("Cannot add to the table on a specific side.");
@@ -195,12 +183,12 @@ namespace Decks
         #region IEnumerable
         public IEnumerator<TElement> GetEnumerator()
         {
-            return DrawPileStack.Contents.GetEnumerator();
+            return ((Internal.IDrawPileInternal<TElement>)this._drawPile).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return DrawPileStack.Contents.GetEnumerator();
+            return ((Internal.IDrawPileInternal<TElement>)this._drawPile).GetEnumerator();
         }
         #endregion
     }

@@ -44,7 +44,7 @@ namespace Decks
             Contract.Requires(handSize > 0);
 
             CheckOperation(Options.Hands.Enabled, "Hands are not a part of this deck.");
-            var hands = new Hand<TElement>[numberOfHands];
+            var hands = new Internal.IHandInternal<TElement>[numberOfHands];
             for (int i = 0; i < hands.Length; ++i)
             {
                 hands[i] = new Hand<TElement>(this);
@@ -53,7 +53,7 @@ namespace Decks
             {
                 for (int deck = 0; deck < hands.Length; ++deck)
                 {
-                    hands[deck].Contents.Add(Draw());
+                    hands[deck].Add(((Internal.IDrawPileInternal<TElement>)this._drawPile).Draw());
                 }
             }
             HandSet.AddRange(hands);
@@ -65,56 +65,12 @@ namespace Decks
         public void Muck()
         {
             var hands = HandSet.ToArray();
-            hands.Apply(h => Muck(h));
-        }
-        /// <summary>
-        /// Mucks a specific hand, putting it into the discard pile.
-        /// </summary>
-        /// <param name="hand">The hand to muck.</param>
-        public void Muck(IHand<TElement> hand)
-        {
-            Contract.Requires(Hands.Contains(hand), "The hand provided is not dealt from this deck.");
-            Contract.Requires(hand is Hand<TElement> h);
-            Contract.Requires(!h.HasBeenMucked);
-
-            h = (Hand<TElement>)hand;
-            while(h.Contents.Count > 0)
-            {
-                var card = h.Contents[0];
-                h.Contents.RemoveAt(0);
-                DiscardPileStack.Contents.Add(card);
-            }
-            h.HasBeenMucked = true;
-            HandSet.Remove(h);
+            hands.Apply(h => h.Muck());
         }
 
-        protected internal TElement Draw(DeckSide side = DeckSide.Top)
+        void Internal.IDeckInternal<TElement>.RemoveHand(IHand<TElement> hand)
         {
-            Contract.Requires(Enum.IsDefined(typeof(DeckSide), side));
-
-            if((Count == 0 && DiscardPile.Count == 0) ||
-                (Count == 0 && !Options.Discards.AutoShuffle))
-            {
-                throw new BottomDeckException();
-            }
-            else if(Count == 0) // Must be auto-shuffle with a discard.
-            {
-                DrawPile.Shuffle();
-            }
-
-            TElement card = null;
-            switch(side)
-            {
-                case DeckSide.Bottom:
-                    card = DrawPileStack.Contents.Last();
-                    DrawPileStack.Contents.RemoveAt(DrawPileStack.Contents.Count - 1);
-                    break;
-                case DeckSide.Top:
-                    card = DrawPileStack.Contents[0];
-                    DrawPileStack.Contents.RemoveAt(0);
-                    break;
-            }
-            return card;
+            HandSet.Remove(hand);
         }
     }
 }

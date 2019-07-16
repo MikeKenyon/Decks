@@ -45,6 +45,12 @@ of these piles, they should be called "elements" (not cards, etc.).
 >	**EXCEPTION** When discussing a sample deck that actually contains cards, call 
 >   them cards.
 
+**DO** use an internal interface to access all times rather than directly exposing data.  The interface should be declared as being
+internal, it should be named *IXxxxXxxxInternal* Where *XxxxXxxx* is the name of the type 
+that this is exposing the internal interface for. 
+
+*DO* put internal interfaces in the **Decks.Internal** namespace`.
+
 ### Stacks ###
 
 Names get a little hairy here.  In the vernacular of the project, a *Deck* is the entire ecosystem
