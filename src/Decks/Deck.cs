@@ -1,4 +1,6 @@
 ﻿using Decks.Configuration;
+using Decks.Events;
+using Decks.Internal;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,6 +24,8 @@ namespace Decks
         #region Construction
         public Deck(IDeckOptions options)
         {
+            Contract.Requires(options != null);
+
             Options = options;
             Hands = new ReadOnlyCollection<IHand<TElement>>(HandSet);
             _drawPile = new DrawPile<TElement>(this);
@@ -32,6 +36,7 @@ namespace Decks
             Initialize();
             Initialized = true;
         }
+
         #endregion
 
         #region Properties
@@ -51,6 +56,40 @@ namespace Decks
         #region Public Interface
         public IDiscardPile<TElement> DiscardPile { get { return _discards; } }
         public IDrawPile<TElement> DrawPile { get { return _drawPile; } }
+
+        IDeckEvents<TElement> IDeckInternal<TElement>.Events
+        {
+            get
+            {
+                return this.Events;
+            }
+        }
+        private IDeckEvents<TElement> Events
+        {
+            get
+            {
+                if (Options.Events != null && Options.Events is IDeckEvents<TElement> tEvents)
+                {
+                    return tEvents;
+                }
+                else if (Options.Events != null)
+                {
+                    if (Options.Events.GetType() == typeof(IDeckEvents))
+                    {
+                        throw new InvalidCastException($"The deck events need to implement {typeof(IDeckEvents<TElement>).Name}, not the non-generic base.");
+                    }
+                    else
+                    {
+                        throw new InvalidCastException($"The deck events need to implement {typeof(IDeckEvents<TElement>).Name}, you provided {Options.Events.GetType().Name}.");
+                    }
+                }
+                else
+                {
+                    return Internal.Events.EmptyDeckEvents<TElement>.Singleton;
+                }
+            }
+        }
+
         /// <summary>
         /// Determines if an area contains an element.
         /// </summary>
@@ -85,26 +124,7 @@ namespace Decks
             Contract.Requires(Enum.IsDefined(typeof(Location), location));
             CheckAllowAdd();
 
-            switch (location)
-            {
-                case Location.TopDeck:
-                    ((Internal.IDrawPileInternal<TElement>)this._drawPile).Add(element);
-                    break;
-                case Location.DiscardPile:
-                    ((Internal.IDiscardPileInternal<TElement>)this._discards).Add(element);
-                    break;
-                case Location.Table:
-                    ((Internal.ITableInternal<TElement>)_table).CheckEnabled();
-                    ((Internal.ITableInternal<TElement>)_table).Add(element);
-                    break;
-                case Location.Tableau:
-                    ((Internal.ITableauInternal<TElement>)this._tableau).CheckEnabled();
-                    ((Internal.ITableauInternal<TElement>)this._tableau).Add(element);
-                    break;
-                case Location.Hand:
-                    throw new InvalidOperationException("Cannot add directly to a hand.");
-            }
-            Known.Add(element);
+            Add(element, DeckSide.Default, location);
             return this;
         }
 
@@ -130,15 +150,33 @@ namespace Decks
                     ((Internal.IDiscardPileInternal<TElement>)this._discards).Add(element, side);
                     break;
                 case Location.Table:
-                    throw new InvalidOperationException("Cannot add to the table on a specific side.");
+                    if (side != DeckSide.Default)
+                    {
+                        throw new InvalidOperationException("Cannot add to the table on a specific side.");
+                    }
+                    else
+                    {
+                        ((Internal.ITableInternal<TElement>)this._table).Add(element);
+                    }
+                    break;
                 case Location.Tableau:
-                    throw new InvalidOperationException("Cannot add to the tableau on a specific side.");
+                    if (side != DeckSide.Default)
+                    {
+                        throw new InvalidOperationException("Cannot add to the tableau on a specific side.");
+                    }
+                    else
+                    {
+                        ((Internal.ITableauInternal<TElement>)this._tableau).Add(element);
+                    }
+                    break;
                 case Location.Hand:
                     throw new InvalidOperationException("Cannot add directly to a hand.");
                 default:
                     throw new NotImplementedException($"Don't know about the {location} location.");
             }
             Known.Add(element);
+
+            Events.Added(element, side, location);
             return this;
         }
 
@@ -160,7 +198,7 @@ namespace Decks
         /// </summary>
         /// <param name="condition">Condition to check.</param>
         /// <param name="message">The error message if it's not allowed.</param>
-        protected void CheckOperation(bool condition, string message)
+        protected virtual void CheckOperation(bool condition, string message)
         {
             if (!condition)
             {
@@ -190,6 +228,7 @@ namespace Decks
         {
             return ((Internal.IDrawPileInternal<TElement>)this._drawPile).GetEnumerator();
         }
+
         #endregion
     }
 }

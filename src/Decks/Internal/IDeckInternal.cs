@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Decks.Events;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,6 +7,7 @@ namespace Decks.Internal
 {
     internal interface IDeckInternal<TElement> : IDeck<TElement> where TElement : class
     {
+        IDeckEvents<TElement> Events { get; }
         Internal.IDrawPileInternal<TElement> DrawPileStack { get; }
         Internal.IDiscardPileInternal<TElement> DiscardPileStack { get; }
         Internal.ITableauInternal<TElement> TableauStack { get; }

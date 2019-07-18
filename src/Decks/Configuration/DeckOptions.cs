@@ -7,6 +7,10 @@ namespace Decks.Configuration
     public class DeckOptions : IDeckOptions
     {
         /// <summary>
+        /// Get the interaction/eventing interface.
+        /// </summary>
+        public Events.IDeckEvents Events { get; set; }
+        /// <summary>
         /// If set to <see langword="true"/> the deck is modifiable after the <see cref="Deck{TElement}.Initialize"/> method has finished.  Default is 
         /// to allow this.
         /// </summary>

@@ -10,6 +10,10 @@ namespace Decks.Configuration
     public interface IDeckOptions
     {
         /// <summary>
+        /// Get the interaction/eventing interface, should be <see cref="Events.IDeckEvents{TElement}"/>
+        /// </summary>
+        Events.IDeckEvents Events { get; }
+        /// <summary>
         /// If set to <see langword="true"/> the deck is modifiable after the <see cref="Deck{TElement}.Initialize"/> method has finished.Default is 
         /// to allow this.
         /// </summary>

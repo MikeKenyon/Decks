@@ -61,6 +61,7 @@ namespace Decks
                 case DeckSide.Bottom:
                     Contents.Add(element);
                     break;
+                case DeckSide.Default:
                 case DeckSide.Top:
                     Contents.Insert(0, element);
                     break;
@@ -86,6 +87,7 @@ namespace Decks
                 case DeckSide.Bottom:
                     index = Contents.Count - 1;
                     break;
+                case DeckSide.Default:
                 case DeckSide.Top:
                     index = 0;
                     break;

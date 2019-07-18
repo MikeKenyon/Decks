@@ -17,6 +17,9 @@ namespace Decks
             ((Internal.ITableInternal<TElement>)_table).CheckEnabled();
             var card = ((Internal.IDrawPileInternal<TElement>)this._drawPile).Draw();
             ((Internal.ITableInternal<TElement>)_table).Add(card);
+
+            Events.PlayedToTable(card);
+
             return card;
         }
 

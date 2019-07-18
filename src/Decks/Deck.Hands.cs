@@ -42,8 +42,9 @@ namespace Decks
         public IEnumerable<IHand<TElement>> Deal(int numberOfHands, uint handSize)
         {
             Contract.Requires(handSize > 0);
-
             CheckOperation(Options.Hands.Enabled, "Hands are not a part of this deck.");
+
+            Events.Dealing(ref numberOfHands, ref handSize);
             var hands = new Internal.IHandInternal<TElement>[numberOfHands];
             for (int i = 0; i < hands.Length; ++i)
             {
@@ -57,6 +58,9 @@ namespace Decks
                 }
             }
             HandSet.AddRange(hands);
+
+            Events.Dealt(numberOfHands, handSize);
+
             return hands;
         }
         /// <summary>
