@@ -23,15 +23,23 @@ namespace Decks
         {
             Contract.Requires(Enum.IsDefined(typeof(DeckSide), side));
 
+            Deck.Events.DrawingInto(this);
+
             var card = Deck.DrawPileStack.Draw(side);
             Contents.Add(card);
+
+            Deck.Events.DrewInto(this, card);
         }
         public void Muck()
         {
+            Deck.Events.Mucking(this);
+
             Contents.Apply(c => Deck.DiscardPileStack.Add(c));
             Contents.Clear();
             HasBeenMucked = true;
             Deck.RemoveHand(this);
+
+            Deck.Events.Mucked(this);
         }
         /// <summary>
         /// Plays this element onto the table.
@@ -44,15 +52,17 @@ namespace Decks
         {
             InvalidCheck();
             Deck.TableStack.CheckEnabled();
-            if(Contains(element))
-            {
-                Contents.Remove(element);
-                Deck.TableStack.Add(element);
-            }
-            else
+            if (!Contains(element))
             {
                 throw new InvalidElementException("Element isn't part of this hand, cannot play it.");
             }
+
+            Deck.Events.Playing(this, element);
+
+            Contents.Remove(element);
+            Deck.TableStack.Add(element);
+
+            Deck.Events.Played(this, element);
         }
 
         public override bool Contains(TElement element)

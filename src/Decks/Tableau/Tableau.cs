@@ -59,18 +59,23 @@ namespace Decks
         /// <param name="from">Which side of the draw pile we're drawing from.</param>
         public void DrawUp(DeckSide from = DeckSide.Top)
         {
-            Contract.Requires(Enum.IsDefined(typeof(TableauOverflowRule),
-                Options.OverflowRule));
+            Contract.Requires(Enum.IsDefined(typeof(TableauOverflowRule), Options.OverflowRule));
             ((IDeckStackInternal<TElement>)this).CheckEnabled();
 
+            Deck.Events.DrawingInto(this);
+
             var size = Options.InitialSize;
+
+            TElement element = null;
 
             while(Count < size && 
                 (!Options.DrawsUpSafely || 
                 (Deck.Count + Deck.DiscardPile.Count) > 0))
             {
-                var card = Deck.DrawPileStack.Draw(from);
-                Contents.Add(card);
+                element = Deck.DrawPileStack.Draw(from);
+                Contents.Add(element);
+
+                Deck.Events.DrewInto(this, element);
             }
             if(Options.MaximumSize.HasValue)
             {
@@ -91,10 +96,14 @@ namespace Decks
                             break;
                         case TableauOverflowRule.Ignore:
                             return; // Intentionally return from method, we do nothing here.
+                        case TableauOverflowRule.Ask:
+                            index = Deck.Events.PickElementToDiscard(this);
+                            Contract.Assert(index >= 0 && index < Contents.Count);
+                            break;
                         default:
                             throw new NotImplementedException($"Haven't coded for {Options.MaintainSize} yet.");
                     }
-                    var element = Contents[index];
+                    element = Contents[index];
                     Contents.RemoveAt(index);
                     Deck.DiscardPileStack.Add(element);
                 }
@@ -108,11 +117,15 @@ namespace Decks
         {
             ((IDeckStackInternal<TElement>)this).CheckEnabled();
 
+            Deck.Events.Playing(this, element);
+
             CheckOperation(Options.CanPlayToTable, "Playing to the table from the tableau is not allowed.");
             CheckIsMyElement(element, "Cannot play an element not in the tableau.");
             Contents.Remove(element);
             Deck.TableStack.Add(element);
             CheckProperSize();
+
+            Deck.Events.Played(this, element);
         }
 
         /// <summary>
@@ -128,11 +141,15 @@ namespace Decks
             CheckIsMyElement(element, "Cannot play an element not in the tableau.");
             CheckOwnHand(hand);
 
+            Deck.Events.DrawingInto(this, hand, element);
+
             var h = hand as Internal.IHandInternal<TElement>;
 
             Contents.Remove(element);
             h.Add(element); 
             CheckProperSize();
+
+            Deck.Events.DrewInto(this, hand, element);
         }
 
 

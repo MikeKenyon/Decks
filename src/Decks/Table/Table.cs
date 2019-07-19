@@ -15,21 +15,27 @@ namespace Decks
         public void Discard(TElement element)
         {
             ((IDeckStackInternal<TElement>)this).CheckEnabled();
-            if (Contains(element))
-            {
-                Deck.DiscardPileStack.Add(element);
-                Contents.Remove(element);
-            }
-            else
+            if (!Contains(element))
             {
                 throw new InvalidElementException("Element is not in play.");
             }
+
+            Deck.Events.Discarding(this, element);
+
+            Deck.DiscardPileStack.Add(element);
+            Contents.Remove(element);
+
+            Deck.Events.Discarded(this, element);
         }
         public void Muck()
         {
+            Deck.Events.Mucking(this);
+
             ((IDeckStackInternal<TElement>)this).CheckEnabled();
             Contents.Apply(c => Deck.DiscardPileStack.Add(c));
             Contents.Clear();
+
+            Deck.Events.Mucked(this);
         }
         public bool Enabled {
             get {

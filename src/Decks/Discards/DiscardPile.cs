@@ -38,8 +38,12 @@ namespace Decks
 
         public void Readd(DeckSide side)
         {
+            Deck.Events.PuttingDiscardsBackIntoDrawPile();
+
             Contents.Apply(c => Deck.DrawPileStack.Add(c,side));
             Contents.Clear();
+
+            Deck.Events.PutDiscardsBackIntoDrawPile();
         }
     }
 }

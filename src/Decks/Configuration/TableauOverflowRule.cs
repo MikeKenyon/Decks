@@ -27,5 +27,9 @@ namespace Decks.Configuration
         /// Drop a randomly selected card from the tableau.
         /// </summary>
         DiscardRandom,
+        /// <summary>
+        /// Ask which one we should discard.
+        /// </summary>
+        Ask
     }
 }

@@ -31,12 +31,17 @@ namespace Decks
         public void Shuffle(bool retreiveDiscards = true)
         {
             CheckValidToShuffle();
+
+            Deck.Events.Shuffling(ShuffleCount + 1);
+
             if (retreiveDiscards)
             {
                 Deck.DiscardPileStack.Readd();
             }
             Contents.Shuffle();
             ++ShuffleCount;
+
+            Deck.Events.Shuffled(ShuffleCount);
         }
 
         /// <summary>
@@ -80,6 +85,8 @@ namespace Decks
                 Shuffle();
             }
 
+            Deck.Events.Drawing();
+
             TElement card = null;
             var index = 0;
             switch (side)
@@ -96,12 +103,14 @@ namespace Decks
             card = Contents[index];
             Contents.RemoveAt(index);
 
+            Deck.Events.Drew(card);
+
             return card;
         }
 
         void IDeckStackInternal<TElement>.Add(TElement element)
         {
-            ((IDrawPileInternal<TElement>)this).Add(element, DeckSide.Top);
+            ((IDrawPileInternal<TElement>)this).Add(element, DeckSide.Default);
         }
 
         void IDeckStackInternal<TElement>.CheckEnabled()

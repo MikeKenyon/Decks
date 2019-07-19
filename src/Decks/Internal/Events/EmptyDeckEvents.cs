@@ -34,8 +34,124 @@ namespace Decks.Internal.Events
         {
         }
 
-        void IDeckEvents<TElement>.PlayedToTable<TElement1>(TElement1 card)
+        void IDeckEvents<TElement>.Discarded(ITable<TElement> table, TElement element)
         {
+
+        }
+
+        void IDeckEvents<TElement>.Discarding(ITable<TElement> table, TElement element)
+        {
+
+        }
+
+        void IDeckEvents<TElement>.Drawing()
+        {
+
+        }
+
+        void IDeckEvents<TElement>.DrawingInto(IHand<TElement> hand)
+        {
+
+        }
+
+        void IDeckEvents<TElement>.DrawingInto(ITableau<TElement> tableau)
+        {
+
+        }
+
+        void IDeckEvents<TElement>.DrawingInto(ITableau<TElement> tableau, IHand<TElement> hand, TElement element)
+        {
+
+        }
+
+        void IDeckEvents<TElement>.Drew(TElement card)
+        {
+
+        }
+
+        void IDeckEvents<TElement>.DrewInto(IHand<TElement> hand, TElement element)
+        {
+
+        }
+
+        void IDeckEvents<TElement>.DrewInto(ITableau<TElement> tableau, TElement element)
+        {
+
+        }
+
+        void IDeckEvents<TElement>.DrewInto(ITableau<TElement> tableau, IHand<TElement> hand, TElement element)
+        {
+
+        }
+
+        void IDeckEvents<TElement>.Mucked(ITable<TElement> table)
+        {
+
+        }
+
+        void IDeckEvents<TElement>.Mucked(IHand<TElement> hand)
+        {
+
+        }
+
+        void IDeckEvents<TElement>.Mucking(ITable<TElement> table)
+        {
+
+        }
+
+        void IDeckEvents<TElement>.Mucking(IHand<TElement> hand)
+        {
+
+        }
+
+        int IDeckEvents<TElement>.PickElementToDiscard(ITableau<TElement> tableau)
+        {
+            return Extensions.Rand.Next(0, tableau.Count);
+        }
+
+        void IDeckEvents<TElement>.Played(TElement card)
+        {
+
+        }
+
+        void IDeckEvents<TElement>.Played(IHand<TElement> hand, TElement element)
+        {
+
+        }
+
+        void IDeckEvents<TElement>.Played(ITableau<TElement> tableau, TElement element)
+        {
+
+        }
+
+        void IDeckEvents<TElement>.Playing(IHand<TElement> hand, TElement element)
+        {
+
+        }
+
+        void IDeckEvents<TElement>.Playing(ITableau<TElement> tableau, TElement element)
+        {
+
+        }
+
+        void IDeckEvents<TElement>.PutDiscardsBackIntoDrawPile()
+        {
+
+        }
+
+        void IDeckEvents<TElement>.PuttingDiscardsBackIntoDrawPile()
+        {
+
+        }
+
+        void IDeckEvents<TElement>.Shuffled(uint shuffleCount)
+        {
+
+        }
+
+        void IDeckEvents<TElement>.Shuffling(uint v)
+        {
+
         }
     }
 }
