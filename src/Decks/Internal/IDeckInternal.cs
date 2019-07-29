@@ -1,10 +1,12 @@
 ﻿using Decks.Events;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Decks.Internal
 {
+    [JsonConverter(typeof(Internal.Serialization.DeckSerializer))]
     internal interface IDeckInternal<TElement> : IDeck<TElement> where TElement : class
     {
         IDeckEvents<TElement> Events { get; }

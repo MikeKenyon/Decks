@@ -6,7 +6,7 @@ namespace Decks.Common
 {
     public class PinochleDeck : StandardCardDeck
     {
-        public PinochleDeck(PinochleOptions options) : base(options)
+        public PinochleDeck(PinochleOptions options, bool doInitialize = true) : base(options, doInitialize)
         {
             ValidateOptions();
         }

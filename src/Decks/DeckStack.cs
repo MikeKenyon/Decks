@@ -1,4 +1,5 @@
 ﻿using Decks.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace Decks
     /// A base class for different types of deck stacks -- hands, table, tableau.
     /// </summary>
     /// <typeparam name="TElement"></typeparam>
+    [JsonConverter(typeof(Internal.Serialization.DeckStackSerializer))]
     internal class DeckStack<TElement> : IDeckStack<TElement> where TElement : class
     {
         public DeckStack(Internal.IDeckInternal<TElement> deck) {

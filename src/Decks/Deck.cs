@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace Decks
 {
@@ -22,7 +23,7 @@ namespace Decks
         #endregion
 
         #region Construction
-        public Deck(IDeckOptions options)
+        public Deck(IDeckOptions options, bool doInitialize = true)
         {
             Contract.Requires(options != null);
 
@@ -33,10 +34,13 @@ namespace Decks
             _table = new Table<TElement>(this);
             _tableau = new Tableau<TElement>(this);
 
-            Initialize();
+            if (doInitialize)
+            {
+                Initialize();
+            }
             Initialized = true;
-        }
 
+        }
         #endregion
 
         #region Properties

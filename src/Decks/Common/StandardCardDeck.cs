@@ -6,9 +6,10 @@ namespace Decks.Common
 {
     public class StandardCardDeck : Deck<PlayingCard>
     {
-        public StandardCardDeck(PlayingCardOptions options) : base(options)
+        public StandardCardDeck(PlayingCardOptions options, bool doInitialize = true): base(options, doInitialize)
         {
         }
+
 
         protected override void Initialize()
         {

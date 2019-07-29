@@ -22,9 +22,16 @@ namespace Decks.Tests
                 Hands = new HandOptions { InitialHandSize = 5 },
             });
             var hands = deck.Deal(5);
+            var settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Objects,
+                Formatting = Formatting.Indented
+            };
             // Act
-            var text = JsonConvert.SerializeObject(deck);
+            var text = JsonConvert.SerializeObject(deck, settings);
+            var found = JsonConvert.DeserializeObject<StandardCardDeck>(text);
             // Assert
+            Assert.AreEqual(deck.Options.Hands.InitialHandSize, found.Options.Hands.InitialHandSize);
         }
     }
 }

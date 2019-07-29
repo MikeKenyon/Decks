@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,6 +9,7 @@ namespace Decks.Internal
     /// The internal interface for dealing with any deck stack (draw pile, discards, table, etc.)
     /// </summary>
     /// <typeparam name="TElement">Type of the elements involved.</typeparam>
+    [JsonConverter(typeof(Internal.Serialization.DeckSerializer))]
     internal interface IDeckStackInternal<TElement> where TElement : class
     {
         /// <summary>
