@@ -194,7 +194,13 @@ namespace Decks
         {
 
         }
-
+        Type IDeckInternal<TElement>.ElementType
+        {
+            get
+            {
+                return typeof(TElement);
+            }
+        }
         void IDeckVisitable<TElement>.Accept(IDeckVisitor<TElement> visitor)
         {
             visitor.Visit(this);

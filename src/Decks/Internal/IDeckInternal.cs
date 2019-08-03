@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Decks.Internal
 {
-    [JsonConverter(typeof(Internal.Serialization.DeckSerializer))]
+    [JsonConverter(typeof(Internal.Serialization.DeckSerializer<>))]
     internal interface IDeckInternal<TElement> : IDeck<TElement>, IDeckVisitable<TElement> where TElement : class
     {
         IDeckEvents<TElement> Events { get; }
@@ -14,6 +14,8 @@ namespace Decks.Internal
         Internal.IDiscardPileInternal<TElement> DiscardPileStack { get; }
         Internal.ITableauInternal<TElement> TableauStack { get; }
         Internal.ITableInternal<TElement> TableStack { get; }
+
+        Type ElementType { get; }
 
         void RemoveHand(IHand<TElement> hand);
     }

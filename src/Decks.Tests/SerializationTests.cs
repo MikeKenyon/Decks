@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 using Decks.Common;
@@ -18,17 +19,30 @@ namespace Decks.Tests
         {
             // Arrange
             var deck = new StandardCardDeck(MakeOptions());
-            var hands = deck.Deal(5);
+            PutThroughPaces(deck);
             var settings = new JsonSerializerSettings
             {
-                TypeNameHandling = TypeNameHandling.Objects,
                 Formatting = Formatting.Indented
             };
             // Act
             var text = JsonConvert.SerializeObject(deck, settings);
-            var found = JsonConvert.DeserializeObject<StandardCardDeck>(text);
             // Assert
-            Assert.AreEqual(deck.Options.Hands.InitialHandSize, found.Options.Hands.InitialHandSize);
+        }
+
+        private static void PutThroughPaces<TElement>(IDeck<TElement> deck) where TElement : class
+        {
+            deck.DrawPile.Shuffle();
+            var hands = deck.Deal(5);
+            deck.DrawPile.Shuffle();
+
+            var hand = hands.ElementAt(1);
+            hand.Play(hand.ElementAt(2));
+            hand.Play(hand.ElementAt(2));
+
+            hand = hands.ElementAt(2);
+            hand.Muck();
+
+            deck.Tableau.DrawUp();
         }
 
         private PlayingCardOptions MakeOptions()

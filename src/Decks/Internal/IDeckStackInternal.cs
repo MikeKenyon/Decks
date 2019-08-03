@@ -9,7 +9,6 @@ namespace Decks.Internal
     /// The internal interface for dealing with any deck stack (draw pile, discards, table, etc.)
     /// </summary>
     /// <typeparam name="TElement">Type of the elements involved.</typeparam>
-    [JsonConverter(typeof(Internal.Serialization.DeckSerializer))]
     internal interface IDeckStackInternal<TElement> : IDeckStack<TElement>, IDeckVisitable<TElement> where TElement : class
     {
         /// <summary>

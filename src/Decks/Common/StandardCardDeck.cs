@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Decks.Common
 {
+    [JsonConverter(typeof(Internal.Serialization.DeckSerializer<PlayingCard>))]
     public class StandardCardDeck : Deck<PlayingCard>
     {
         public StandardCardDeck(PlayingCardOptions options, bool doInitialize = true): base(options, doInitialize)

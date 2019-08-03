@@ -36,7 +36,7 @@ namespace Decks
         {
             get
             {
-                throw new NotImplementedException();
+                return Deck.Options.Tableau;
             }
         }
 

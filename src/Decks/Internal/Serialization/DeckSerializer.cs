@@ -9,73 +9,20 @@ using Newtonsoft.Json.Linq;
 
 namespace Decks.Internal.Serialization
 {
-    internal class DeckSerializer : JsonConverter
+    internal class DeckSerializer<TElement> : JsonConverter<IDeckInternal<TElement>> where TElement : class
     {
-        #region Public Interface
-        public override bool CanConvert(Type objectType)
+        public override IDeckInternal<TElement> ReadJson(JsonReader reader, Type objectType,
+            IDeckInternal<TElement> existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
-            return typeof(IDeckInternal<>).IsAssignableFrom(objectType);
+            return null;
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, IDeckInternal<TElement> value, JsonSerializer serializer)
         {
-            var job = JObject.ReadFrom(reader) as JObject;
-
-            var elementType = Type.GetType(job.Property(JsonProperties.ElementType).Value.ToString());
-
-
-            var options = GetOptions(job.Property(JsonProperties.Options).Value.ToString(), serializer);
-            var deck = Activator.CreateInstance(objectType, options, false);
-            return deck;
+            var jobject = new JObject();
+            var ser = new SerializationVisitor<TElement>(jobject, serializer);
+            value.Accept(ser);
+            jobject.WriteTo(writer);
         }
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            dynamic deck = value;
-
-            var root = new JObject();
-            var deckType = FindDeckType(deck.GetType());
-            root.Add(JsonProperties.ElementType, deckType.GetGenericArguments()[0]?.FullName ?? JsonProperties.NotAvailable);
-            root.Add(JsonProperties.Options, JToken.FromObject(deck.Options, serializer));
-            root.Add(JsonProperties.TotalCount, deck.TotalCount);
-
-            root.Add(JsonProperties.DrawPile, JToken.FromObject(deck.DrawPile, serializer));
-
-            root.WriteTo(writer);
-        }
-
-        #endregion
-
-
-        #region Helpers
-
-        #region Read
-
-        #endregion
-
-        #region Write
-
-        #endregion
-
-        #region Generic
-        private object GetOptions(string text, JsonSerializer serializer)
-        {
-            var settings = new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            };
-            return JsonConvert.DeserializeObject<DeckOptions>(text, settings);
-        }
-
-
-        private Type FindDeckType(Type type)
-        {
-            while(type != typeof(Object) && (!type.IsConstructedGenericType || type.GetGenericTypeDefinition() != typeof(Deck<>)))
-            {
-                type = type.BaseType;
-            }
-            return type;
-        }
-        #endregion
-        #endregion
     }
 }
