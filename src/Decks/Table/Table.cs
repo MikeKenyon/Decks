@@ -51,6 +51,10 @@ namespace Decks
             }
         }
 
+        void IDeckVisitable<TElement>.Accept(IDeckVisitor<TElement> visitor)
+        {
+            visitor.Visit(this);
+        }
 
         void IDeckStackInternal<TElement>.Add(TElement element)
         {

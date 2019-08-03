@@ -17,10 +17,7 @@ namespace Decks.Tests
         public void StandardDeckSerialization()
         {
             // Arrange
-            var deck = new StandardCardDeck(new PlayingCardOptions
-            {
-                Hands = new HandOptions { InitialHandSize = 5 },
-            });
+            var deck = new StandardCardDeck(MakeOptions());
             var hands = deck.Deal(5);
             var settings = new JsonSerializerSettings
             {
@@ -32,6 +29,27 @@ namespace Decks.Tests
             var found = JsonConvert.DeserializeObject<StandardCardDeck>(text);
             // Assert
             Assert.AreEqual(deck.Options.Hands.InitialHandSize, found.Options.Hands.InitialHandSize);
+        }
+
+        private PlayingCardOptions MakeOptions()
+        {
+            return new PlayingCardOptions
+            {
+                AceMode = AceMode.High,
+                Discards = { AutoShuffle = false },
+                DrawPile = { MaximumShuffleCount = null },
+                Hands = { InitialHandSize = 5, Enabled = true },
+                HasJokers = false,
+                Modifiable = false,
+                Order = PlayingCardSortOrder.BridgeOrder,
+                Table = { Enabled = true },
+                Tableau = {
+                    Enabled = true,
+                    CanDrawIntoHand = true, CanPlayToTable = true, DrawsUpSafely = true,
+                    InitialSize = 3, MaintainSize = false, MaximumSize = 3,
+                    OverflowRule = TableauOverflowRule.DiscardRandom
+                },
+            };
         }
     }
 }

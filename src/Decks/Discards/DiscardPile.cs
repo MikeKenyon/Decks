@@ -11,6 +11,10 @@ namespace Decks
         public DiscardPile(Deck<TElement> deck) : base(deck)
         {
         }
+        void IDeckVisitable<TElement>.Accept(IDeckVisitor<TElement> visitor)
+        {
+            visitor.Visit(this);
+        }
 
         void IDiscardPileInternal<TElement>.Add(TElement element, DeckSide side)
         {

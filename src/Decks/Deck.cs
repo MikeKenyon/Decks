@@ -194,6 +194,23 @@ namespace Decks
         {
 
         }
+
+        void IDeckVisitable<TElement>.Accept(IDeckVisitor<TElement> visitor)
+        {
+            visitor.Visit(this);
+
+            var me = (IDeckInternal<TElement>)this;
+
+            visitor.Visit(me.DrawPileStack);
+            visitor.Visit(me.DiscardPileStack);
+            visitor.Visit(me.TableStack);
+            visitor.Visit(me.TableauStack);
+            foreach(IHandInternal<TElement> hand in Hands)
+            {
+                visitor.Visit(hand);
+            }
+        }
+        
         #endregion
 
         #region Protected Helpers

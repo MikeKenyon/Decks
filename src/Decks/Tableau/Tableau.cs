@@ -166,6 +166,11 @@ namespace Decks
         {
             Contents.Add(element);
         }
+        void IDeckVisitable<TElement>.Accept(IDeckVisitor<TElement> visitor)
+        {
+            visitor.Visit(this);
+        }
+
 
         /// <summary>
         /// Checks to see if the tableau should be usable.

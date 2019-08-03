@@ -4,17 +4,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Decks.Internal;
 
 namespace Decks
 {
     /// <summary>
     /// A base class for different types of deck stacks -- hands, table, tableau.
     /// </summary>
-    /// <typeparam name="TElement"></typeparam>
-    [JsonConverter(typeof(Internal.Serialization.DeckStackSerializer))]
-    internal class DeckStack<TElement> : IDeckStack<TElement> where TElement : class
+    /// <typeparam name="TElement"></typeparam
+    internal class DeckStack<TElement> : IDeckStackInternal<TElement> where TElement : class
     {
-        public DeckStack(Internal.IDeckInternal<TElement> deck) {
+        public DeckStack(Internal.IDeckInternal<TElement> deck)
+        {
             Deck = deck;
         }
         protected Internal.IDeckInternal<TElement> Deck { get; }
@@ -31,6 +32,25 @@ namespace Decks
         {
             return Contents.Contains(element);
         }
+
+        /// <summary>
+        /// Adds an eleemnt from one area to another.
+        /// </summary>
+        /// <param name="element">The element to add.</param>
+        void IDeckStackInternal<TElement>.Add(TElement element)
+        {
+            Contents.Add(element);
+        }
+
+        /// <summary>
+        /// Confirms that this stack is enabled, errors if it isn't.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">The stack is not enabled.</exception>
+        void IDeckStackInternal<TElement>.CheckEnabled()
+        {
+            //No op
+        }
+
         public virtual IEnumerator<TElement> GetEnumerator()
         {
             return Contents.GetEnumerator();
@@ -39,6 +59,9 @@ namespace Decks
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
+        }
+        void IDeckVisitable<TElement>.Accept(IDeckVisitor<TElement> visitor)
+        {
         }
 
         #region Helpers for Deck Stack Types
@@ -61,11 +84,11 @@ namespace Decks
         /// <param name="checkMucked"></param>
         protected void CheckOwnHand(IHand<TElement> hand, bool checkMucked = true)
         {
-            if(!Deck.Hands.Contains(hand))
+            if (!Deck.Hands.Contains(hand))
             {
                 throw new InvalidOperationException("The given hand isn't from this deck.");
             }
-            if(checkMucked && hand.HasBeenMucked)
+            if (checkMucked && hand.HasBeenMucked)
             {
                 throw new InvalidOperationException("Cannot use this hand, it's been mucked.");
             }
@@ -77,7 +100,7 @@ namespace Decks
         /// <param name="message">The error message if it's not allowed.</param>
         protected void CheckOperation(bool condition, string message)
         {
-            if(!condition)
+            if (!condition)
             {
                 throw new InvalidOperationException(message);
             }

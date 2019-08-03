@@ -7,7 +7,7 @@ using System.Text;
 namespace Decks.Internal
 {
     [JsonConverter(typeof(Internal.Serialization.DeckSerializer))]
-    internal interface IDeckInternal<TElement> : IDeck<TElement> where TElement : class
+    internal interface IDeckInternal<TElement> : IDeck<TElement>, IDeckVisitable<TElement> where TElement : class
     {
         IDeckEvents<TElement> Events { get; }
         Internal.IDrawPileInternal<TElement> DrawPileStack { get; }

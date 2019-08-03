@@ -11,8 +11,8 @@ namespace Decks.Configuration
     {
         /// <summary>
         /// The number of times the deck can be reshuffled.  0, 1, 3 and a negative number are the most commonly 
-        /// set numbers.  Any negative number is considered to be unlimited.  Default is unlimited.
+        /// set numbers.  <see langword="null" /> is unlimited, which is the default.
         /// </summary>
-        public int MaximumShuffleCount { get; set; } = -1;
+        public uint? MaximumShuffleCount { get; set; } = null;
     }
 }

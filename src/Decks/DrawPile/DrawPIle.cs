@@ -53,12 +53,16 @@ namespace Decks
 
         private void CheckValidToShuffle()
         {
-            if(Options.MaximumShuffleCount >= 0 && Options.MaximumShuffleCount <= ShuffleCount)
+            if(Options.MaximumShuffleCount.HasValue && Options.MaximumShuffleCount <= ShuffleCount)
             {
                 throw new InvalidOperationException($"Cannot shuffle the deck.  Already shuffled {ShuffleCount} of an allowed {Options.MaximumShuffleCount} times.");
             }
         }
 
+        void IDeckVisitable<TElement>.Accept(IDeckVisitor<TElement> visitor)
+        {
+            visitor.Visit(this);
+        }
         void IDrawPileInternal<TElement>.Add(TElement element, DeckSide side)
         {
             switch(side)
