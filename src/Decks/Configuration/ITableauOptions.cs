@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace Decks.Configuration
 {
-    public interface ITableauOptions
+    public interface ITableauOptions : INotifyPropertyChanged
     {
         /// <summary>
         /// Whether or not the tableau is enabled.

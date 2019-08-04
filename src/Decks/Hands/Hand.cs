@@ -17,7 +17,12 @@ namespace Decks
         internal Hand(Deck<TElement> deck) : base(deck)
         {
         }
-        public bool HasBeenMucked { get; internal set; }
+        private bool _hasBeenMucked;
+        public bool HasBeenMucked
+        {
+            get { return _hasBeenMucked; }
+            internal set { _hasBeenMucked = value; NotifyOfPropertyChange(); }
+        }
 
         public void Draw(DeckSide side = DeckSide.Top)
         {

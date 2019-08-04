@@ -8,14 +8,15 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using Newtonsoft.Json;
+using Caliburn.Micro;
 
 namespace Decks
 {
-    public partial class Deck<TElement> : Internal.IDeckInternal<TElement> where TElement : class
+    public partial class Deck<TElement> : PropertyChangedBase, Internal.IDeckInternal<TElement> where TElement : class
     {
         #region Data
         private bool Initialized { get; set; }
-        private List<TElement> Known { get; } = new List<TElement>();
+        private ObservableCollection<TElement> Known { get; } = new ObservableCollection<TElement>();
         private DrawPile<TElement> _drawPile;
         private DiscardPile<TElement> _discards;
         private Table<TElement> _table;
@@ -27,8 +28,10 @@ namespace Decks
         {
             Contract.Requires(options != null);
 
+            Known.CollectionChanged += OnKnownChanged;
             Options = options;
-            Hands = new ReadOnlyCollection<IHand<TElement>>(HandSet);
+            ListenToOptions();
+            Hands = new ReadOnlyObservableCollection<IHand<TElement>>(HandSet);
             _drawPile = new DrawPile<TElement>(this);
             _discards = new DiscardPile<TElement>(this);
             _table = new Table<TElement>(this);
@@ -41,14 +44,57 @@ namespace Decks
             Initialized = true;
 
         }
+
+        protected virtual void OnKnownChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            NotifyOfPropertyChange(() => Count);
+        }
+        #endregion
+
+        #region Options
+        private void ListenToOptions()
+        {
+            Options.PropertyChanged += OnOptionPropertyChanged;
+            Options.DrawPile.PropertyChanged += OnOptionPropertyChanged;
+            Options.Discards.PropertyChanged += OnOptionPropertyChanged;
+            Options.Table.PropertyChanged += OnOptionPropertyChanged;
+            Options.Tableau.PropertyChanged += OnOptionPropertyChanged;
+            Options.Hands.PropertyChanged += OnOptionPropertyChanged;
+        }
+        private void DeafenToOptions()
+        {
+            Options.PropertyChanged -= OnOptionPropertyChanged;
+            Options.DrawPile.PropertyChanged -= OnOptionPropertyChanged;
+            Options.Discards.PropertyChanged -= OnOptionPropertyChanged;
+            Options.Table.PropertyChanged -= OnOptionPropertyChanged;
+            Options.Tableau.PropertyChanged -= OnOptionPropertyChanged;
+            Options.Hands.PropertyChanged -= OnOptionPropertyChanged;
+        }
+
+        private void OnOptionPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if(sender is DeckOptions)
+            {
+                DeafenToOptions();
+                ListenToOptions();
+            }
+            Refresh();
+        }
+        protected virtual void OnOptionsUpdated() { }
         #endregion
 
         #region Properties
         Internal.IDrawPileInternal<TElement> Internal.IDeckInternal<TElement>.DrawPileStack { get { return _drawPile; } }
         Internal.IDiscardPileInternal<TElement> Internal.IDeckInternal<TElement>.DiscardPileStack { get { return _discards; } }
         Internal.ITableauInternal<TElement> Internal.IDeckInternal<TElement>.TableauStack { get { return _tableau; } }
-        public IDeckOptions Options { get; }
+        Internal.ITableInternal<TElement> Internal.IDeckInternal<TElement>.TableStack { get { return _table; } }
+
+        public ITable<TElement> Table { get { return _table; } }
+        public IDiscardPile<TElement> DiscardPile { get { return _discards; } }
+        public IDrawPile<TElement> DrawPile { get { return _drawPile; } }
         public ITableau<TElement> Tableau { get { return _tableau; } }
+
+        public IDeckOptions Options { get; }
 
 
         #region Counts
@@ -57,8 +103,6 @@ namespace Decks
         #endregion
 
         #region Public Interface
-        public IDiscardPile<TElement> DiscardPile { get { return _discards; } }
-        public IDrawPile<TElement> DrawPile { get { return _drawPile; } }
 
         IDeckEvents<TElement> IDeckInternal<TElement>.Events
         {
@@ -129,6 +173,20 @@ namespace Decks
 
             Add(element, DeckSide.Default, location);
             return this;
+        }
+        /// <summary>
+        /// Plays the top card from the deck to the table.
+        /// </summary>
+        /// <returns>The element played.</returns>
+        public TElement Play()
+        {
+            ((Internal.ITableInternal<TElement>)_table).CheckEnabled();
+            var card = ((Internal.IDrawPileInternal<TElement>)this._drawPile).Draw();
+            ((Internal.ITableInternal<TElement>)_table).Add(card);
+
+            Events.Played(card);
+
+            return card;
         }
 
         /// <summary>

@@ -22,6 +22,8 @@ namespace Decks.Tests
             var deck = new PinochleDeck(options);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
         public void HasJokersDoesntWork()
         {
             // Arrange

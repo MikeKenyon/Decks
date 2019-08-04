@@ -1,6 +1,7 @@
 ﻿using Decks.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,11 @@ namespace Decks
     // Portion of the Deck that deals with hands.
     public partial class Deck<TElement> : IDeck<TElement> where TElement : class
     {
-        private List<IHand<TElement>> HandSet { get; } = new List<IHand<TElement>>();
+        private ObservableCollection<IHand<TElement>> HandSet { get; } = new ObservableCollection<IHand<TElement>>();
         /// <summary>
         /// All of the hands that are currently dealt.
         /// </summary>
-        public IReadOnlyCollection<IHand<TElement>> Hands { get; }
+        public ReadOnlyObservableCollection<IHand<TElement>> Hands { get; }
 
         /// <summary>
         /// Deals out a number of hands to their default handsize.

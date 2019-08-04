@@ -5,6 +5,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Decks.Internal;
+using Caliburn.Micro;
+using System.Collections.Specialized;
+using System.Collections.ObjectModel;
 
 namespace Decks
 {
@@ -12,14 +15,28 @@ namespace Decks
     /// A base class for different types of deck stacks -- hands, table, tableau.
     /// </summary>
     /// <typeparam name="TElement"></typeparam
-    internal class DeckStack<TElement> : IDeckStackInternal<TElement> where TElement : class
+    internal class DeckStack<TElement> : PropertyChangedBase, IDeckStackInternal<TElement> where TElement : class
     {
         public DeckStack(Internal.IDeckInternal<TElement> deck)
         {
             Deck = deck;
         }
+
+        event NotifyCollectionChangedEventHandler INotifyCollectionChanged.CollectionChanged
+        {
+            add
+            {
+                Contents.CollectionChanged += value;
+            }
+
+            remove
+            {
+                Contents.CollectionChanged -= value;
+            }
+        }
+
         protected Internal.IDeckInternal<TElement> Deck { get; }
-        protected List<TElement> Contents { get; } = new List<TElement>();
+        protected ObservableCollection<TElement> Contents { get; } = new ObservableCollection<TElement>();
 
         public int Count { get { return Contents.Count; } }
 

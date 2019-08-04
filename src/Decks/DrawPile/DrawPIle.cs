@@ -50,7 +50,7 @@ namespace Decks
         /// </summary>
         uint IDrawPileInternal<TElement>.ShuffleCount {
             get { return _shuffleCount; }
-            set { _shuffleCount = value; }
+            set { _shuffleCount = value; NotifyOfPropertyChange(); NotifyOfPropertyChange(() => HasBeenShuffled); }
         }
 
         public bool HasBeenShuffled { get { return _shuffleCount > 0; } }

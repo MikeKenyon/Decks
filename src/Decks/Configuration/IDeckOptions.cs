@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace Decks.Configuration
@@ -7,7 +8,7 @@ namespace Decks.Configuration
     /// <summary>
     /// The deck operations.
     /// </summary>
-    public interface IDeckOptions
+    public interface IDeckOptions : INotifyPropertyChanged
     {
         /// <summary>
         /// Get the interaction/eventing interface, should be <see cref="Events.IDeckEvents{TElement}"/>

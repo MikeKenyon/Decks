@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Text;
 
 namespace Decks.Common
@@ -11,9 +12,15 @@ namespace Decks.Common
             ValidateOptions();
         }
 
+        protected override void OnOptionsUpdated()
+        {
+            base.OnOptionsUpdated();
+            ValidateOptions();
+        }
+
         private void ValidateOptions()
         {
-            if(CardOptions.AceMode != AceMode.High)
+            if (CardOptions.AceMode != AceMode.High)
             {
                 throw new ArgumentException("AceMode should always be 'High' for a pinochle deck.", "AceMode");
             }

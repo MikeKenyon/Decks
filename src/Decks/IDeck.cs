@@ -2,6 +2,8 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Text;
 
 namespace Decks
@@ -23,7 +25,7 @@ namespace Decks
     /// </para>
     /// </remarks>
     /// <typeparam name="TElement"></typeparam>
-    public interface IDeck<TElement> where TElement : class
+    public interface IDeck<TElement> : INotifyPropertyChanged where TElement : class
     {
         /// <summary>
         /// The options that this deck is operating under.
@@ -96,7 +98,7 @@ namespace Decks
         /// <summary>
         /// All of the hands that are currently dealt.
         /// </summary>
-        IReadOnlyCollection<IHand<TElement>> Hands { get; }
+        ReadOnlyObservableCollection<IHand<TElement>> Hands { get; }
         #endregion
 
         #region Table

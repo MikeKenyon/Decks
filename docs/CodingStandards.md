@@ -29,7 +29,9 @@ exists as much as possible.
 **CONSIDER** having returned values be read-only interfaces (IReadOnlyCollection<>,
 IEnumerable<>, etc.) whenever it's not inteded for the user to modify a collection.
 
-**CONSIDER** making all collections observable.   This really helps when used in a rich-client UX.
+**DO** making all collections and objects observable.   This really helps when used in a rich-client UX.
+
+**CONSIDER** using the implementation from _Caliburn.Micro.Core_ to do this, they've handled some moderately complex threading issues that occur.
 
 ### General Naming ###
 

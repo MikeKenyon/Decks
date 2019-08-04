@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
 using System.Text;
 
@@ -9,7 +10,18 @@ namespace Decks
     {
         public static Random Rand = new Random(); 
 
-        public static void Shuffle<T>(this List<T> list)
+        public static void AddRange<T>(this ObservableCollection<T> list, IEnumerable<T> toAdd)
+        {
+            Contract.Requires(list != null);
+            Contract.Requires(toAdd != null);
+
+            foreach(var element in toAdd)
+            {
+                list.Add(element);
+            }
+        }
+
+        public static void Shuffle<T>(this ObservableCollection<T> list)
         {
             Contract.Requires(list != null);
 
