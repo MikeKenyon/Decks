@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace Decks.Common
 {
+    [JsonConverter(typeof(Internal.Serialization.PlayingCardSerializer))]
     public class PlayingCard : IComparable<PlayingCard>, IEquatable<PlayingCard>
     {
         internal PlayingCard(PlayingCardOptions options, PlayingCardSuit suit, PlayingCardRank rank)
@@ -13,9 +15,9 @@ namespace Decks.Common
             Suit = suit;
             Options = options;
         }
-        public PlayingCardRank Rank { get; }
-        public PlayingCardSuit Suit { get; }
-        private PlayingCardOptions Options { get; }
+        public PlayingCardRank Rank { get; private set; }
+        public PlayingCardSuit Suit { get; private set; }
+        internal PlayingCardOptions Options { get; set; }
 
         public bool IsRed
         {
@@ -117,49 +119,104 @@ namespace Decks.Common
 
         public override string ToString()
         {
-            if(Rank == PlayingCardRank.Joker)
+            var suit = Suit.ToString();
+            var rank = ((int)Rank).ToString();
+            switch(Suit)
             {
-                return $"{Suit} {Rank}";
+                case PlayingCardSuit.Clubs:
+                    suit = "♣";
+                    break;
+                case PlayingCardSuit.Diamonds:
+                    suit = "♦";
+                    break;
+                case PlayingCardSuit.Hearts:
+                    suit = "♥";
+                    break;
+                case PlayingCardSuit.Spades:
+                    suit = "♠️";
+                    break;
             }
-            else
+            switch(Rank)
             {
-                var suit = string.Empty;
-                switch(Suit)
+                case PlayingCardRank.Ace:
+                    rank = "A";
+                    break;
+                case PlayingCardRank.Jack:
+                    rank = "J";
+                    break;
+                case PlayingCardRank.Queen:
+                    rank = "Q";
+                    break;
+                case PlayingCardRank.King:
+                    rank = "K";
+                    break;
+                case PlayingCardRank.Joker:
+                    rank = Rank.ToString();
+                    break;
+                default:
+                    break;
+            }
+            return $"{suit} {rank}";
+        }
+
+        public static PlayingCard Parse(string text)
+        {
+            if(!TryParse(text, out var card))
+            {
+                throw new FormatException($"'{text}' is not a well-formatted playing card description.");
+            }
+            return card;
+        }
+        public static bool TryParse(string text, out PlayingCard card)
+        {
+            var good = false;
+            var parts = text.Split(' ');
+
+            card = null;
+
+            if(parts.Length == 2)
+            {
+                var suit = parts[0];
+                var rank = parts[1];
+                var foundSuit = PlayingCardSuit.Black;
+                var foundRank = PlayingCardRank.Ace;
+
+                switch(suit)
                 {
-                    case PlayingCardSuit.Clubs:
-                        suit = "♣";
+                    case "♣":
+                        foundSuit = PlayingCardSuit.Clubs;
                         break;
-                    case PlayingCardSuit.Diamonds:
-                        suit = "♦";
+                    case "♦":
+                        foundSuit = PlayingCardSuit.Diamonds;
                         break;
-                    case PlayingCardSuit.Hearts:
-                        suit = "♥";
+                    case "♥":
+                        foundSuit = PlayingCardSuit.Hearts;
                         break;
-                    case PlayingCardSuit.Spades:
-                        suit = "♠️";
-                        break;
-                }
-                var rank = string.Empty;
-                switch(Rank)
-                {
-                    case PlayingCardRank.Ace:
-                        rank = "A";
-                        break;
-                    case PlayingCardRank.Jack:
-                        rank = "J";
-                        break;
-                    case PlayingCardRank.Queen:
-                        rank = "Q";
-                        break;
-                    case PlayingCardRank.King:
-                        rank = "K";
+                    case "♠️":
+                        foundSuit = PlayingCardSuit.Spades;
                         break;
                     default:
-                        rank = ((int)Rank).ToString();
+                        foundSuit = (PlayingCardSuit)
+                            Enum.Parse(typeof(PlayingCardSuit), suit, true);
                         break;
                 }
-                return $"{rank}{suit}";
+                switch(rank)
+                {
+                    case "A": foundRank = PlayingCardRank.Ace; break;
+                    case "J": foundRank = PlayingCardRank.Jack; break;
+                    case "Q": foundRank = PlayingCardRank.Queen; break;
+                    case "K": foundRank = PlayingCardRank.King; break;
+                    case "Joker": foundRank = PlayingCardRank.Joker; break;
+                    default:
+                        foundRank = (PlayingCardRank)Int32.Parse(rank);
+                        break;
+                }
+                card = new PlayingCard(null, foundSuit, foundRank);
+                good = true;
             }
+
+
+            return good;
         }
     }
 }

@@ -22,13 +22,19 @@ namespace Decks.Internal.Serialization
         public JObject Content { get; }
         public JsonSerializer Serializer { get; }
         public IDeckInternal<TElement> Deck { get; set; }
+        public JArray Hands { get; set; }
 
         public void Visit(IDeckInternal<TElement> deck)
         {
             Deck = deck;
+
             if(deck.GetType() != typeof(Deck<TElement>))
             {
                 Content.Add(JsonProperties.TypeName, deck.GetType().FullName);
+            }
+            if(deck.Options.GetType() != typeof(Configuration.DeckOptions))
+            {
+                Content.Add(JsonProperties.OptionsType, deck.Options.GetType().FullName);
             }
             Content.Add(JsonProperties.ElementType, deck.ElementType.FullName);
             Content.Add(JsonProperties.TotalCount, deck.TotalCount);
@@ -39,8 +45,8 @@ namespace Decks.Internal.Serialization
         {
             var obj = new JObject();
             Serialize(obj, drawPile);
+            obj.Add(JsonProperties.ShuffleCount, drawPile.ShuffleCount);
             Content.Add(JsonProperties.DrawPile, obj);
-            Content.Add(JsonProperties.ShuffleCount, drawPile.ShuffleCount);
         }
 
         public void Visit(IDiscardPileInternal<TElement> discards)
@@ -70,12 +76,17 @@ namespace Decks.Internal.Serialization
             }
         }
 
+        public void Visit(IReadOnlyCollection<IHand<TElement>> hands)
+        {
+            Hands = FindHands();
+        }
+
+
         public void Visit(IHandInternal<TElement> element)
         {
-            var hands = FindHands();
             var obj = new JObject();
             Serialize(obj, element);
-            hands.Add(obj);
+            Hands.Add(obj);
         }
 
         #region Helpers

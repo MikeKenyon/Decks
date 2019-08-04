@@ -13,6 +13,7 @@ namespace Decks
     /// <typeparam name="TElement">The elements in the draw pile.</typeparam>
     internal class DrawPile<TElement> : DeckStack<TElement>, IDrawPile<TElement>, Internal.IDrawPileInternal<TElement> where TElement : class
     {
+        private uint _shuffleCount;
         /// <summary>
         /// Constructor for the draw pile.
         /// </summary>
@@ -32,30 +33,33 @@ namespace Decks
         {
             CheckValidToShuffle();
 
-            Deck.Events.Shuffling(ShuffleCount + 1);
+            Deck.Events.Shuffling(_shuffleCount + 1);
 
             if (retreiveDiscards)
             {
                 Deck.DiscardPileStack.Readd();
             }
             Contents.Shuffle();
-            ++ShuffleCount;
+            ++_shuffleCount;
 
-            Deck.Events.Shuffled(ShuffleCount);
+            Deck.Events.Shuffled(_shuffleCount);
         }
 
         /// <summary>
         /// Gets the number of times that a given topdeck has been shuffled.  Some games fix this number.
         /// </summary>
-        public uint ShuffleCount { get; private set; }
+        uint IDrawPileInternal<TElement>.ShuffleCount {
+            get { return _shuffleCount; }
+            set { _shuffleCount = value; }
+        }
 
-        public bool HasBeenShuffled { get { return ShuffleCount > 0; } }
+        public bool HasBeenShuffled { get { return _shuffleCount > 0; } }
 
         private void CheckValidToShuffle()
         {
-            if(Options.MaximumShuffleCount.HasValue && Options.MaximumShuffleCount <= ShuffleCount)
+            if(Options.MaximumShuffleCount.HasValue && Options.MaximumShuffleCount <= _shuffleCount)
             {
-                throw new InvalidOperationException($"Cannot shuffle the deck.  Already shuffled {ShuffleCount} of an allowed {Options.MaximumShuffleCount} times.");
+                throw new InvalidOperationException($"Cannot shuffle the deck.  Already shuffled {_shuffleCount} of an allowed {Options.MaximumShuffleCount} times.");
             }
         }
 

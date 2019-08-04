@@ -14,9 +14,17 @@ namespace Decks.Internal
         Internal.IDiscardPileInternal<TElement> DiscardPileStack { get; }
         Internal.ITableauInternal<TElement> TableauStack { get; }
         Internal.ITableInternal<TElement> TableStack { get; }
-
         Type ElementType { get; }
 
         void RemoveHand(IHand<TElement> hand);
+
+        /// <summary>
+        /// Called before the deck is serialized.
+        /// </summary>
+        void Dehydrating();
+        /// <summary>
+        /// Called after the deck has ben deserialized.
+        /// </summary>
+        void Rehydrated();
     }
 }

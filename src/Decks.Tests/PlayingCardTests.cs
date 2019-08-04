@@ -30,11 +30,11 @@ namespace Decks.Tests
             var t5 = pc5.ToString();
 
             // Assert
-            Assert.AreEqual("7♣", t1);
+            Assert.AreEqual("♣ 7", t1);
             Assert.AreEqual("Red Joker", t2);
-            Assert.AreEqual("A♠️", t3);
-            Assert.AreEqual("Q♦", t4);
-            Assert.AreEqual("10♥", t5);
+            Assert.AreEqual("♠️ A", t3);
+            Assert.AreEqual("♦ Q", t4);
+            Assert.AreEqual("♥ 10", t5);
         }
 
         [TestMethod]

@@ -194,6 +194,22 @@ namespace Decks
         {
 
         }
+
+        /// <summary>
+        /// Called before the deck is serialized.
+        /// </summary>
+        public virtual void Dehydrating() { }
+        /// <summary>
+        /// Called after the deck has ben deserialized.
+        /// </summary>
+        public virtual void Rehydrated() {
+            Known.AddRange(DrawPile);
+            Known.AddRange(DiscardPile);
+            Known.AddRange(Table);
+            Known.AddRange(Tableau);
+            Hands.Apply(h => Known.AddRange(h));
+        }
+
         Type IDeckInternal<TElement>.ElementType
         {
             get
@@ -211,6 +227,7 @@ namespace Decks
             visitor.Visit(me.DiscardPileStack);
             visitor.Visit(me.TableStack);
             visitor.Visit(me.TableauStack);
+            visitor.Visit(Hands);
             foreach(IHandInternal<TElement> hand in Hands)
             {
                 visitor.Visit(hand);

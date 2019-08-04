@@ -32,6 +32,16 @@ namespace Decks.Common
             }
         }
 
+        public override void Rehydrated()
+        {
+            base.Rehydrated();
+            DrawPile.Apply(c => c.Options = CardOptions);
+            DiscardPile.Apply(c => c.Options = CardOptions);
+            Table.Apply(c => c.Options = CardOptions);
+            Tableau.Apply(c => c.Options = CardOptions);
+            Hands.Apply(h => h.Apply(c => c.Options = CardOptions));
+        }
+
         protected PlayingCardOptions CardOptions
         {
             get {

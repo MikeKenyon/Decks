@@ -23,5 +23,10 @@ namespace Decks.Internal
         /// <param name="side">The side of the deck to draw from.</param>
         /// <returns>The drawn card.</returns>
         TElement Draw(DeckSide side = DeckSide.Top);
+        /// <summary>
+        /// Gets the number of times that a given topdeck has been shuffled.  Some games fix this number.
+        /// </summary>
+        uint ShuffleCount { get; set; }
+
     }
 }

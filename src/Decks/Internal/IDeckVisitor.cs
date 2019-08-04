@@ -16,6 +16,8 @@ namespace Decks.Internal
 
         void Visit(ITableauInternal<TElement> tableau);
 
+        void Visit(IReadOnlyCollection<IHand<TElement>> hands);
+
         void Visit(IHandInternal<TElement> element);
     }
 }

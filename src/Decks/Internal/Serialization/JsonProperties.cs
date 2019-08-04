@@ -8,7 +8,7 @@ namespace Decks.Internal.Serialization
     {
         internal const string ElementType = "element";
         internal const string TypeName = "type";
-        internal const string Options = "options";
+        internal const string OptionsType = "optionType";
 
         internal const string NotAvailable = "n/a";
 
@@ -21,5 +21,6 @@ namespace Decks.Internal.Serialization
         internal const string Hands = "hands";
         internal const string Tableau = "tableau";
         internal const string Table = "table";
+        internal const string Options = "options";
     }
 }
