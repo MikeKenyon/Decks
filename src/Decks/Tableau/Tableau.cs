@@ -57,7 +57,8 @@ namespace Decks
         /// the top deck.
         /// </remarks>
         /// <param name="from">Which side of the draw pile we're drawing from.</param>
-        public void DrawUp(DeckSide from = DeckSide.Top)
+        /// <returns>This tableau (for fluent purposes).</returns>
+        public ITableau<TElement> DrawUp(DeckSide from = DeckSide.Top)
         {
             Contract.Requires(Enum.IsDefined(typeof(TableauOverflowRule), Options.OverflowRule));
             ((IDeckStackInternal<TElement>)this).CheckEnabled();
@@ -95,7 +96,7 @@ namespace Decks
                             index = Extensions.Rand.Next(0, Count);
                             break;
                         case TableauOverflowRule.Ignore:
-                            return; // Intentionally return from method, we do nothing here.
+                            return this; // Intentionally return from method, we do nothing here.
                         case TableauOverflowRule.Ask:
                             index = Deck.Events.PickElementToDiscard(this);
                             Contract.Assert(index >= 0 && index < Contents.Count);
@@ -108,12 +109,15 @@ namespace Decks
                     Deck.DiscardPileStack.Add(element);
                 }
             }
+
+            return this;
         }
         /// <summary>
         /// Plays an element from this tableau to the table.
         /// </summary>
         /// <param name="element">The element to play to the table.</param>
-        public void Play(TElement element)
+        /// <returns>This tableau (for fluent purposes).</returns>
+        public ITableau<TElement> Play(TElement element)
         {
             ((IDeckStackInternal<TElement>)this).CheckEnabled();
 
@@ -126,6 +130,8 @@ namespace Decks
             CheckProperSize();
 
             Deck.Events.Played(this, element);
+
+            return this;
         }
 
         /// <summary>
@@ -133,7 +139,8 @@ namespace Decks
         /// </summary>
         /// <param name="element">The element to play to the table.</param>
         /// <param name="hand">The hand to draw it into.</param>
-        public void DrawInto(TElement element, IHand<TElement> hand)
+        /// <returns>This tableau (for fluent purposes).</returns>
+        public ITableau<TElement> DrawInto(TElement element, IHand<TElement> hand)
         {
             Contract.Requires(hand is Internal.IHandInternal<TElement>);
             ((IDeckStackInternal<TElement>)this).CheckEnabled();
@@ -150,6 +157,8 @@ namespace Decks
             CheckProperSize();
 
             Deck.Events.DrewInto(this, hand, element);
+
+            return this;
         }
 
 

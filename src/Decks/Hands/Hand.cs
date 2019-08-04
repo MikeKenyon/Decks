@@ -18,13 +18,21 @@ namespace Decks
         {
         }
         private bool _hasBeenMucked;
+        /// <summary>
+        /// Determines if this hand has previously been mucked.
+        /// </summary>
         public bool HasBeenMucked
         {
             get { return _hasBeenMucked; }
             internal set { _hasBeenMucked = value; NotifyOfPropertyChange(); }
         }
 
-        public void Draw(DeckSide side = DeckSide.Top)
+        /// <summary>
+        /// Draws a card from the draw pile into the hand.
+        /// </summary>
+        /// <param name="from">Where to draw the card from, top or bottom of the deck.</param>
+        /// <returns>This hand (for fluent purposes).</returns>
+        public IHand<TElement> Draw(DeckSide side = DeckSide.Top)
         {
             Contract.Requires(Enum.IsDefined(typeof(DeckSide), side));
 
@@ -34,7 +42,12 @@ namespace Decks
             Contents.Add(card);
 
             Deck.Events.DrewInto(this, card);
+
+            return this;
         }
+        /// <summary>
+        /// Mucks this hand. You should remove this reference after mucking the hand.
+        /// </summary>
         public void Muck()
         {
             Deck.Events.Mucking(this);
@@ -50,10 +63,11 @@ namespace Decks
         /// Plays this element onto the table.
         /// </summary>
         /// <param name="element">The element to play.</param>
+        /// <returns>This hand (for fluent purposes).</returns>
         /// <exception cref="InvalidElementException">
         /// The element isn't part of this hand.
         /// </exception>
-        public void Play(TElement element)
+        public IHand<TElement> Play(TElement element)
         {
             InvalidCheck();
             Deck.TableStack.CheckEnabled();
@@ -68,6 +82,8 @@ namespace Decks
             Deck.TableStack.Add(element);
 
             Deck.Events.Played(this, element);
+
+            return this;
         }
 
         public override bool Contains(TElement element)

@@ -77,14 +77,14 @@ namespace Decks
         /// Deals out a number of hands to their default handsize.
         /// </summary>
         /// <param name="numberOfHands">Number of hands to deal.</param>
-        /// <returns></returns>
+        /// <returns>The dealt hands.</returns>
         IEnumerable<IHand<TElement>> Deal(int numberOfHands);
         /// <summary>
         /// Deals out a number of hands to their default 
         /// </summary>
         /// <param name="numberOfHands">Number of hands to deal.</param>
         /// <param name="handSize">Number of cards in the hand.</param>
-        /// <returns></returns>
+        /// <returns>The dealt hands.</returns>
         IEnumerable<IHand<TElement>> Deal(int numberOfHands, uint handSize);
         /// <summary>
         /// Adds a hand, at its' default hand size.
@@ -94,7 +94,8 @@ namespace Decks
         /// <summary>
         /// Mucks all hands, putting them back into the discard pile.
         /// </summary>
-        void Muck();
+        /// <returns>This deck (for fluent purposes) </returns>
+        IDeck<TElement> Muck();
         /// <summary>
         /// All of the hands that are currently dealt.
         /// </summary>

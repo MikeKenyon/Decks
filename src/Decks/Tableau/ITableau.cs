@@ -32,19 +32,22 @@ namespace Decks
         /// the top deck.
         /// </remarks>
         /// <param name="from">Which side of the draw pile we're drawing from.</param>
-        void DrawUp(DeckSide from = DeckSide.Top);
+        /// <returns>This tableau (for fluent purposes).</returns>
+        ITableau<TElement> DrawUp(DeckSide from = DeckSide.Top);
 
         /// <summary>
         /// Plays an element from this tableau to the table.
         /// </summary>
         /// <param name="element">The element to play to the table.</param>
-        void Play(TElement element);
+        /// <returns>This tableau (for fluent purposes).</returns>
+        ITableau<TElement> Play(TElement element);
 
         /// <summary>
         /// Has a specific hand draw up a given element.
         /// </summary>
         /// <param name="element">The element to play to the table.</param>
         /// <param name="hand">The hand to draw it into.</param>
-        void DrawInto(TElement element, IHand<TElement> hand);
+        /// <returns>This tableau (for fluent purposes).</returns>
+        ITableau<TElement> DrawInto(TElement element, IHand<TElement> hand);
     }
 }

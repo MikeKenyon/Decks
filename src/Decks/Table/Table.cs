@@ -12,7 +12,12 @@ namespace Decks
         public Table(Deck<TElement> deck) : base(deck)
         {
         }
-        public void Discard(TElement element)
+        /// <summary>
+        /// Discards a single element from the table.
+        /// </summary>
+        /// <param name="element">The element to discard.</param>
+        /// <returns>The table (for fluent purposes).</returns>
+        public ITable<TElement> Discard(TElement element)
         {
             ((IDeckStackInternal<TElement>)this).CheckEnabled();
             if (!Contains(element))
@@ -26,8 +31,15 @@ namespace Decks
             Contents.Remove(element);
 
             Deck.Events.Discarded(this, element);
+
+            return this;
         }
-        public void Muck()
+        /// <summary>
+        /// Discards all elements from the table.  Unlike a <see cref="IHand{TElement}"/>, the table persists 
+        /// after this operation.
+        /// </summary>
+        /// <returns>The table (for fluent purposes).</returns>
+        public ITable<TElement> Muck()
         {
             Deck.Events.Mucking(this);
 
@@ -36,13 +48,21 @@ namespace Decks
             Contents.Clear();
 
             Deck.Events.Mucked(this);
+
+            return this;
         }
+        /// <summary>
+        /// Checks to see if the table is enabled (from <see cref="Options"/>).
+        /// </summary>
         public bool Enabled {
             get {
                 return Options.Enabled;
             }
         }
 
+        /// <summary>
+        /// The options pertainent to this table.
+        /// </summary>
         public ITableOptions Options
         {
             get

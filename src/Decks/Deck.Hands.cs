@@ -67,10 +67,13 @@ namespace Decks
         /// <summary>
         /// Mucks all hands, putting them back into the discard pile.
         /// </summary>
-        public void Muck()
+        /// <returns>This deck (for fluent purposes) </returns>
+        public IDeck<TElement> Muck()
         {
             var hands = HandSet.ToArray();
             hands.Apply(h => h.Muck());
+
+            return this;
         }
 
         void Internal.IDeckInternal<TElement>.RemoveHand(IHand<TElement> hand)

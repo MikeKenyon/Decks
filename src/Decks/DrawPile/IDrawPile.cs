@@ -14,6 +14,7 @@ namespace Decks
         /// Optionally gets the discards back and then randomly orders the cards.
         /// </summary>
         /// <param name="retreiveDiscards">Whether or not to clear out the discards.</param>
-        void Shuffle(bool retreiveDiscards = true);
+        /// <returns>Draw pile (for fluent purposes)</returns>
+        IDrawPile<TElement> Shuffle(bool retreiveDiscards = true);
     }
 }

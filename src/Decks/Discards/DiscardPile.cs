@@ -40,7 +40,11 @@ namespace Decks
             // No-Op
         }
 
-        public void Readd(DeckSide side)
+        /// <summary>
+        /// Adds the discards back to the draw pile (usually on the bottom).
+        /// </summary>
+        /// <returns>Discards (for fluent purposes)</returns>
+        public IDiscardPile<TElement> Readd(DeckSide side)
         {
             Deck.Events.PuttingDiscardsBackIntoDrawPile();
 
@@ -48,6 +52,8 @@ namespace Decks
             Contents.Clear();
 
             Deck.Events.PutDiscardsBackIntoDrawPile();
+
+            return this;
         }
     }
 }

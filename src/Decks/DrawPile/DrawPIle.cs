@@ -29,7 +29,8 @@ namespace Decks
         /// Optionally gets the discards back and then randomly orders the cards.
         /// </summary>
         /// <param name="retreiveDiscards">Whether or not to clear out the discards.</param>
-        public void Shuffle(bool retreiveDiscards = true)
+        /// <returns>Draw pile (for fluent purposes)</returns>
+        public IDrawPile<TElement> Shuffle(bool retreiveDiscards = true)
         {
             CheckValidToShuffle();
 
@@ -43,6 +44,8 @@ namespace Decks
             ++_shuffleCount;
 
             Deck.Events.Shuffled(_shuffleCount);
+
+            return this;
         }
 
         /// <summary>
