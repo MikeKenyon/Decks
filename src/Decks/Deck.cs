@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace Decks
 {
-    public partial class Deck<TElement> : IEnumerable<TElement>, Internal.IDeckInternal<TElement> where TElement : class
+    public partial class Deck<TElement> : Internal.IDeckInternal<TElement> where TElement : class
     {
         #region Data
         private bool Initialized { get; set; }
@@ -52,8 +52,7 @@ namespace Decks
 
 
         #region Counts
-        public int Count { get { return _drawPile.Count; } }
-        public int TotalCount { get { return Known.Count; } }
+        public int Count { get { return Known.Count; } }
         #endregion
         #endregion
 
@@ -262,17 +261,5 @@ namespace Decks
 
         #endregion
 
-        #region IEnumerable
-        public IEnumerator<TElement> GetEnumerator()
-        {
-            return ((Internal.IDrawPileInternal<TElement>)this._drawPile).GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return ((Internal.IDrawPileInternal<TElement>)this._drawPile).GetEnumerator();
-        }
-
-        #endregion
     }
 }

@@ -21,10 +21,10 @@ namespace Decks.Tests
             deck.Add("deck.");
             deck.DrawPile.Shuffle();
             // Assert
-            Assert.AreEqual(5, deck.Count);
+            Assert.AreEqual(5, deck.DrawPile.Count);
             Assert.AreEqual(0, deck.Table.Count);
             Assert.AreEqual(0, deck.DiscardPile.Count);
-            Assert.AreEqual(5, deck.TotalCount);
+            Assert.AreEqual(5, deck.Count);
         }
         [TestMethod]
         public void CreateIntoAllLocationsTests()
@@ -45,11 +45,11 @@ namespace Decks.Tests
             deck.Add("deck.", Location.DiscardPile);
             deck.DrawPile.Shuffle(false);
             // Assert
-            Assert.AreEqual(2, deck.Count);
+            Assert.AreEqual(2, deck.DrawPile.Count);
             Assert.AreEqual(1, deck.Table.Count);
             Assert.AreEqual(2, deck.DiscardPile.Count);
             Assert.AreEqual(1, deck.Tableau.Count);
-            Assert.AreEqual(6, deck.TotalCount);
+            Assert.AreEqual(6, deck.Count);
         }
         [TestMethod]
         public void ContainsElements()
@@ -89,10 +89,10 @@ namespace Decks.Tests
             deck.Add("deck.", Location.DiscardPile);
             deck.DrawPile.Shuffle();
             // Assert
-            Assert.AreEqual(4, deck.Count);
+            Assert.AreEqual(4, deck.DrawPile.Count);
             Assert.AreEqual(1, deck.Table.Count);
             Assert.AreEqual(0, deck.DiscardPile.Count);
-            Assert.AreEqual(5, deck.TotalCount);
+            Assert.AreEqual(5, deck.Count);
         }
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]

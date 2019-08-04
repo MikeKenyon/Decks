@@ -23,7 +23,7 @@ namespace Decks
     /// </para>
     /// </remarks>
     /// <typeparam name="TElement"></typeparam>
-    public interface IDeck<TElement> : IEnumerable<TElement> where TElement : class
+    public interface IDeck<TElement> where TElement : class
     {
         /// <summary>
         /// The options that this deck is operating under.
@@ -31,13 +31,9 @@ namespace Decks
         IDeckOptions Options { get; }
 
         /// <summary>
-        /// The cards in the top-deck.
+        /// The total number of elements in the system.
         /// </summary>
         int Count { get; }
-        /// <summary>
-        /// The total cards in the system.
-        /// </summary>
-        int TotalCount { get; }
 
         /// <summary>
         /// Determines if an area contains an element.

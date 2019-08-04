@@ -37,7 +37,7 @@ namespace Decks.Internal.Serialization
                 Content.Add(JsonProperties.OptionsType, deck.Options.GetType().FullName);
             }
             Content.Add(JsonProperties.ElementType, deck.ElementType.FullName);
-            Content.Add(JsonProperties.TotalCount, deck.TotalCount);
+            Content.Add(JsonProperties.TotalCount, deck.Count);
             Content.Add(JsonProperties.Options, JToken.FromObject(deck.Options, Serializer));
         }
 

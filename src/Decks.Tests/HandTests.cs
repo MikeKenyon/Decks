@@ -25,10 +25,10 @@ namespace Decks.Tests
             var hand = deck.Deal();
             hand.Draw();
             // Assert
-            Assert.AreEqual(4, deck.Count);
+            Assert.AreEqual(4, deck.DrawPile.Count);
             Assert.AreEqual(0, deck.Table.Count);
             Assert.AreEqual(0, deck.DiscardPile.Count);
-            Assert.AreEqual(5, deck.TotalCount);
+            Assert.AreEqual(5, deck.Count);
 
             Assert.AreEqual(1, hand.Count);
             Assert.AreEqual("deck.", hand.First());
@@ -55,10 +55,10 @@ namespace Decks.Tests
             Assert.AreEqual("deck.", hand.First());
             // Assert
             hand.Play(hand.First());
-            Assert.AreEqual(4, deck.Count);
+            Assert.AreEqual(4, deck.DrawPile.Count);
             Assert.AreEqual(1, deck.Table.Count);
             Assert.AreEqual(0, deck.DiscardPile.Count);
-            Assert.AreEqual(5, deck.TotalCount);
+            Assert.AreEqual(5, deck.Count);
         }
 
         [TestMethod]
@@ -76,16 +76,16 @@ namespace Decks.Tests
             var hand = deck.Deal();
             // Assert 1
             Assert.AreEqual(3, hand.Count);
-            Assert.AreEqual(5, deck.TotalCount);
-            Assert.AreEqual(2, deck.Count);
+            Assert.AreEqual(5, deck.Count);
+            Assert.AreEqual(2, deck.DrawPile.Count);
             Assert.AreEqual(0, deck.DiscardPile.Count);
             // Act 2
             hand.Muck();
             // Assert 2
             Assert.AreEqual(0, hand.Count);
             Assert.IsTrue(hand.HasBeenMucked);
-            Assert.AreEqual(5, deck.TotalCount);
-            Assert.AreEqual(2, deck.Count);
+            Assert.AreEqual(5, deck.Count);
+            Assert.AreEqual(2, deck.DrawPile.Count);
             Assert.AreEqual(3, deck.DiscardPile.Count);
         }
     }

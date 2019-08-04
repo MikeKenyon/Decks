@@ -70,7 +70,7 @@ namespace Decks
 
             while(Count < size && 
                 (!Options.DrawsUpSafely || 
-                (Deck.Count + Deck.DiscardPile.Count) > 0))
+                (Deck.DrawPile.Count + Deck.DiscardPile.Count) > 0))
             {
                 element = Deck.DrawPileStack.Draw(from);
                 Contents.Add(element);

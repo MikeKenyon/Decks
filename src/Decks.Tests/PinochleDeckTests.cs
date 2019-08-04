@@ -41,7 +41,7 @@ namespace Decks.Tests
             // Act
             var deck = new PinochleDeck(options);
             // Assert
-            Assert.AreEqual(48, deck.Count);
+            Assert.AreEqual(48, deck.DrawPile.Count);
         }
     }
 }

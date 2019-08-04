@@ -179,27 +179,27 @@ namespace Decks.Tests
                 .Add("tableau");
             // Act & Assert
             Assert.AreEqual(1, deck.Tableau.Count);
-            Assert.AreEqual(6, deck.Count);
+            Assert.AreEqual(6, deck.DrawPile.Count);
 
             deck.Tableau.DrawUp();
             Assert.AreEqual(3, deck.Tableau.Count);
-            Assert.AreEqual(4, deck.Count);
+            Assert.AreEqual(4, deck.DrawPile.Count);
             var wasLast = deck.Tableau.Last();
 
             deck.Tableau.Play(deck.Tableau.ElementAt(1));
             Assert.AreEqual(3, deck.Tableau.Count);
-            Assert.AreEqual(3, deck.Count);
+            Assert.AreEqual(3, deck.DrawPile.Count);
             Assert.AreEqual(wasLast, deck.Tableau.ElementAt(1));
 
             var hand = deck.Deal(1, 1).First();
             Assert.AreEqual(3, deck.Tableau.Count);
-            Assert.AreEqual(2, deck.Count);
+            Assert.AreEqual(2, deck.DrawPile.Count);
             Assert.AreEqual(1, deck.Hands.Count);
             Assert.AreEqual(1, hand.Count);
 
             deck.Tableau.DrawInto(deck.Tableau.ElementAt(1), hand);
             Assert.AreEqual(3, deck.Tableau.Count);
-            Assert.AreEqual(1, deck.Count);
+            Assert.AreEqual(1, deck.DrawPile.Count);
             Assert.AreEqual(1, deck.Hands.Count);
             Assert.AreEqual(2, hand.Count);
         }

@@ -26,7 +26,7 @@ namespace Decks.Tests
                 HasJokers = false
             });
             // Assert
-            Assert.AreEqual(52, deck.Count);
+            Assert.AreEqual(52, deck.DrawPile.Count);
             Assert.AreEqual(0, deck.DiscardPile.Count);
         }
 
@@ -51,22 +51,22 @@ namespace Decks.Tests
             {
                 Assert.AreEqual(2, hand.Count);
             }
-            Assert.AreEqual(32, deck.Count);
+            Assert.AreEqual(32, deck.DrawPile.Count);
             Assert.AreEqual(0, deck.DiscardPile.Count);
             Assert.AreEqual(0, deck.Table.Count);
-            Assert.AreEqual(52, deck.TotalCount);
+            Assert.AreEqual(52, deck.Count);
 
             hands.ElementAt(3).Muck();
             Assert.AreEqual(9, deck.Hands.Count);
             Assert.AreEqual(2, deck.DiscardPile.Count);
-            Assert.AreEqual(32, deck.Count);
-            Assert.AreEqual(52, deck.TotalCount);
+            Assert.AreEqual(32, deck.DrawPile.Count);
+            Assert.AreEqual(52, deck.Count);
 
             deck.Muck();
             Assert.AreEqual(0, deck.Hands.Count);
             Assert.AreEqual(20, deck.DiscardPile.Count);
-            Assert.AreEqual(32, deck.Count);
-            Assert.AreEqual(52, deck.TotalCount);
+            Assert.AreEqual(32, deck.DrawPile.Count);
+            Assert.AreEqual(52, deck.Count);
         }
     }
 }
