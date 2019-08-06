@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using Decks.Internal;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Text;
-using Decks.Internal;
 
 namespace Decks
 {
@@ -115,7 +113,7 @@ namespace Decks
         /// </summary>
         private void InvalidCheck()
         {
-            if(HasBeenMucked)
+            if (HasBeenMucked)
             {
                 throw new ObjectDisposedException("Hand");
             }

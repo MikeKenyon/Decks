@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Decks.Events
+﻿namespace Decks.Events
 {
     /// <summary>
     /// Events and interactions about a <see cref="IDeck{TElement}"/>.

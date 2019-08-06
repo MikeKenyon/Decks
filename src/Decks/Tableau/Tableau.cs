@@ -1,9 +1,7 @@
 ﻿using Decks.Configuration;
 using Decks.Internal;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Text;
 
 namespace Decks
 {
@@ -83,8 +81,8 @@ namespace Decks
 
             TElement element = null;
 
-            while(Count < size && 
-                (!Options.DrawsUpSafely || 
+            while (Count < size &&
+                (!Options.DrawsUpSafely ||
                 (Deck.DrawPile.Count + Deck.DiscardPile.Count) > 0))
             {
                 element = Deck.DrawPileStack.Draw(from);
@@ -92,7 +90,7 @@ namespace Decks
 
                 Deck.Events.DrewInto(this, element);
             }
-            if(Options.MaximumSize.HasValue)
+            if (Options.MaximumSize.HasValue)
             {
                 var max = Options.MaximumSize.Value;
                 while (Count > max)
@@ -167,7 +165,7 @@ namespace Decks
             var h = hand as Internal.IHandInternal<TElement>;
 
             Contents.Remove(element);
-            h.Add(element); 
+            h.Add(element);
             CheckProperSize();
 
             Deck.Events.DrewInto(this, hand, element);
@@ -186,7 +184,7 @@ namespace Decks
                 DrawUp();
             }
         }
-        
+
         /// <summary>
         /// Adds an element to this tableau.
         /// </summary>

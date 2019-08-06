@@ -1,9 +1,5 @@
-﻿using Decks.Configuration;
-using Decks.Internal;
+﻿using Decks.Internal;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Decks
 {
@@ -51,7 +47,8 @@ namespace Decks
         /// <summary>
         /// Gets the number of times that a given topdeck has been shuffled.  Some games fix this number.
         /// </summary>
-        uint IDrawPileInternal<TElement>.ShuffleCount {
+        uint IDrawPileInternal<TElement>.ShuffleCount
+        {
             get { return _shuffleCount; }
             set { _shuffleCount = value; NotifyOfPropertyChange(); NotifyOfPropertyChange(() => HasBeenShuffled); }
         }
@@ -66,7 +63,7 @@ namespace Decks
         /// </summary>
         private void CheckValidToShuffle()
         {
-            if(Options.MaximumShuffleCount.HasValue && Options.MaximumShuffleCount <= _shuffleCount)
+            if (Options.MaximumShuffleCount.HasValue && Options.MaximumShuffleCount <= _shuffleCount)
             {
                 throw new InvalidOperationException($"Cannot shuffle the deck.  Already shuffled {_shuffleCount} of an allowed {Options.MaximumShuffleCount} times.");
             }
@@ -88,7 +85,7 @@ namespace Decks
         /// <param name="side">Which side of the stack to add the element to.  Allows for putting cards on the bottom of the deck.</param>
         void IDrawPileInternal<TElement>.Add(TElement element, DeckSide side)
         {
-            switch(side)
+            switch (side)
             {
                 case DeckSide.Bottom:
                     Contents.Add(element);

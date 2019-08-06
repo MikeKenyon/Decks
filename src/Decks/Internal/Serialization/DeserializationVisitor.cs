@@ -1,9 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Decks.Internal.Serialization
 {
@@ -28,7 +26,7 @@ namespace Decks.Internal.Serialization
         {
             var pile = (JObject)Content[JsonProperties.DrawPile];
             Load(pile, drawPile);
-            drawPile.ShuffleCount = (uint) pile[JsonProperties.ShuffleCount];
+            drawPile.ShuffleCount = (uint)pile[JsonProperties.ShuffleCount];
         }
 
         public void Visit(IDiscardPileInternal<TElement> discards)
@@ -56,13 +54,13 @@ namespace Decks.Internal.Serialization
         }
         public void Visit(IReadOnlyCollection<IHand<TElement>> hands)
         {
-            if(Content.ContainsKey(JsonProperties.Hands))
+            if (Content.ContainsKey(JsonProperties.Hands))
             {
                 var handArray = (JArray)Content[JsonProperties.Hands];
-                foreach(JObject handContent in handArray)
+                foreach (JObject handContent in handArray)
                 {
                     var hand = Deck.Deal(1, 0).First();
-                    Load(handContent, (IHandInternal<TElement>) hand);
+                    Load(handContent, (IHandInternal<TElement>)hand);
                 }
             }
         }
@@ -76,7 +74,7 @@ namespace Decks.Internal.Serialization
         {
             var array = (JArray)pile[JsonProperties.Elements];
 
-            foreach(var item in array)
+            foreach (var item in array)
             {
                 stack.Add(item.ToObject<TElement>(Serializer));
             }

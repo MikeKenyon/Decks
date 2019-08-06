@@ -1,7 +1,5 @@
 ﻿using Decks.Events;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Decks.Internal.Events
 {
@@ -11,7 +9,7 @@ namespace Decks.Internal.Events
     /// <typeparam name="TElement">The elements in the deck.</typeparam>
     internal class EmptyDeckEvents<TElement> : IDeckEvents<TElement> where TElement : class
     {
-        private static Lazy<EmptyDeckEvents<TElement>> _singleton = new Lazy<EmptyDeckEvents<TElement>>();
+        private static readonly Lazy<EmptyDeckEvents<TElement>> _singleton = new Lazy<EmptyDeckEvents<TElement>>();
 
         /// <summary>
         /// Gets the one and only version of this.

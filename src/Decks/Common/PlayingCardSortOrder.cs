@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Decks.Common
+﻿namespace Decks.Common
 {
     /// <summary>
     /// How the playing cards in a deck should be sorted.

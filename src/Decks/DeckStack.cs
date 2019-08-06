@@ -1,13 +1,10 @@
-﻿using Decks.Configuration;
-using Newtonsoft.Json;
+﻿using Caliburn.Micro;
+using Decks.Internal;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Decks.Internal;
-using Caliburn.Micro;
-using System.Collections.Specialized;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 namespace Decks
 {
@@ -100,7 +97,7 @@ namespace Decks
         /// <returns>A iterator over this collection.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
 
         /// <summary>

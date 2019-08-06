@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
+﻿using System.ComponentModel;
 
 namespace Decks.Configuration
 {
@@ -18,7 +15,7 @@ namespace Decks.Configuration
         /// If set to <see langword="true"/> the deck is modifiable after the <see cref="Deck{TElement}.Initialize"/> method has finished.Default is 
         /// to allow this.
         /// </summary>
-        bool Modifiable { get;  }
+        bool Modifiable { get; }
 
         /// <summary>
         /// Options for the <see cref="IDeck{TElement}.DrawPile"/>.

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Decks.Common
+﻿namespace Decks.Common
 {
     /// <summary>
     /// The options used for a pinochle deck.

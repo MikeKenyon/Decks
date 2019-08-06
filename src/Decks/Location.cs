@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Decks
+﻿namespace Decks
 {
     /// <summary>
     /// Defines a location that's part of the stack.

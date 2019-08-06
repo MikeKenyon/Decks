@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Text;
 
 namespace Decks.Common
 {
@@ -50,9 +47,9 @@ namespace Decks.Common
         protected override void Initialize()
         {
             var options = CardOptions;
-            for (int rank = 9; rank <= (int)PlayingCardRank.King; ++rank)
+            for (var rank = 9; rank <= (int)PlayingCardRank.King; ++rank)
             {
-                for (int suit = (int)PlayingCardSuit.Clubs;
+                for (var suit = (int)PlayingCardSuit.Clubs;
                     suit <= (int)PlayingCardSuit.Spades; ++suit)
                 {
                     // Add two of each card.
@@ -63,7 +60,7 @@ namespace Decks.Common
                 }
             }
             // Aces
-            for (int suit = (int)PlayingCardSuit.Clubs;
+            for (var suit = (int)PlayingCardSuit.Clubs;
                 suit <= (int)PlayingCardSuit.Spades; ++suit)
             {
                 // Add two of each card.

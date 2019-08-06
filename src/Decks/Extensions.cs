@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
-using System.Text;
 
 namespace Decks
 {
@@ -14,7 +13,7 @@ namespace Decks
         /// <summary>
         /// The random number seed for this project.
         /// </summary>
-        public static readonly Random Rand = new Random(); 
+        public static readonly Random Rand = new Random();
 
         /// <summary>
         /// Adds all elements to an observable collection.
@@ -28,7 +27,7 @@ namespace Decks
             Contract.Requires(list != null);
             Contract.Requires(toAdd != null);
 
-            foreach(var element in toAdd)
+            foreach (var element in toAdd)
             {
                 list.Add(element);
             }
@@ -45,7 +44,7 @@ namespace Decks
 
             var count = list.Count;
             var last = count - 1;
-            for(int i = 0; i < last; ++i)
+            for (var i = 0; i < last; ++i)
             {
                 var r = Rand.Next(i, count);
                 var tmp = list[i];
@@ -65,7 +64,7 @@ namespace Decks
             Contract.Requires(list != null);
             Contract.Requires(todo != null);
 
-            foreach(var item in list)
+            foreach (var item in list)
             {
                 todo(item);
             }

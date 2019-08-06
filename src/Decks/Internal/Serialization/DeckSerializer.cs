@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Reflection.Metadata;
-using System.Text;
-using Decks.Configuration;
+﻿using Decks.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 
 namespace Decks.Internal.Serialization
 {
@@ -15,8 +11,8 @@ namespace Decks.Internal.Serialization
             IDeckInternal<TElement> existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             var token = JToken.ReadFrom(reader);
-            
-            switch(token.Type)
+
+            switch (token.Type)
             {
                 case JTokenType.Null:
                     return null;
@@ -44,14 +40,14 @@ namespace Decks.Internal.Serialization
             var options = job[JsonProperties.Options].ToObject(optionType);
 
 
-            if(type.IsGenericType && !type.IsConstructedGenericType)
+            if (type.IsGenericType && !type.IsConstructedGenericType)
             {
                 var cType = type.MakeGenericType(elementType);
                 return (IDeckInternal<TElement>)Activator.CreateInstance(cType, options, false);
             }
             else
             {
-                return (IDeckInternal<TElement>) Activator.CreateInstance(type, options, false);
+                return (IDeckInternal<TElement>)Activator.CreateInstance(type, options, false);
             }
         }
 

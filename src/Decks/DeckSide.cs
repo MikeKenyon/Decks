@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Decks
+﻿namespace Decks
 {
     /// <summary>
     /// The side of a stack (draw pile, discards, etc.) that you want to perform an operation on.  This allows for bottom-dealing and burying cards - operations that are 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Decks.Common
+﻿namespace Decks.Common
 {
     /// <summary>
     /// How aces are handled.

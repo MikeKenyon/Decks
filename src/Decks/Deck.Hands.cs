@@ -1,10 +1,7 @@
-﻿using Decks.Configuration;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Text;
 
 namespace Decks
 {
@@ -50,15 +47,15 @@ namespace Decks
 
             Events.Dealing(ref numberOfHands, ref handSize);
             var hands = new Internal.IHandInternal<TElement>[numberOfHands];
-            for (int i = 0; i < hands.Length; ++i)
+            for (var i = 0; i < hands.Length; ++i)
             {
                 hands[i] = new Hand<TElement>(this);
             }
-            for (int card = 0; card < handSize; ++card)
+            for (var card = 0; card < handSize; ++card)
             {
-                for (int deck = 0; deck < hands.Length; ++deck)
+                for (var deck = 0; deck < hands.Length; ++deck)
                 {
-                    hands[deck].Add(((Internal.IDrawPileInternal<TElement>)this._drawPile).Draw());
+                    hands[deck].Add(((Internal.IDrawPileInternal<TElement>)_drawPile).Draw());
                 }
             }
             HandSet.AddRange(hands);

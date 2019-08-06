@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Decks
+﻿namespace Decks
 {
     /// <summary>
     /// A hand is a collection of elements from a specific deck that are owned usually by a specific player.  

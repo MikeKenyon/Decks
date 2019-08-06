@@ -1,8 +1,6 @@
 ﻿using Decks.Configuration;
 using Decks.Internal;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Decks
 {
@@ -62,8 +60,10 @@ namespace Decks
         /// <summary>
         /// Checks to see if the table is enabled (from <see cref="Options"/>).
         /// </summary>
-        public bool Enabled {
-            get {
+        public bool Enabled
+        {
+            get
+            {
                 return Options.Enabled;
             }
         }

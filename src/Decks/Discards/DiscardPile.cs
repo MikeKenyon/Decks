@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Decks.Internal;
+﻿using Decks.Internal;
 
 namespace Decks
 {
@@ -75,7 +72,7 @@ namespace Decks
         {
             Deck.Events.PuttingDiscardsBackIntoDrawPile();
 
-            Contents.Apply(c => Deck.DrawPileStack.Add(c,side));
+            Contents.Apply(c => Deck.DrawPileStack.Add(c, side));
             Contents.Clear();
 
             Deck.Events.PutDiscardsBackIntoDrawPile();

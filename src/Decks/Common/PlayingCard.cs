@@ -1,8 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Decks.Common
 {
@@ -125,9 +122,9 @@ namespace Decks.Common
             {
                 compare = Rank.CompareTo(other.Rank);
             }
-            if(compare == 0)
+            if (compare == 0)
             {
-                compare = Array.IndexOf(suits, this.Suit)
+                compare = Array.IndexOf(suits, Suit)
                             .CompareTo(Array.IndexOf(suits, other.Suit));
             }
             return compare;
@@ -140,7 +137,7 @@ namespace Decks.Common
         /// <returns>Standard comparison value - negative is less than, 0 is equal, positive is greater than.</returns>
         public bool Equals(PlayingCard other)
         {
-            return this.CompareTo(other) == 0;
+            return CompareTo(other) == 0;
         }
         /// <summary>
         /// Compares this card to another.
@@ -168,7 +165,7 @@ namespace Decks.Common
         {
             var suit = Suit.ToString();
             var rank = ((int)Rank).ToString();
-            switch(Suit)
+            switch (Suit)
             {
                 case PlayingCardSuit.Clubs:
                     suit = "♣";
@@ -183,7 +180,7 @@ namespace Decks.Common
                     suit = "♠️";
                     break;
             }
-            switch(Rank)
+            switch (Rank)
             {
                 case PlayingCardRank.Ace:
                     rank = "A";
@@ -213,7 +210,7 @@ namespace Decks.Common
         /// <returns>The parsed result.</returns>
         public static PlayingCard Parse(string text)
         {
-            if(!TryParse(text, out var card))
+            if (!TryParse(text, out var card))
             {
                 throw new FormatException($"'{text}' is not a well-formatted playing card description.");
             }
@@ -232,14 +229,14 @@ namespace Decks.Common
 
             card = null;
 
-            if(parts.Length == 2)
+            if (parts.Length == 2)
             {
                 var suit = parts[0];
                 var rank = parts[1];
                 var foundSuit = PlayingCardSuit.Black;
                 var foundRank = PlayingCardRank.Ace;
 
-                switch(suit)
+                switch (suit)
                 {
                     case "♣":
                         foundSuit = PlayingCardSuit.Clubs;
@@ -258,7 +255,7 @@ namespace Decks.Common
                             Enum.Parse(typeof(PlayingCardSuit), suit, true);
                         break;
                 }
-                switch(rank)
+                switch (rank)
                 {
                     case "A": foundRank = PlayingCardRank.Ace; break;
                     case "J": foundRank = PlayingCardRank.Jack; break;
@@ -266,7 +263,7 @@ namespace Decks.Common
                     case "K": foundRank = PlayingCardRank.King; break;
                     case "Joker": foundRank = PlayingCardRank.Joker; break;
                     default:
-                        foundRank = (PlayingCardRank)Int32.Parse(rank);
+                        foundRank = (PlayingCardRank)int.Parse(rank);
                         break;
                 }
                 card = new PlayingCard(null, foundSuit, foundRank);

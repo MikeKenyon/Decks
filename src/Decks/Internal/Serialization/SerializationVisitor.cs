@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata;
-using System.Text;
 
 namespace Decks.Internal.Serialization
 {
@@ -28,11 +25,11 @@ namespace Decks.Internal.Serialization
         {
             Deck = deck;
 
-            if(deck.GetType() != typeof(Deck<TElement>))
+            if (deck.GetType() != typeof(Deck<TElement>))
             {
                 Content.Add(JsonProperties.TypeName, deck.GetType().FullName);
             }
-            if(deck.Options.GetType() != typeof(Configuration.DeckOptions))
+            if (deck.Options.GetType() != typeof(Configuration.DeckOptions))
             {
                 Content.Add(JsonProperties.OptionsType, deck.Options.GetType().FullName);
             }
@@ -94,7 +91,7 @@ namespace Decks.Internal.Serialization
         private void Serialize(JObject obj, IDeckStackInternal<TElement> stack)
         {
             var array = new JArray();
-            foreach(var item in stack)
+            foreach (var item in stack)
             {
                 array.Add(JToken.FromObject(item, Serializer));
             }
@@ -103,7 +100,7 @@ namespace Decks.Internal.Serialization
 
         private JArray FindHands()
         {
-            if(Content.ContainsKey(JsonProperties.Hands))
+            if (Content.ContainsKey(JsonProperties.Hands))
             {
                 return (JArray)Content[JsonProperties.Hands];
             }

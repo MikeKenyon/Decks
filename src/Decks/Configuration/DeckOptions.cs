@@ -1,7 +1,4 @@
 ﻿using Caliburn.Micro;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Decks.Configuration
 {
@@ -37,7 +34,7 @@ namespace Decks.Configuration
         /// <summary>
         /// Options for the <see cref="IDeck{TElement}.DrawPile"/>.
         /// </summary>
-        IDrawPileOptions IDeckOptions.DrawPile { get { return this.DrawPile; } }
+        IDrawPileOptions IDeckOptions.DrawPile { get { return DrawPile; } }
 
         /// <summary>
         /// Options for player hands.
@@ -46,7 +43,7 @@ namespace Decks.Configuration
         /// <summary>
         /// Options for player hands.
         /// </summary>
-        IHandOptions IDeckOptions.Hands { get { return this.Hands; } }
+        IHandOptions IDeckOptions.Hands { get { return Hands; } }
 
         /// <summary>
         /// Options for how to deal with discards.
@@ -55,7 +52,7 @@ namespace Decks.Configuration
         /// <summary>
         /// Options for how to deal with discards.
         /// </summary>
-        IDiscardOptions IDeckOptions.Discards { get { return this.Discards; } }
+        IDiscardOptions IDeckOptions.Discards { get { return Discards; } }
 
 
         /// <summary>
@@ -66,7 +63,7 @@ namespace Decks.Configuration
         /// <summary>
         /// Options for the play table.  This is the common shared space for all players.
         /// </summary>
-        ITableOptions IDeckOptions.Table { get { return this.Table; } }
+        ITableOptions IDeckOptions.Table { get { return Table; } }
 
         /// <summary>
         /// Options for the tableau.
@@ -76,6 +73,6 @@ namespace Decks.Configuration
         /// <summary>
         /// Options for the tableau.
         /// </summary>
-        ITableauOptions IDeckOptions.Tableau { get { return this.Tableau; } }
+        ITableauOptions IDeckOptions.Tableau { get { return Tableau; } }
     }
 }

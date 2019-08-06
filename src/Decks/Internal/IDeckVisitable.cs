@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Decks.Internal
+﻿namespace Decks.Internal
 {
     /// <summary>
     /// An element that knows how to accept a <see cref="IDeckVisitor{TElement}"/>.  An implementation of the

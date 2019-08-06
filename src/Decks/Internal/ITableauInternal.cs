@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Decks.Internal
+﻿namespace Decks.Internal
 {
     /// <summary>
     /// The internal interface to the tableau.

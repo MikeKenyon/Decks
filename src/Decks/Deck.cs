@@ -1,14 +1,11 @@
-﻿using Decks.Configuration;
+﻿using Caliburn.Micro;
+using Decks.Configuration;
 using Decks.Events;
 using Decks.Internal;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using Newtonsoft.Json;
-using Caliburn.Micro;
 
 namespace Decks
 {
@@ -21,10 +18,10 @@ namespace Decks
         #region Data
         private bool Initialized { get; set; }
         private ObservableCollection<TElement> Known { get; } = new ObservableCollection<TElement>();
-        private DrawPile<TElement> _drawPile;
-        private DiscardPile<TElement> _discards;
-        private Table<TElement> _table;
-        private Tableau<TElement> _tableau;
+        private readonly DrawPile<TElement> _drawPile;
+        private readonly DiscardPile<TElement> _discards;
+        private readonly Table<TElement> _table;
+        private readonly Tableau<TElement> _tableau;
         #endregion
 
         #region Construction
@@ -100,7 +97,7 @@ namespace Decks
         /// <param name="e">The event argument that indicates the options.</param>
         private void OnOptionPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if(sender is DeckOptions)
+            if (sender is DeckOptions)
             {
                 DeafenToOptions();
                 ListenToOptions();
@@ -171,7 +168,7 @@ namespace Decks
         {
             get
             {
-                return this.Events;
+                return Events;
             }
         }
         /// <summary>
@@ -213,14 +210,14 @@ namespace Decks
         {
             Contract.Requires(Enum.IsDefined(typeof(Location), location));
 
-            switch(location)
+            switch (location)
             {
                 case Location.DiscardPile:
                     return DiscardPile.Contains(element);
                 case Location.Hand:
                     return HandSet.Any(hand => hand.Contains(element));
                 case Location.Table:
-                    return Table.Contains(element);   
+                    return Table.Contains(element);
                 case Location.TopDeck:
                     return DrawPile.Contains(element);
             }
@@ -247,7 +244,7 @@ namespace Decks
         public TElement Play()
         {
             ((Internal.ITableInternal<TElement>)_table).CheckEnabled();
-            var card = ((Internal.IDrawPileInternal<TElement>)this._drawPile).Draw();
+            var card = ((Internal.IDrawPileInternal<TElement>)_drawPile).Draw();
             ((Internal.ITableInternal<TElement>)_table).Add(card);
 
             Events.Played(card);
@@ -271,10 +268,10 @@ namespace Decks
             switch (location)
             {
                 case Location.TopDeck:
-                    ((Internal.IDrawPileInternal<TElement>)this._drawPile).Add(element, side);
+                    ((Internal.IDrawPileInternal<TElement>)_drawPile).Add(element, side);
                     break;
                 case Location.DiscardPile:
-                    ((Internal.IDiscardPileInternal<TElement>)this._discards).Add(element, side);
+                    ((Internal.IDiscardPileInternal<TElement>)_discards).Add(element, side);
                     break;
                 case Location.Table:
                     if (side != DeckSide.Default)
@@ -283,7 +280,7 @@ namespace Decks
                     }
                     else
                     {
-                        ((Internal.ITableInternal<TElement>)this._table).Add(element);
+                        ((Internal.ITableInternal<TElement>)_table).Add(element);
                     }
                     break;
                 case Location.Tableau:
@@ -293,7 +290,7 @@ namespace Decks
                     }
                     else
                     {
-                        ((Internal.ITableauInternal<TElement>)this._tableau).Add(element);
+                        ((Internal.ITableauInternal<TElement>)_tableau).Add(element);
                     }
                     break;
                 case Location.Hand:
@@ -325,7 +322,8 @@ namespace Decks
         /// <summary>
         /// Called after the deck has ben deserialized.
         /// </summary>
-        public virtual void Rehydrated() {
+        public virtual void Rehydrated()
+        {
             Known.AddRange(DrawPile);
             Known.AddRange(DiscardPile);
             Known.AddRange(Table);
@@ -359,12 +357,12 @@ namespace Decks
             visitor.Visit(me.TableStack);
             visitor.Visit(me.TableauStack);
             visitor.Visit(Hands);
-            foreach(IHandInternal<TElement> hand in Hands)
+            foreach (IHandInternal<TElement> hand in Hands)
             {
                 visitor.Visit(hand);
             }
         }
-        
+
         #endregion
 
         #region Protected Helpers
@@ -388,7 +386,7 @@ namespace Decks
         /// </summary>
         private void CheckAllowAdd()
         {
-            if(Initialized && !Options.Modifiable)
+            if (Initialized && !Options.Modifiable)
             {
                 throw new InvalidOperationException("Cannot modify this deck directly, the deck has been initialized.");
             }

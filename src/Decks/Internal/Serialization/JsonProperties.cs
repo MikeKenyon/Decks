@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Decks.Internal.Serialization
+﻿namespace Decks.Internal.Serialization
 {
     internal static class JsonProperties
     {

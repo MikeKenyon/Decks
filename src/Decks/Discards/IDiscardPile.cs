@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Decks
+﻿namespace Decks
 {
     /// <summary>
     /// This is the stack that contains elements that have been discarded from hands, the table, etc.  The discarded elements

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
-
-namespace Decks.Common
+﻿namespace Decks.Common
 {
     /// <summary>
     /// The suits in the deck.

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Decks
+﻿namespace Decks
 {
     /// <summary>
     /// A tableau is an area with face-up elements.  It is backfilled from the top-deck.

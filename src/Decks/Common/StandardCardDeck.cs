@@ -1,7 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Decks.Common
 {
@@ -16,7 +13,7 @@ namespace Decks.Common
         /// </summary>
         /// <param name="options">The options used to create the deck.</param>
         /// <param name="doInitialize">Whether or initialize this deck's contents or not.</param>
-        public StandardCardDeck(PlayingCardOptions options, bool doInitialize = true): base(options, doInitialize)
+        public StandardCardDeck(PlayingCardOptions options, bool doInitialize = true) : base(options, doInitialize)
         {
         }
 
@@ -26,16 +23,16 @@ namespace Decks.Common
         protected override void Initialize()
         {
             var options = CardOptions;
-            for (int rank = 1; rank < (int)PlayingCardRank.Joker; ++rank)
+            for (var rank = 1; rank < (int)PlayingCardRank.Joker; ++rank)
             {
-                for(int suit = (int)PlayingCardSuit.Clubs; 
+                for (var suit = (int)PlayingCardSuit.Clubs;
                     suit <= (int)PlayingCardSuit.Spades; ++suit)
                 {
                     Add(new PlayingCard(options,
                         (PlayingCardSuit)suit, (PlayingCardRank)rank));
                 }
             }
-            if(options.HasJokers)
+            if (options.HasJokers)
             {
                 Add(new PlayingCard(options, PlayingCardSuit.Black, PlayingCardRank.Joker));
                 Add(new PlayingCard(options, PlayingCardSuit.Red, PlayingCardRank.Joker));
@@ -60,7 +57,8 @@ namespace Decks.Common
         /// </summary>
         protected PlayingCardOptions CardOptions
         {
-            get {
+            get
+            {
                 return (PlayingCardOptions)Options;
             }
         }

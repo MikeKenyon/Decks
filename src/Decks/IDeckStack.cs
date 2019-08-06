@@ -9,7 +9,7 @@ namespace Decks
     /// the table itself, etc.  Each is represented by a stack.
     /// </summary>
     /// <typeparam name="TElement"></typeparam>
-    public interface IDeckStack<TElement> : IReadOnlyCollection<TElement>, INotifyPropertyChanged, INotifyCollectionChanged 
+    public interface IDeckStack<TElement> : IReadOnlyCollection<TElement>, INotifyPropertyChanged, INotifyCollectionChanged
         where TElement : class
     {
         /// <summary>

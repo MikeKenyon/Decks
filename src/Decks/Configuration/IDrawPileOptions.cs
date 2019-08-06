@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
+﻿using System.ComponentModel;
 
 namespace Decks.Configuration
 {
@@ -14,6 +11,6 @@ namespace Decks.Configuration
         /// The number of times the deck can be reshuffled.  0, 1, 3 and a negative number are the most commonly 
         /// set numbers.  <see langword="null" /> is unlimited, which is the default.
         /// </summary>
-        uint? MaximumShuffleCount { get; } 
+        uint? MaximumShuffleCount { get; }
     }
 }
