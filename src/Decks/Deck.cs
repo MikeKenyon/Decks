@@ -12,6 +12,10 @@ using Caliburn.Micro;
 
 namespace Decks
 {
+    /// <summary>
+    /// The root type for the deck.  The deck unifies access to the different stacks that comprise the whole ecosystem.
+    /// </summary>
+    /// <typeparam name="TElement"></typeparam>
     public partial class Deck<TElement> : PropertyChangedBase, Internal.IDeckInternal<TElement> where TElement : class
     {
         #region Data
@@ -24,6 +28,14 @@ namespace Decks
         #endregion
 
         #region Construction
+        /// <summary>
+        /// The general construction of a deck.  
+        /// </summary>
+        /// <param name="options">The options that denotw how this deck is supposed to operate.</param>
+        /// <param name="doInitialize">
+        /// Whether or not to run the initialization routine.  This is generally <see langword="true"/> for creating a deck and
+        /// <see langword="false"/> when deserializing the deck.
+        /// </param>
         public Deck(IDeckOptions options, bool doInitialize = true)
         {
             Contract.Requires(options != null);
@@ -44,7 +56,11 @@ namespace Decks
             Initialized = true;
 
         }
-
+        /// <summary>
+        /// When the overall contents of the ecosystem change, this is called.
+        /// </summary>
+        /// <param name="sender">The sending collection,</param>
+        /// <param name="e">The collection changed events.</param>
         protected virtual void OnKnownChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             NotifyOfPropertyChange(() => Count);
@@ -52,6 +68,9 @@ namespace Decks
         #endregion
 
         #region Options
+        /// <summary>
+        /// Starts listening to the options.
+        /// </summary>
         private void ListenToOptions()
         {
             Options.PropertyChanged += OnOptionPropertyChanged;
@@ -61,6 +80,9 @@ namespace Decks
             Options.Tableau.PropertyChanged += OnOptionPropertyChanged;
             Options.Hands.PropertyChanged += OnOptionPropertyChanged;
         }
+        /// <summary>
+        /// Stops listening to the options.
+        /// </summary>
         private void DeafenToOptions()
         {
             Options.PropertyChanged -= OnOptionPropertyChanged;
@@ -71,6 +93,11 @@ namespace Decks
             Options.Hands.PropertyChanged -= OnOptionPropertyChanged;
         }
 
+        /// <summary>
+        /// Flagged when any property in the options tree is changed.
+        /// </summary>
+        /// <param name="sender">The changed options object.</param>
+        /// <param name="e">The event argument that indicates the options.</param>
         private void OnOptionPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if(sender is DeckOptions)
@@ -80,30 +107,66 @@ namespace Decks
             }
             Refresh();
         }
+        /// <summary>
+        /// Called when the optiosn for this deck have been updated.
+        /// </summary>
         protected virtual void OnOptionsUpdated() { }
         #endregion
 
         #region Properties
+        /// <summary>
+        /// The internal representation of the <see cref="IDrawPile{TElement}"/>.
+        /// </summary>
         Internal.IDrawPileInternal<TElement> Internal.IDeckInternal<TElement>.DrawPileStack { get { return _drawPile; } }
+        /// <summary>
+        /// The internal representation of the <see cref="IDiscardPile{TElement}"/>.
+        /// </summary>
         Internal.IDiscardPileInternal<TElement> Internal.IDeckInternal<TElement>.DiscardPileStack { get { return _discards; } }
+        /// <summary>
+        /// The internal representation of the <see cref="ITableau{TElement}"/>.
+        /// </summary>
         Internal.ITableauInternal<TElement> Internal.IDeckInternal<TElement>.TableauStack { get { return _tableau; } }
+        /// <summary>
+        /// The internal representation of the <see cref="ITable{TElement}"/>.
+        /// </summary>
         Internal.ITableInternal<TElement> Internal.IDeckInternal<TElement>.TableStack { get { return _table; } }
 
+        /// <summary>
+        /// The elements from this stacck that are sitting on the play table.
+        /// </summary>
         public ITable<TElement> Table { get { return _table; } }
+        /// <summary>
+        /// The elements that have been discarded.
+        /// </summary>
         public IDiscardPile<TElement> DiscardPile { get { return _discards; } }
+        /// <summary>
+        /// The elements that can be drawn from.
+        /// </summary>
         public IDrawPile<TElement> DrawPile { get { return _drawPile; } }
+        /// <summary>
+        /// A palette of elements that are visible from this deck and can be drawn from.
+        /// </summary>
         public ITableau<TElement> Tableau { get { return _tableau; } }
 
+        /// <summary>
+        /// The options for this deck.
+        /// </summary>
         public IDeckOptions Options { get; }
 
 
         #region Counts
+        /// <summary>
+        /// The count of all elements from all different stacks.
+        /// </summary>
         public int Count { get { return Known.Count; } }
         #endregion
         #endregion
 
         #region Public Interface
 
+        /// <summary>
+        /// The collection of events that are in use.
+        /// </summary>
         IDeckEvents<TElement> IDeckInternal<TElement>.Events
         {
             get
@@ -111,6 +174,9 @@ namespace Decks
                 return this.Events;
             }
         }
+        /// <summary>
+        /// The collection of events that are in use.
+        /// </summary>
         private IDeckEvents<TElement> Events
         {
             get
@@ -267,6 +333,10 @@ namespace Decks
             Hands.Apply(h => Known.AddRange(h));
         }
 
+        /// <summary>
+        /// The type of elements in this <see cref="IDeck{TElement}"/>.
+        /// </summary>
+        /// <remarks>This is very handy when dealing witih a derived (and no longer generic deck class.</remarks>
         Type IDeckInternal<TElement>.ElementType
         {
             get
@@ -274,6 +344,10 @@ namespace Decks
                 return typeof(TElement);
             }
         }
+        /// <summary>
+        /// Accepts a visitor at the deck.
+        /// </summary>
+        /// <param name="visitor">The visitor to this deck.</param>
         void IDeckVisitable<TElement>.Accept(IDeckVisitor<TElement> visitor)
         {
             visitor.Visit(this);
@@ -309,6 +383,9 @@ namespace Decks
         #endregion
 
         #region Private Helpers
+        /// <summary>
+        /// Checks to see if we can be allowed to add contents to this deck.
+        /// </summary>
         private void CheckAllowAdd()
         {
             if(Initialized && !Options.Modifiable)

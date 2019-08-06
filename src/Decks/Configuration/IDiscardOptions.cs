@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Decks.Configuration
 {
+    /// <summary>
+    /// Options for the discard pile.
+    /// </summary>
     public interface IDiscardOptions : INotifyPropertyChanged
     {
         /// <summary>

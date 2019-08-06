@@ -6,19 +6,40 @@ using System.Text;
 
 namespace Decks.Common
 {
+    /// <summary>
+    /// A standard playing card.  
+    /// </summary>
     [JsonConverter(typeof(Internal.Serialization.PlayingCardSerializer))]
     public class PlayingCard : IComparable<PlayingCard>, IEquatable<PlayingCard>
     {
+        /// <summary>
+        /// Creates a playing card.
+        /// </summary>
+        /// <param name="options">The options on how cards are played.</param>
+        /// <param name="suit">The suit of the card.</param>
+        /// <param name="rank">The rank of the card.</param>
         internal PlayingCard(PlayingCardOptions options, PlayingCardSuit suit, PlayingCardRank rank)
         {
             Rank = rank;
             Suit = suit;
             Options = options;
         }
+        /// <summary>
+        /// The rank of the card.
+        /// </summary>
         public PlayingCardRank Rank { get; private set; }
+        /// <summary>
+        /// The suit of the card.
+        /// </summary>
         public PlayingCardSuit Suit { get; private set; }
+        /// <summary>
+        /// The options applicable to this card.
+        /// </summary>
         internal PlayingCardOptions Options { get; set; }
 
+        /// <summary>
+        /// Checks if this card is red or not.
+        /// </summary>
         public bool IsRed
         {
             get
@@ -34,7 +55,15 @@ namespace Decks.Common
                 }
             }
         }
+        /// <summary>
+        /// Checks if this card is black or not.
+        /// </summary>
         public bool IsBlack { get { return !IsRed; } }
+        /// <summary>
+        /// Compares this card to a comprable card.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public int CompareTo(PlayingCard other)
         {
             PlayingCardSuit[] suits = null;
@@ -104,19 +133,37 @@ namespace Decks.Common
             return compare;
         }
 
+        /// <summary>
+        /// Compares this card to another.
+        /// </summary>
+        /// <param name="other">The card to compare ourselves to.</param>
+        /// <returns>Standard comparison value - negative is less than, 0 is equal, positive is greater than.</returns>
         public bool Equals(PlayingCard other)
         {
             return this.CompareTo(other) == 0;
         }
+        /// <summary>
+        /// Compares this card to another.
+        /// </summary>
+        /// <param name="obj">The card to compare ourselves to.</param>
+        /// <returns>Standard comparison value - negative is less than, 0 is equal, positive is greater than.</returns>
         public override bool Equals(object obj)
         {
             return obj is PlayingCard pc && ((IEquatable<PlayingCard>)this).Equals(pc);
         }
+        /// <summary>
+        /// Gets the hash code for this card.
+        /// </summary>
+        /// <returns>A hash code for this card.</returns>
         public override int GetHashCode()
         {
             return (int)Rank * ((int)Suit * 13);
         }
 
+        /// <summary>
+        /// Returns a string representation of this card.
+        /// </summary>
+        /// <returns>The string version of this card.</returns>
         public override string ToString()
         {
             var suit = Suit.ToString();
@@ -159,6 +206,11 @@ namespace Decks.Common
             return $"{suit} {rank}";
         }
 
+        /// <summary>
+        /// Parses a string into a playing card.
+        /// </summary>
+        /// <param name="text">The text to parse.</param>
+        /// <returns>The parsed result.</returns>
         public static PlayingCard Parse(string text)
         {
             if(!TryParse(text, out var card))
@@ -167,6 +219,12 @@ namespace Decks.Common
             }
             return card;
         }
+        /// <summary>
+        /// Tries to parse text into a string.
+        /// </summary>
+        /// <param name="text">The text to try and parse.</param>
+        /// <param name="card">The resulting card.</param>
+        /// <returns><see langword="true"/> if the parsing was successful.</returns>
         public static bool TryParse(string text, out PlayingCard card)
         {
             var good = false;

@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Decks.Configuration
 {
+    /// <summary>
+    /// Options for dealing with the tableau.
+    /// </summary>
     public class TableauOptions : PropertyChangedBase, ITableauOptions
     {
         #region Data

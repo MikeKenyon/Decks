@@ -4,6 +4,11 @@ using System.Text;
 
 namespace Decks
 {
+    /// <summary>
+    /// The stack in the deck that represents the unknown and undrawn elements.  It's from here that you draw cards into a 
+    /// hand, onto the table or into the tableau.
+    /// </summary>
+    /// <typeparam name="TElement"></typeparam>
     public interface IDrawPile<TElement> : IDeckStack<TElement> where TElement : class 
     {
         /// <summary>

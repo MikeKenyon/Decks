@@ -1,0 +1,2043 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Decks</name>
+    </assembly>
+    <members>
+        <member name="T:Decks.Common.AceMode">
+            <summary>
+            How aces are handled.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.AceMode.High">
+            <summary>
+            Aces are high cards.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.AceMode.HighLow">
+            <summary>
+            Aces are high or low.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.AceMode.Low">
+            <summary>
+            Aces are always low.
+            </summary>
+        </member>
+        <member name="T:Decks.Common.PinochleDeck">
+            <summary>
+            A representation of a deck to play pinochle with.
+            </summary>
+        </member>
+        <member name="M:Decks.Common.PinochleDeck.#ctor(Decks.Common.PinochleOptions,System.Boolean)">
+            <summary>
+            Creates a pinochle deck.
+            </summary>
+            <param name="options">The options on how to play with a pinochle deck.</param>
+            <param name="doInitialize">Should the deck be initialized.</param>
+        </member>
+        <member name="M:Decks.Common.PinochleDeck.OnOptionsUpdated">
+            <summary>
+            Signaled when the options are updated.
+            </summary>
+        </member>
+        <member name="M:Decks.Common.PinochleDeck.CheckOptions">
+            <summary>
+            Validates the given options.
+            </summary>
+        </member>
+        <member name="M:Decks.Common.PinochleDeck.Initialize">
+            <summary>
+            Initializes the deck.
+            </summary>
+        </member>
+        <member name="T:Decks.Common.PinochleOptions">
+            <summary>
+            The options used for a pinochle deck.
+            </summary>
+        </member>
+        <member name="M:Decks.Common.PinochleOptions.#ctor">
+            <summary>
+            The options for a pinochle deck.
+            </summary>
+        </member>
+        <member name="T:Decks.Common.PlayingCard">
+            <summary>
+            A standard playing card.  
+            </summary>
+        </member>
+        <member name="M:Decks.Common.PlayingCard.#ctor(Decks.Common.PlayingCardOptions,Decks.Common.PlayingCardSuit,Decks.Common.PlayingCardRank)">
+            <summary>
+            Creates a playing card.
+            </summary>
+            <param name="options">The options on how cards are played.</param>
+            <param name="suit">The suit of the card.</param>
+            <param name="rank">The rank of the card.</param>
+        </member>
+        <member name="P:Decks.Common.PlayingCard.Rank">
+            <summary>
+            The rank of the card.
+            </summary>
+        </member>
+        <member name="P:Decks.Common.PlayingCard.Suit">
+            <summary>
+            The suit of the card.
+            </summary>
+        </member>
+        <member name="P:Decks.Common.PlayingCard.Options">
+            <summary>
+            The options applicable to this card.
+            </summary>
+        </member>
+        <member name="P:Decks.Common.PlayingCard.IsRed">
+            <summary>
+            Checks if this card is red or not.
+            </summary>
+        </member>
+        <member name="P:Decks.Common.PlayingCard.IsBlack">
+            <summary>
+            Checks if this card is black or not.
+            </summary>
+        </member>
+        <member name="M:Decks.Common.PlayingCard.CompareTo(Decks.Common.PlayingCard)">
+            <summary>
+            Compares this card to a comprable card.
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Decks.Common.PlayingCard.Equals(Decks.Common.PlayingCard)">
+            <summary>
+            Compares this card to another.
+            </summary>
+            <param name="other">The card to compare ourselves to.</param>
+            <returns>Standard comparison value - negative is less than, 0 is equal, positive is greater than.</returns>
+        </member>
+        <member name="M:Decks.Common.PlayingCard.Equals(System.Object)">
+            <summary>
+            Compares this card to another.
+            </summary>
+            <param name="obj">The card to compare ourselves to.</param>
+            <returns>Standard comparison value - negative is less than, 0 is equal, positive is greater than.</returns>
+        </member>
+        <member name="M:Decks.Common.PlayingCard.GetHashCode">
+            <summary>
+            Gets the hash code for this card.
+            </summary>
+            <returns>A hash code for this card.</returns>
+        </member>
+        <member name="M:Decks.Common.PlayingCard.ToString">
+            <summary>
+            Returns a string representation of this card.
+            </summary>
+            <returns>The string version of this card.</returns>
+        </member>
+        <member name="M:Decks.Common.PlayingCard.Parse(System.String)">
+            <summary>
+            Parses a string into a playing card.
+            </summary>
+            <param name="text">The text to parse.</param>
+            <returns>The parsed result.</returns>
+        </member>
+        <member name="M:Decks.Common.PlayingCard.TryParse(System.String,Decks.Common.PlayingCard@)">
+            <summary>
+            Tries to parse text into a string.
+            </summary>
+            <param name="text">The text to try and parse.</param>
+            <param name="card">The resulting card.</param>
+            <returns><see langword="true"/> if the parsing was successful.</returns>
+        </member>
+        <member name="T:Decks.Common.PlayingCardOptions">
+            <summary>
+            The options for dealing with a deck.
+            </summary>
+        </member>
+        <member name="P:Decks.Common.PlayingCardOptions.HasJokers">
+            <summary>
+            Whether this deck contains the 2 jokers or not.
+            </summary>
+        </member>
+        <member name="P:Decks.Common.PlayingCardOptions.Order">
+            <summary>
+            The sort order for this deck.
+            </summary>
+        </member>
+        <member name="P:Decks.Common.PlayingCardOptions.AceMode">
+            <summary>
+            How this deck treates Ace.
+            </summary>
+        </member>
+        <member name="T:Decks.Common.PlayingCardRank">
+            <summary>
+            The rank of a playing card.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardRank.Ace">
+            <summary>
+            An ace which could be high or low.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardRank.Duece">
+            <summary>
+            Any 2.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardRank.Trey">
+            <summary>
+            Any 3.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardRank.Four">
+            <summary>
+            Any 4.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardRank.Five">
+            <summary>
+            Any 5.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardRank.Six">
+            <summary>
+            Any 6.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardRank.Seven">
+            <summary>
+            Any 7.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardRank.Eight">
+            <summary>
+            Any 8.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardRank.Nine">
+            <summary>
+            Any 9.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardRank.Ten">
+            <summary>
+            Any 10.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardRank.Jack">
+            <summary>
+            Any jack.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardRank.Queen">
+            <summary>
+            Any queen.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardRank.King">
+            <summary>
+            Any king.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardRank.Joker">
+            <summary>
+            Any joker.
+            </summary>
+        </member>
+        <member name="T:Decks.Common.PlayingCardSortOrder">
+            <summary>
+            How the playing cards in a deck should be sorted.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardSortOrder.PokerOrder">
+            <summary>
+            In the standard order for poker (default).
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardSortOrder.BridgeOrder">
+            <summary>
+            In the order that bridge is played in.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardSortOrder.BoxOrder">
+            <summary>
+            In the order that cards are shipped in a box.
+            </summary>
+        </member>
+        <member name="T:Decks.Common.PlayingCardSuit">
+            <summary>
+            The suits in the deck.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardSuit.Clubs">
+            <summary>
+            Any club.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardSuit.Diamonds">
+            <summary>
+            Any diamond.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardSuit.Hearts">
+            <summary>
+            Any heart.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardSuit.Spades">
+            <summary>
+            Any spade.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardSuit.Red">
+            <summary>
+            The red joker.
+            </summary>
+        </member>
+        <member name="F:Decks.Common.PlayingCardSuit.Black">
+            <summary>
+            The black joker.
+            </summary>
+        </member>
+        <member name="T:Decks.Common.StandardCardDeck">
+            <summary>
+            A specialized deck of <see cref="T:Decks.Common.PlayingCard"/>.
+            </summary>
+        </member>
+        <member name="M:Decks.Common.StandardCardDeck.#ctor(Decks.Common.PlayingCardOptions,System.Boolean)">
+            <summary>
+            Creates a deck of playing cards.
+            </summary>
+            <param name="options">The options used to create the deck.</param>
+            <param name="doInitialize">Whether or initialize this deck's contents or not.</param>
+        </member>
+        <member name="M:Decks.Common.StandardCardDeck.Initialize">
+            <summary>
+            How to initialize this deck.
+            </summary>
+        </member>
+        <member name="M:Decks.Common.StandardCardDeck.Rehydrated">
+            <summary>
+            How to handle rehydration from being serialized.
+            </summary>
+        </member>
+        <member name="P:Decks.Common.StandardCardDeck.CardOptions">
+            <summary>
+            A quick accessor for the specialized options.
+            </summary>
+        </member>
+        <member name="T:Decks.Configuration.DeckOptions">
+            <summary>
+            The general configuration for this deck.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.DeckOptions.Events">
+            <summary>
+            Get the interaction/eventing interface.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.DeckOptions.Modifiable">
+            <summary>
+            If set to <see langword="true"/> the deck is modifiable after the <see cref="M:Decks.Deck`1.Initialize"/> method has finished.  Default is 
+            to allow this.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.DeckOptions.DrawPile">
+            <summary>
+            Options for the <see cref="P:Decks.IDeck`1.DrawPile"/>.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.DeckOptions.Decks#Configuration#IDeckOptions#DrawPile">
+            <summary>
+            Options for the <see cref="P:Decks.IDeck`1.DrawPile"/>.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.DeckOptions.Hands">
+            <summary>
+            Options for player hands.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.DeckOptions.Decks#Configuration#IDeckOptions#Hands">
+            <summary>
+            Options for player hands.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.DeckOptions.Discards">
+            <summary>
+            Options for how to deal with discards.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.DeckOptions.Decks#Configuration#IDeckOptions#Discards">
+            <summary>
+            Options for how to deal with discards.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.DeckOptions.Table">
+            <summary>
+            Options for the play table.  This is the common shared space for all players.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.DeckOptions.Decks#Configuration#IDeckOptions#Table">
+            <summary>
+            Options for the play table.  This is the common shared space for all players.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.DeckOptions.Tableau">
+            <summary>
+            Options for the tableau.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.DeckOptions.Decks#Configuration#IDeckOptions#Tableau">
+            <summary>
+            Options for the tableau.
+            </summary>
+        </member>
+        <member name="T:Decks.Configuration.DiscardOptions">
+            <summary>
+            Options for the discard pile.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.DiscardOptions.AutoShuffle">
+            <summary>
+            Automatically shuffles the deck when you need another card 
+            and one isn't available.
+            </summary>
+        </member>
+        <member name="T:Decks.Configuration.DrawPileOptions">
+            <summary>
+            Options for the draw pile, which is always enabled.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.DrawPileOptions.MaximumShuffleCount">
+            <summary>
+            The number of times the deck can be reshuffled.  0, 1, 3 and a negative number are the most commonly 
+            set numbers.  <see langword="null" /> is unlimited, which is the default.
+            </summary>
+        </member>
+        <member name="T:Decks.Configuration.HandOptions">
+            <summary>
+            The options for how to deal hands.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.HandOptions.Enabled">
+            <summary>
+            Are you allowed to draw hands at all.  This is set to <see langword="true"/> by default.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.HandOptions.InitialHandSize">
+            <summary>
+            The number of cards that go into a hand when initially drawn.
+            </summary>
+        </member>
+        <member name="T:Decks.Configuration.IDeckOptions">
+            <summary>
+            The deck operations.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.IDeckOptions.Events">
+            <summary>
+            Get the interaction/eventing interface, should be <see cref="T:Decks.Events.IDeckEvents`1"/>
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.IDeckOptions.Modifiable">
+            <summary>
+            If set to <see langword="true"/> the deck is modifiable after the <see cref="M:Decks.Deck`1.Initialize"/> method has finished.Default is 
+            to allow this.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.IDeckOptions.DrawPile">
+            <summary>
+            Options for the <see cref="P:Decks.IDeck`1.DrawPile"/>.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.IDeckOptions.Discards">
+            <summary>
+            Options for how to deal with discards.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.IDeckOptions.Hands">
+            <summary>
+            Options for player hands.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.IDeckOptions.Table">
+            <summary>
+            Options for the play table.  This is the common shared space for all players.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.IDeckOptions.Tableau">
+            <summary>
+            Options for the tableau.
+            </summary>
+        </member>
+        <member name="T:Decks.Configuration.IDiscardOptions">
+            <summary>
+            Options for the discard pile.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.IDiscardOptions.AutoShuffle">
+            <summary>
+            Automatically shuffles the deck when you need another card 
+            and one isn't available.
+            </summary>
+        </member>
+        <member name="T:Decks.Configuration.IDrawPileOptions">
+            <summary>
+            Options for the draw pile.  The draw pile is always enabled.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.IDrawPileOptions.MaximumShuffleCount">
+            <summary>
+            The number of times the deck can be reshuffled.  0, 1, 3 and a negative number are the most commonly 
+            set numbers.  <see langword="null" /> is unlimited, which is the default.
+            </summary>
+        </member>
+        <member name="T:Decks.Configuration.IHandOptions">
+            <summary>
+            Options dealing with hands
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.IHandOptions.Enabled">
+            <summary>
+            Are you allowed to draw hands at all.  This is set to <see langword="true"/> by default.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.IHandOptions.InitialHandSize">
+            <summary>
+            The number of cards that go into a hand when initially drawn.
+            </summary>
+        </member>
+        <member name="T:Decks.Configuration.ITableauOptions">
+            <summary>
+            Options for dealing with the tableau
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.ITableauOptions.Enabled">
+            <summary>
+            Whether or not the tableau is enabled.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.ITableauOptions.InitialSize">
+            <summary>
+            The number of elements in the tableau.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.ITableauOptions.MaximumSize">
+            <summary>
+            The maximum size the table can grow to.  This may be set to <see langword="null"/> to remove any maximum capacity.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.ITableauOptions.MaintainSize">
+            <summary>
+            Whether the system automatically adjusts the tableau after something modifies 
+            it's contents.  It draw up to its initial size, or discard down to it.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.ITableauOptions.OverflowRule">
+            <summary>
+            What to do what a tableau gets to be oversized.  Ignored if <see cref="P:Decks.Configuration.ITableauOptions.MaximumSize"/> is <see langword="null"/>.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.ITableauOptions.CanPlayToTable">
+            <summary>
+            If set (<see langword="true"/> by default), you are allowed to play from the tableau straight into the <see cref="T:Decks.ITable`1"/>.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.ITableauOptions.CanDrawIntoHand">
+            <summary>
+            If set (<see langword="true"/> by default), you are allowed to draw from the tableau straight into a <see cref="T:Decks.IHand`1"/>.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.ITableauOptions.DrawsUpSafely">
+            <summary>
+            In many games, if the tableau cannot safely draw up, it just shrinks in size.
+            If this option is set to <see langword="true"/> then the tableau cannot bottom
+            deck you.
+            </summary>
+        </member>
+        <member name="T:Decks.Configuration.ITableOptions">
+            <summary>
+            Options for the play table.  This is the common shared space for all players.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.ITableOptions.Enabled">
+            <summary>
+            Whether or not the table is enabled.  By default is is <see cref="!:false"/>.
+            </summary>
+        </member>
+        <member name="T:Decks.Configuration.TableauOptions">
+            <summary>
+            Options for dealing with the tableau.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.TableauOptions.Enabled">
+            <summary>
+            Whether or not the tableau is enabled.  It is not by default.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.TableauOptions.InitialSize">
+            <summary>
+            The number of elements in the tableau, set to 0 to disable the tableau.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.TableauOptions.MaximumSize">
+            <summary>
+            The maximum size the table can grow to.  This may be set to <see langword="null"/> to remove any maximum capacity.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.TableauOptions.MaintainSize">
+            <summary>
+            Whether the system automatically adjusts the tableau after something modifies 
+            it's contents.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.TableauOptions.OverflowRule">
+            <summary>
+            What to do what a tableau gets to be oversized.  Ignored if <see cref="P:Decks.Configuration.TableauOptions.MaximumSize"/> is <see langword="null"/>.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.TableauOptions.CanPlayToTable">
+            <summary>
+            If set (<see langword="true"/> by default), you are allowed to play from the tableau straight into the <see cref="T:Decks.ITable`1"/>.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.TableauOptions.CanDrawIntoHand">
+            <summary>
+            If set (<see langword="true"/> by default), you are allowed to draw from the tableau straight into a <see cref="T:Decks.IHand`1"/>.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.TableauOptions.DrawsUpSafely">
+            <summary>
+            In many games, if the tableau cannot safely draw up, it just shrinks in size.
+            If this option is set to <see langword="true"/> then the tableau cannot bottom
+            deck you.
+            </summary>
+        </member>
+        <member name="T:Decks.Configuration.TableauOverflowRule">
+            <summary>
+            By default, a <see cref="T:Decks.ITable`1"/> has a maximum size the same as its
+            initial size.   This is the rule used to handle when the tableaut gets to be 
+            oversized.
+            </summary>
+        </member>
+        <member name="F:Decks.Configuration.TableauOverflowRule.Ignore">
+            <summary>
+            Let the tableau grow larger, effectively grants no maximum size.
+            </summary>
+        </member>
+        <member name="F:Decks.Configuration.TableauOverflowRule.DiscardOldest">
+            <summary>
+            Drop the oldest element in the tableau.
+            </summary>
+        </member>
+        <member name="F:Decks.Configuration.TableauOverflowRule.DiscardNewest">
+            <summary>
+            Drop the most recently added element to the tableau.
+            </summary>
+        </member>
+        <member name="F:Decks.Configuration.TableauOverflowRule.DiscardRandom">
+            <summary>
+            Drop a randomly selected card from the tableau.
+            </summary>
+        </member>
+        <member name="F:Decks.Configuration.TableauOverflowRule.Ask">
+            <summary>
+            Ask which one we should discard.
+            </summary>
+        </member>
+        <member name="T:Decks.Configuration.TableOptions">
+            <summary>
+            Options for the play table.  This is the common shared space for all players.
+            </summary>
+        </member>
+        <member name="P:Decks.Configuration.TableOptions.Enabled">
+            <summary>
+            Whether or not the table is enabled.  By default is is <see cref="!:false"/>.
+            </summary>
+        </member>
+        <member name="T:Decks.Deck`1">
+            <summary>
+            The root type for the deck.  The deck unifies access to the different stacks that comprise the whole ecosystem.
+            </summary>
+            <typeparam name="TElement"></typeparam>
+        </member>
+        <member name="M:Decks.Deck`1.#ctor(Decks.Configuration.IDeckOptions,System.Boolean)">
+            <summary>
+            The general construction of a deck.  
+            </summary>
+            <param name="options">The options that denotw how this deck is supposed to operate.</param>
+            <param name="doInitialize">
+            Whether or not to run the initialization routine.  This is generally <see langword="true"/> for creating a deck and
+            <see langword="false"/> when deserializing the deck.
+            </param>
+        </member>
+        <member name="M:Decks.Deck`1.OnKnownChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            When the overall contents of the ecosystem change, this is called.
+            </summary>
+            <param name="sender">The sending collection,</param>
+            <param name="e">The collection changed events.</param>
+        </member>
+        <member name="M:Decks.Deck`1.ListenToOptions">
+            <summary>
+            Starts listening to the options.
+            </summary>
+        </member>
+        <member name="M:Decks.Deck`1.DeafenToOptions">
+            <summary>
+            Stops listening to the options.
+            </summary>
+        </member>
+        <member name="M:Decks.Deck`1.OnOptionPropertyChanged(System.Object,System.ComponentModel.PropertyChangedEventArgs)">
+            <summary>
+            Flagged when any property in the options tree is changed.
+            </summary>
+            <param name="sender">The changed options object.</param>
+            <param name="e">The event argument that indicates the options.</param>
+        </member>
+        <member name="M:Decks.Deck`1.OnOptionsUpdated">
+            <summary>
+            Called when the optiosn for this deck have been updated.
+            </summary>
+        </member>
+        <member name="P:Decks.Deck`1.Decks#Internal#IDeckInternal{TElement}#DrawPileStack">
+            <summary>
+            The internal representation of the <see cref="T:Decks.IDrawPile`1"/>.
+            </summary>
+        </member>
+        <member name="P:Decks.Deck`1.Decks#Internal#IDeckInternal{TElement}#DiscardPileStack">
+            <summary>
+            The internal representation of the <see cref="T:Decks.IDiscardPile`1"/>.
+            </summary>
+        </member>
+        <member name="P:Decks.Deck`1.Decks#Internal#IDeckInternal{TElement}#TableauStack">
+            <summary>
+            The internal representation of the <see cref="T:Decks.ITableau`1"/>.
+            </summary>
+        </member>
+        <member name="P:Decks.Deck`1.Decks#Internal#IDeckInternal{TElement}#TableStack">
+            <summary>
+            The internal representation of the <see cref="T:Decks.ITable`1"/>.
+            </summary>
+        </member>
+        <member name="P:Decks.Deck`1.Table">
+            <summary>
+            The elements from this stacck that are sitting on the play table.
+            </summary>
+        </member>
+        <member name="P:Decks.Deck`1.DiscardPile">
+            <summary>
+            The elements that have been discarded.
+            </summary>
+        </member>
+        <member name="P:Decks.Deck`1.DrawPile">
+            <summary>
+            The elements that can be drawn from.
+            </summary>
+        </member>
+        <member name="P:Decks.Deck`1.Tableau">
+            <summary>
+            A palette of elements that are visible from this deck and can be drawn from.
+            </summary>
+        </member>
+        <member name="P:Decks.Deck`1.Options">
+            <summary>
+            The options for this deck.
+            </summary>
+        </member>
+        <member name="P:Decks.Deck`1.Count">
+            <summary>
+            The count of all elements from all different stacks.
+            </summary>
+        </member>
+        <member name="P:Decks.Deck`1.Decks#Internal#IDeckInternal{TElement}#Events">
+            <summary>
+            The collection of events that are in use.
+            </summary>
+        </member>
+        <member name="P:Decks.Deck`1.Events">
+            <summary>
+            The collection of events that are in use.
+            </summary>
+        </member>
+        <member name="M:Decks.Deck`1.Contains(`0,Decks.Location)">
+            <summary>
+            Determines if an area contains an element.
+            </summary>
+            <param name="element">The element to look for.</param>
+            <param name="location">The location to check.</param>
+            <returns><see langword="true"/> if the element is in that location.</returns>
+        </member>
+        <member name="M:Decks.Deck`1.Add(`0,Decks.Location)">
+            <summary>
+            Adds a card to the deck.
+            </summary>
+            <param name="element">The element to add.</param>
+            <param name="location">The location to add it to.</param>
+            <returns>This same deck (for FLUID interface reasons).</returns>
+        </member>
+        <member name="M:Decks.Deck`1.Play">
+            <summary>
+            Plays the top card from the deck to the table.
+            </summary>
+            <returns>The element played.</returns>
+        </member>
+        <member name="M:Decks.Deck`1.Add(`0,Decks.DeckSide,Decks.Location)">
+            <summary>
+            Adds a card to a specific location in the deck.
+            </summary>
+            <param name="element">The element to add.</param>
+            <param name="side">What side of the deck the item goes to.</param>
+            <param name="location">The location to add it to.</param>
+            <returns>This same deck (for FLUID interface reasons).</returns>
+        </member>
+        <member name="M:Decks.Deck`1.Initialize">
+            <summary>
+            Allows you to setup before rules are enforced.
+            </summary>
+        </member>
+        <member name="M:Decks.Deck`1.Dehydrating">
+            <summary>
+            Called before the deck is serialized.
+            </summary>
+        </member>
+        <member name="M:Decks.Deck`1.Rehydrated">
+            <summary>
+            Called after the deck has ben deserialized.
+            </summary>
+        </member>
+        <member name="P:Decks.Deck`1.Decks#Internal#IDeckInternal{TElement}#ElementType">
+            <summary>
+            The type of elements in this <see cref="T:Decks.IDeck`1"/>.
+            </summary>
+            <remarks>This is very handy when dealing witih a derived (and no longer generic deck class.</remarks>
+        </member>
+        <member name="M:Decks.Deck`1.Decks#Internal#IDeckVisitable{TElement}#Accept(Decks.Internal.IDeckVisitor{`0})">
+            <summary>
+            Accepts a visitor at the deck.
+            </summary>
+            <param name="visitor">The visitor to this deck.</param>
+        </member>
+        <member name="M:Decks.Deck`1.CheckOperation(System.Boolean,System.String)">
+            <summary>
+            Checks to see if an operation is allowed or not.
+            </summary>
+            <param name="condition">Condition to check.</param>
+            <param name="message">The error message if it's not allowed.</param>
+        </member>
+        <member name="M:Decks.Deck`1.CheckAllowAdd">
+            <summary>
+            Checks to see if we can be allowed to add contents to this deck.
+            </summary>
+        </member>
+        <member name="P:Decks.Deck`1.HandSet">
+            <summary>
+            The set of <see cref="T:Decks.IHand`1"/> that have been drawn from this deck.
+            </summary>
+        </member>
+        <member name="P:Decks.Deck`1.Hands">
+            <summary>
+            All of the hands that are currently dealt.
+            </summary>
+        </member>
+        <member name="M:Decks.Deck`1.Deal(System.Int32)">
+            <summary>
+            Deals out a number of hands to their default handsize.
+            </summary>
+            <param name="numberOfHands">Number of hands to deal.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Decks.Deck`1.Deal">
+            <summary>
+            Adds a hand, at its' default hand size.
+            </summary>
+            <returns>A newly drawn hand.</returns>
+        </member>
+        <member name="M:Decks.Deck`1.Deal(System.Int32,System.UInt32)">
+            <summary>
+            Deals out a number of hands to their default 
+            </summary>
+            <param name="numberOfHands">Number of hands to deal.</param>
+            <param name="handSize">Number of cards in the hand.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Decks.Deck`1.Muck">
+            <summary>
+            Mucks all hands, putting them back into the discard pile.
+            </summary>
+            <returns>This deck (for fluent purposes) </returns>
+        </member>
+        <member name="M:Decks.Deck`1.Decks#Internal#IDeckInternal{TElement}#RemoveHand(Decks.IHand{`0})">
+            <summary>
+            Removes a hand from those that the deck is aware of.
+            </summary>
+            <param name="hand">The hand to remove.</param>
+        </member>
+        <member name="T:Decks.DeckSide">
+            <summary>
+            The side of a stack (draw pile, discards, etc.) that you want to perform an operation on.  This allows for bottom-dealing and burying cards - operations that are 
+            common in some games, like Pandemic.
+            </summary>
+        </member>
+        <member name="F:Decks.DeckSide.Bottom">
+            <summary>
+            Item goes on the bottom of the deck, discard, etc.
+            </summary>
+        </member>
+        <member name="F:Decks.DeckSide.Default">
+            <summary>
+            <see cref="F:Decks.DeckSide.Top"/> or <see cref="F:Decks.DeckSide.Bottom"/>, as suits that particular stack.
+            </summary>
+        </member>
+        <member name="F:Decks.DeckSide.Top">
+            <summary>
+            Item goes on the top of the deck, disard, etc.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Decks.DeckStack`1" -->
+        <member name="M:Decks.DeckStack`1.#ctor(Decks.Internal.IDeckInternal{`0})">
+            <summary>
+            Creates a deck stack.
+            </summary>
+            <param name="deck">The deck this stack is attached to.</param>
+        </member>
+        <member name="E:Decks.DeckStack`1.System#Collections#Specialized#INotifyCollectionChanged#CollectionChanged">
+            <summary>
+            Allows consumers to subscribe for when this collection is changed.
+            </summary>
+        </member>
+        <member name="P:Decks.DeckStack`1.Deck">
+            <summary>
+            The containing <see cref="T:Decks.IDeck`1"/>
+            </summary>
+        </member>
+        <member name="P:Decks.DeckStack`1.Contents">
+            <summary>
+            The underlying collection for this stack.
+            </summary>
+        </member>
+        <member name="P:Decks.DeckStack`1.Count">
+            <summary>
+            The number of elements in this stack.
+            </summary>
+        </member>
+        <member name="M:Decks.DeckStack`1.Contains(`0)">
+            <summary>
+            Checks if this hand contains that element.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Decks.DeckStack`1.Decks#Internal#IDeckStackInternal{TElement}#Add(`0)">
+            <summary>
+            Adds an eleemnt from one area to another.
+            </summary>
+            <param name="element">The element to add.</param>
+        </member>
+        <member name="M:Decks.DeckStack`1.Decks#Internal#IDeckStackInternal{TElement}#CheckEnabled">
+            <summary>
+            Confirms that this stack is enabled, errors if it isn't.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">The stack is not enabled.</exception>
+        </member>
+        <member name="M:Decks.DeckStack`1.GetEnumerator">
+            <summary>
+            Gets an enumerator over this contents of this stack.
+            </summary>
+            <returns>A iterator over this collection.</returns>
+        </member>
+        <member name="M:Decks.DeckStack`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Gets an enumerator over this contents of this stack.
+            </summary>
+            <returns>A iterator over this collection.</returns>
+        </member>
+        <member name="M:Decks.DeckStack`1.Decks#Internal#IDeckVisitable{TElement}#Accept(Decks.Internal.IDeckVisitor{`0})">
+            <summary>
+            Accepts a visitor at this stack.
+            </summary>
+            <param name="visitor">The visitor to accept.</param>
+        </member>
+        <member name="M:Decks.DeckStack`1.CheckIsMyElement(`0,System.String)">
+            <summary>
+            Confirms that the element you're about to perform this on is in face your element.  
+            </summary>
+            <param name="element">The element to check.</param>
+            <param name="message">The custome message</param>
+        </member>
+        <member name="M:Decks.DeckStack`1.CheckOwnHand(Decks.IHand{`0},System.Boolean)">
+            <summary>
+            Confirm that the operation in question is bin
+            </summary>
+            <param name="hand"></param>
+            <param name="checkMucked"></param>
+        </member>
+        <member name="M:Decks.DeckStack`1.CheckOperation(System.Boolean,System.String)">
+            <summary>
+            Checks to see if an operation is allowed or not.
+            </summary>
+            <param name="condition">Condition to check.</param>
+            <param name="message">The error message if it's not allowed.</param>
+        </member>
+        <member name="T:Decks.DiscardPile`1">
+            <summary>
+            This is the stack that contains elements that have been discarded from hands, the table, etc.  The discarded elements
+            can be readded to the <see cref="T:Decks.IDrawPile`1"/>.
+            </summary>
+            <typeparam name="TElement">The elements in the discard pile.</typeparam>
+        </member>
+        <member name="M:Decks.DiscardPile`1.#ctor(Decks.Deck{`0})">
+            <summary>
+            Creates a discard pile.
+            </summary>
+            <param name="deck">The deck it's a discard for.</param>
+        </member>
+        <member name="M:Decks.DiscardPile`1.Decks#Internal#IDeckVisitable{TElement}#Accept(Decks.Internal.IDeckVisitor{`0})">
+            <summary>
+            Accepts a visitor to the discard pile.
+            </summary>
+            <param name="visitor">The visitor to accept.</param>
+        </member>
+        <member name="M:Decks.DiscardPile`1.Decks#Internal#IDiscardPileInternal{TElement}#Add(`0,Decks.DeckSide)">
+            <summary>
+            Adds an element to the discard pile.
+            </summary>
+            <param name="element">The element to add.</param>
+            <param name="side">
+                The side to add it to, allows for situations where you bury things in the discard pile.
+            </param>
+        </member>
+        <member name="M:Decks.DiscardPile`1.Decks#Internal#IDeckStackInternal{TElement}#Add(`0)">
+            <summary>
+            Adds an element to the discard pile.
+            </summary>
+            <param name="element">The element to add.</param>
+        </member>
+        <member name="M:Decks.DiscardPile`1.Decks#Internal#IDeckStackInternal{TElement}#CheckEnabled">
+            <summary>
+            Confirms this pile is enabled.
+            </summary>
+        </member>
+        <member name="M:Decks.DiscardPile`1.Readd(Decks.DeckSide)">
+            <summary>
+            Adds the discards back to the draw pile (usually on the bottom).
+            </summary>
+            <returns>Discards (for fluent purposes)</returns>
+        </member>
+        <member name="T:Decks.IDiscardPile`1">
+            <summary>
+            This is the stack that contains elements that have been discarded from hands, the table, etc.  The discarded elements
+            can be readded to the <see cref="T:Decks.IDrawPile`1"/>.
+            </summary>
+            <typeparam name="TElement">The elements in the discard pile.</typeparam>
+        </member>
+        <member name="M:Decks.IDiscardPile`1.Readd(Decks.DeckSide)">
+            <summary>
+            Adds the discards back to the draw pile (usually on the bottom).
+            </summary>
+            <returns>Discards (for fluent purposes)</returns>
+        </member>
+        <member name="T:Decks.DrawPile`1">
+            <summary>
+            The pile that people draw from.
+            </summary>
+            <typeparam name="TElement">The elements in the draw pile.</typeparam>
+        </member>
+        <member name="M:Decks.DrawPile`1.#ctor(Decks.Deck{`0})">
+            <summary>
+            Constructor for the draw pile.
+            </summary>
+            <param name="deck"></param>
+        </member>
+        <member name="P:Decks.DrawPile`1.Options">
+            <summary>
+            The options related to the draw pile.
+            </summary>
+        </member>
+        <member name="M:Decks.DrawPile`1.Shuffle(System.Boolean)">
+            <summary>
+            Optionally gets the discards back and then randomly orders the cards.
+            </summary>
+            <param name="retreiveDiscards">Whether or not to clear out the discards.</param>
+            <returns>Draw pile (for fluent purposes)</returns>
+        </member>
+        <member name="P:Decks.DrawPile`1.Decks#Internal#IDrawPileInternal{TElement}#ShuffleCount">
+            <summary>
+            Gets the number of times that a given topdeck has been shuffled.  Some games fix this number.
+            </summary>
+        </member>
+        <member name="P:Decks.DrawPile`1.HasBeenShuffled">
+            <summary>
+            Checks whether the deck has previously been shuffled.
+            </summary>
+        </member>
+        <member name="M:Decks.DrawPile`1.CheckValidToShuffle">
+            <summary>
+            Checks if it's okay to shuffle the deck.
+            </summary>
+        </member>
+        <member name="M:Decks.DrawPile`1.Decks#Internal#IDeckVisitable{TElement}#Accept(Decks.Internal.IDeckVisitor{`0})">
+            <summary>
+            Accepts a visitor to the draw pile.
+            </summary>
+            <param name="visitor">The visitor to accept.</param>
+        </member>
+        <member name="M:Decks.DrawPile`1.Decks#Internal#IDrawPileInternal{TElement}#Add(`0,Decks.DeckSide)">
+            <summary>
+            Adds an element to the draw pile.
+            </summary>
+            <param name="element">The element to add.</param>
+            <param name="side">Which side of the stack to add the element to.  Allows for putting cards on the bottom of the deck.</param>
+        </member>
+        <member name="M:Decks.DrawPile`1.Decks#Internal#IDrawPileInternal{TElement}#Draw(Decks.DeckSide)">
+            <summary>
+            Draws a card from the deck.
+            </summary>
+            <param name="side">The side to draw from.  Allows for botom-dealing.</param>
+            <returns>The drawn element.</returns>
+        </member>
+        <member name="M:Decks.DrawPile`1.Decks#Internal#IDeckStackInternal{TElement}#Add(`0)">
+            <summary>
+            Adds an element to the draw pile.
+            </summary>
+            <param name="element">The element to add.</param>
+        </member>
+        <member name="M:Decks.DrawPile`1.Decks#Internal#IDeckStackInternal{TElement}#CheckEnabled">
+            <summary>
+            Confirms that this stack is enabled.
+            </summary>
+        </member>
+        <member name="T:Decks.IDrawPile`1">
+            <summary>
+            The stack in the deck that represents the unknown and undrawn elements.  It's from here that you draw cards into a 
+            hand, onto the table or into the tableau.
+            </summary>
+            <typeparam name="TElement"></typeparam>
+        </member>
+        <member name="P:Decks.IDrawPile`1.Options">
+            <summary>
+            The options related to the draw pile.
+            </summary>
+        </member>
+        <member name="M:Decks.IDrawPile`1.Shuffle(System.Boolean)">
+            <summary>
+            Optionally gets the discards back and then randomly orders the cards.
+            </summary>
+            <param name="retreiveDiscards">Whether or not to clear out the discards.</param>
+            <returns>Draw pile (for fluent purposes)</returns>
+        </member>
+        <member name="T:Decks.Events.IDeckEvents">
+            <summary>
+            Events and interactions about a <see cref="T:Decks.IDeck`1"/>.
+            </summary>
+        </member>
+        <member name="T:Decks.Events.IDeckEvents`1">
+            <summary>
+            Element specific events.
+            </summary>
+            <typeparam name="TElement"></typeparam>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.Adding(`0@,Decks.DeckSide@,Decks.Location@)">
+            <summary>
+            Notes that we're about to add an element to a stack.
+            </summary>
+            <param name="element">The element to add.</param>
+            <param name="side">The side of the stack it's getting added to.</param>
+            <param name="location">The stack it's being sent to.</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.Added(`0,Decks.DeckSide,Decks.Location)">
+            <summary>
+            An element has been added to a stack.
+            </summary>
+            <param name="element">The element to add.</param>
+            <param name="side">The side of the stack it's getting added to.</param>
+            <param name="location">The stack it's being sent to.</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.Dealing(System.Int32@,System.UInt32@)">
+            <summary>
+            One or more hands are being dealt, of a given size.
+            </summary>
+            <param name="numberOfHands">The number of hands being dealth.</param>
+            <param name="handSize">The size of each hand.</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.Dealt(System.Int32,System.UInt32)">
+            <summary>
+            Hands have been dealt.
+            </summary>
+            <param name="numberOfHands">The number of hands having been dealth.</param>
+            <param name="handSize">The size of each hand.</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.Discarding(Decks.ITable{`0},`0)">
+            <summary>
+            An element is being discarded from the table.
+            </summary>
+            <param name="table">The table being discarded from.</param>
+            <param name="element">The element being discareded.</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.Discarded(Decks.ITable{`0},`0)">
+            <summary>
+            An element has been discarded.
+            </summary>
+            <param name="table">The table discarded from.</param>
+            <param name="element">The element discareded.</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.Drawing(Decks.IDrawPile{`0})">
+            <summary>
+            A card is about to be drawn from the draw pile.
+            </summary>
+            <param name="pile">The pile to draw from.</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.Drew(Decks.IDrawPile{`0},`0)">
+            <summary>
+            A card was drawn from the draw pile.
+            </summary>
+            <param name="pile">The pile drawn from.</param>
+            <param name="card">The card drawn.</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.DrawingInto(Decks.IHand{`0})">
+            <summary>
+            About to draw into a hand.
+            </summary>
+            <param name="hand">The hand we're drawing into.</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.DrawingInto(Decks.ITableau{`0})">
+            <summary>
+            About to draw into the tableau.
+            </summary>
+            <param name="tableau">The tableau to add to.</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.DrawingInto(Decks.ITableau{`0},Decks.IHand{`0},`0)">
+            <summary>
+            About to draw from the tableau into a hand.
+            </summary>
+            <param name="tableau">The tableau to draw from.</param>
+            <param name="hand">The hand to draw into.</param>
+            <param name="element">The element to draw.</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.DrewInto(Decks.ITableau{`0},`0)">
+            <summary>
+            An element has been drawn into a tableau.
+            </summary>
+            <param name="tableau">The tableau drawn into.</param>
+            <param name="element">The element drawn.</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.DrewInto(Decks.IHand{`0},`0)">
+            <summary>
+            An element is being drawn into a hand.
+            </summary>
+            <param name="hand">The hand drawn into.</param>
+            <param name="element">The element drawn into it.</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.DrewInto(Decks.ITableau{`0},Decks.IHand{`0},`0)">
+            <summary>
+            An element is drawn from a tableau into a hand.
+            </summary>
+            <param name="tableau">The tableau drawn from.</param>
+            <param name="hand">The hand drawn into.</param>
+            <param name="element">The element to draw.</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.Mucking(Decks.ITable{`0})">
+            <summary>
+            The contents of the table are about to be mucked.
+            </summary>
+            <param name="table">The table to be mucked.</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.Mucking(Decks.IHand{`0})">
+            <summary>
+            A hand is about to be mucked.
+            </summary>
+            <param name="hand">The hand to be mucked.</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.Mucked(Decks.IHand{`0})">
+            <summary>
+            A hand was mucked.
+            </summary>
+            <param name="hand">The hand was mucked.</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.Mucked(Decks.ITable{`0})">
+            <summary>
+            The table was mucked.
+            </summary>
+            <param name="table">The table that was mucked.</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.PickElementToDiscard(Decks.ITableau{`0})">
+            <summary>
+            Asks to pick the element to discard from a tableau.
+            </summary>
+            <param name="tableau">The tableau to discard from.</param>
+            <returns>The index in the tableau to discard.</returns>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.Playing(Decks.IHand{`0},`0)">
+            <summary>
+            About to play an element from a hand onto the table.
+            </summary>
+            <param name="hand">The hand to play from.</param>
+            <param name="element">The element to play.</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.Playing(Decks.ITableau{`0},`0)">
+            <summary>
+            About to play an element from the tableau onto the table.
+            </summary>
+            <param name="tableau">The tableau to play from.</param>
+            <param name="element">The element to play.</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.Played(`0)">
+            <summary>
+            An element has been played to the table.
+            </summary>
+            <param name="element">The element played</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.Played(Decks.IHand{`0},`0)">
+            <summary>
+            An element has been played from a hand.
+            </summary>
+            <param name="hand">The hand it's been played from.</param>
+            <param name="element">The element played</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.Played(Decks.ITableau{`0},`0)">
+            <summary>
+            And element has been played from a tableau.
+            </summary>
+            <param name="tableau">The tableau the element has been played from.</param>
+            <param name="element">The element played</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.PuttingDiscardsBackIntoDrawPile">
+            <summary>
+            The discards are about to restored to the draw pile.
+            </summary>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.PutDiscardsBackIntoDrawPile">
+            <summary>
+            The discards have just been restored to the draw pile.
+            </summary>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.Shuffling(System.UInt32)">
+            <summary>
+            About to shuffle.
+            </summary>
+            <param name="shuffleCount">How many times this will have been shuffled.</param>
+        </member>
+        <member name="M:Decks.Events.IDeckEvents`1.Shuffled(System.UInt32)">
+            <summary>
+            Have just shuffled.
+            </summary>
+            <param name="shuffleCount">The number of times the deck has been shuffled.</param>
+        </member>
+        <member name="T:Decks.BottomDeckException">
+            <summary>
+            An exception thrown when you try to deal a card and another card cannot be dealt.
+            </summary>
+        </member>
+        <member name="M:Decks.BottomDeckException.#ctor">
+            <summary>
+            Typical message for getting bottom-decked.
+            </summary>
+        </member>
+        <member name="M:Decks.BottomDeckException.#ctor(System.String)">
+            <summary>
+            Custom message for getting bottom-decked.
+            </summary>
+            <param name="message">The custom message.</param>
+        </member>
+        <member name="M:Decks.BottomDeckException.#ctor(System.String,System.Exception)">
+            <summary>
+            Generates a bottom-decking based off of some other error occuring.
+            </summary>
+            <param name="message">Custom message for the bottom-decking.</param>
+            <param name="innerException">What caused this.</param>
+        </member>
+        <member name="M:Decks.BottomDeckException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Handles serialization of this exception over the wire.
+            </summary>
+            <param name="info">The serialization bucket.</param>
+            <param name="context">The context of the serialization run.</param>
+        </member>
+        <member name="T:Decks.InvalidElementException">
+            <summary>
+            Expresses that an operation has been attempted which is inappropriate not because of what
+            you're attempting to do, but because the element it is acting on wasn't an appropriate 
+            target for it.
+            </summary>
+        </member>
+        <member name="M:Decks.InvalidElementException.#ctor">
+            <summary>
+            Basic invalid element setup.
+            </summary>
+        </member>
+        <member name="M:Decks.InvalidElementException.#ctor(System.String)">
+            <summary>
+            Exception with a custom message.
+            </summary>
+            <param name="message">The custom message.</param>
+        </member>
+        <member name="M:Decks.InvalidElementException.#ctor(System.String,System.Exception)">
+            <summary>
+            The custom message when an invalid element exception is caused by something else.
+            </summary>
+            <param name="message">The custom message.</param>
+            <param name="innerException">The causing exception.</param>
+        </member>
+        <member name="M:Decks.InvalidElementException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            A constructor used internally by the serialization engine.
+            </summary>
+            <param name="info">The serialization bucket.</param>
+            <param name="context">The context for serialization.</param>
+        </member>
+        <member name="T:Decks.Extensions">
+            <summary>
+            Extension methods, used in implementations.
+            </summary>
+        </member>
+        <member name="F:Decks.Extensions.Rand">
+            <summary>
+            The random number seed for this project.
+            </summary>
+        </member>
+        <member name="M:Decks.Extensions.AddRange``1(System.Collections.ObjectModel.ObservableCollection{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Adds all elements to an observable collection.
+            </summary>
+            <typeparam name="T">The element type for the collection.</typeparam>
+            <param name="list">(this) The collection we add to.</param>
+            <param name="toAdd">The items to add.</param>
+        </member>
+        <member name="M:Decks.Extensions.Shuffle``1(System.Collections.ObjectModel.ObservableCollection{``0})">
+            <summary>
+            Shuffles the contents of a list.
+            </summary>
+            <typeparam name="T">The element type for the collection.</typeparam>
+            <param name="list">(this) The collection we shuffle.</param>
+        </member>
+        <member name="M:Decks.Extensions.Apply``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+            Applies some action to every element of a collection.
+            </summary>
+            <typeparam name="T">The element type for the collection.</typeparam>
+            <param name="list">(this) The collection we act on.</param>
+            <param name="todo">The action to perform on each element.</param>
+        </member>
+        <member name="T:Decks.Hand`1">
+            <summary>
+            An implementation of the <see cref="T:Decks.IHand`1"/>.
+            </summary>
+            <typeparam name="TElement">The type of the "card" in the hand.</typeparam>
+        </member>
+        <member name="M:Decks.Hand`1.#ctor(Decks.Deck{`0})">
+            <summary>
+            Creates a new hand.
+            </summary>
+            <param name="deck">The deck the hand is atttached to.</param>
+        </member>
+        <member name="P:Decks.Hand`1.HasBeenMucked">
+            <summary>
+            Determines if this hand has previously been mucked.
+            </summary>
+        </member>
+        <member name="M:Decks.Hand`1.Draw(Decks.DeckSide)">
+            <summary>
+            Draws a card from the draw pile into the hand.
+            </summary>
+            <param name="from">Where to draw the card from, top or bottom of the deck.</param>
+            <returns>This hand (for fluent purposes).</returns>
+        </member>
+        <member name="M:Decks.Hand`1.Muck">
+            <summary>
+            Mucks this hand. You should remove this reference after mucking the hand.
+            </summary>
+        </member>
+        <member name="M:Decks.Hand`1.Play(`0)">
+            <summary>
+            Plays this element onto the table.
+            </summary>
+            <param name="element">The element to play.</param>
+            <returns>This hand (for fluent purposes).</returns>
+            <exception cref="T:Decks.InvalidElementException">
+            The element isn't part of this hand.
+            </exception>
+        </member>
+        <member name="M:Decks.Hand`1.Contains(`0)">
+            <summary>
+            Checks to see if this hand contains a specific element.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Decks.Hand`1.GetEnumerator">
+            <summary>
+            Gets the elements of the hand.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Decks.Hand`1.InvalidCheck">
+            <summary>
+            Checks to see if this hand has been mucked.
+            </summary>
+        </member>
+        <member name="M:Decks.Hand`1.Decks#Internal#IDeckVisitable{TElement}#Accept(Decks.Internal.IDeckVisitor{`0})">
+            <summary>
+            Accepts a visitor to this hand.
+            </summary>
+            <param name="visitor">The visitor to accept.</param>
+        </member>
+        <member name="M:Decks.Hand`1.Decks#Internal#IDeckStackInternal{TElement}#Add(`0)">
+            <summary>
+            Adds an element to this hand.
+            </summary>
+            <param name="element">An element in this hand.</param>
+        </member>
+        <member name="M:Decks.Hand`1.Decks#Internal#IDeckStackInternal{TElement}#CheckEnabled">
+            <summary>
+            Confirms this hand is enabled.
+            </summary>
+        </member>
+        <member name="T:Decks.IHand`1">
+            <summary>
+            A hand is a collection of elements from a specific deck that are owned usually by a specific player.  
+            </summary>
+            <typeparam name="TElement">The type of the elements in this deck and it's hands.</typeparam>
+        </member>
+        <member name="M:Decks.IHand`1.Draw(Decks.DeckSide)">
+            <summary>
+            Draws a card from the draw pile into the hand.
+            </summary>
+            <param name="from">Where to draw the card from, top or bottom of the deck.</param>
+            <returns>This hand (for fluent purposes).</returns>
+        </member>
+        <member name="M:Decks.IHand`1.Muck">
+            <summary>
+            Mucks this hand. You should remove this reference after mucking the hand.
+            </summary>
+        </member>
+        <member name="P:Decks.IHand`1.HasBeenMucked">
+            <summary>
+            Determines if this hand has previously been mucked.
+            </summary>
+        </member>
+        <member name="M:Decks.IHand`1.Play(`0)">
+            <summary>
+            Plays this element onto the table.
+            </summary>
+            <param name="element">The element to play.</param>
+            <returns>This hand (for fluent purposes).</returns>
+            <exception cref="T:Decks.InvalidElementException">
+            The element isn't part of this hand.
+            </exception>
+        </member>
+        <member name="T:Decks.IDeck`1">
+            <summary>
+            A "deck" of game components.  They can be cards, tiles, chits, whatever.  Uniqueness is not
+            guaranteed.  
+            </summary>
+            <remarks>
+            <para>
+            Items are drawn from the "top deck" and returned to the "discard pile".  Each 
+            player gets a "hand" and when you draw, you draw into your hand and when you play from your
+            hand it goes automatically to the discard pile.  Elements are always in either someone's hand,
+            the top deck, the discard pile or possibly in play on the "table". 
+            </para>
+            <para>
+            When creating a deck, you provide rules that explain how the system should react to specific 
+            circumstances through the <see cref="T:Decks.Configuration.DeckOptions"/> class.
+            </para>
+            </remarks>
+            <typeparam name="TElement"></typeparam>
+        </member>
+        <member name="P:Decks.IDeck`1.Options">
+            <summary>
+            The options that this deck is operating under.
+            </summary>
+        </member>
+        <member name="P:Decks.IDeck`1.Count">
+            <summary>
+            The total number of elements in the system.
+            </summary>
+        </member>
+        <member name="M:Decks.IDeck`1.Contains(`0,Decks.Location)">
+            <summary>
+            Determines if an area contains an element.
+            </summary>
+            <param name="element">The element to look for.</param>
+            <param name="location">The location to check.</param>
+            <returns><see langword="true"/> if the element is in that location.</returns>
+        </member>
+        <member name="P:Decks.IDeck`1.DrawPile">
+            <summary>
+            The draw pile for this deck.
+            </summary>
+        </member>
+        <member name="P:Decks.IDeck`1.Tableau">
+            <summary>
+            The tableau for this deck.
+            </summary>
+        </member>
+        <member name="M:Decks.IDeck`1.Add(`0,Decks.Location)">
+            <summary>
+            Adds a card 
+            </summary>
+            <param name="element">The element to add.</param>
+            <param name="location">The location to add it to.</param>
+            <returns>This same deck (for FLUID interface reasons).</returns>
+        </member>
+        <member name="M:Decks.IDeck`1.Add(`0,Decks.DeckSide,Decks.Location)">
+            <summary>
+            Adds a card to a specific location in the deck.
+            </summary>
+            <param name="element">The element to add.</param>
+            <param name="side">What side of the deck the item goes to.</param>
+            <param name="location">The location to add it to.</param>
+            <returns>This same deck (for FLUID interface reasons).</returns>
+        </member>
+        <member name="M:Decks.IDeck`1.Deal(System.Int32)">
+            <summary>
+            Deals out a number of hands to their default handsize.
+            </summary>
+            <param name="numberOfHands">Number of hands to deal.</param>
+            <returns>The dealt hands.</returns>
+        </member>
+        <member name="M:Decks.IDeck`1.Deal(System.Int32,System.UInt32)">
+            <summary>
+            Deals out a number of hands to their default 
+            </summary>
+            <param name="numberOfHands">Number of hands to deal.</param>
+            <param name="handSize">Number of cards in the hand.</param>
+            <returns>The dealt hands.</returns>
+        </member>
+        <member name="M:Decks.IDeck`1.Deal">
+            <summary>
+            Adds a hand, at its' default hand size.
+            </summary>
+            <returns>A newly drawn hand.</returns>
+        </member>
+        <member name="M:Decks.IDeck`1.Muck">
+            <summary>
+            Mucks all hands, putting them back into the discard pile.
+            </summary>
+            <returns>This deck (for fluent purposes) </returns>
+        </member>
+        <member name="P:Decks.IDeck`1.Hands">
+            <summary>
+            All of the hands that are currently dealt.
+            </summary>
+        </member>
+        <member name="P:Decks.IDeck`1.Table">
+            <summary>
+            Gets the tabled portion of the deck, those cards currently "in play".
+            </summary>
+        </member>
+        <member name="M:Decks.IDeck`1.Play">
+            <summary>
+            Plays the top card from the deck to the table.
+            </summary>
+            <returns>The element played.</returns>
+        </member>
+        <member name="P:Decks.IDeck`1.DiscardPile">
+            <summary>
+            The discard pile.
+            </summary>
+        </member>
+        <member name="T:Decks.IDeckStack`1">
+            <summary>
+            A <see cref="T:Decks.IDeck`1"/> is comprised of several different stacks - the one you draw from, the one to discard to,
+            the table itself, etc.  Each is represented by a stack.
+            </summary>
+            <typeparam name="TElement"></typeparam>
+        </member>
+        <member name="M:Decks.IDeckStack`1.Contains(`0)">
+            <summary>
+            Checks if this hand contains that element.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Decks.Internal.Events.EmptyDeckEvents`1">
+            <summary>
+            Default/empty implementation of the deck eventing interface.
+            </summary>
+            <typeparam name="TElement">The elements in the deck.</typeparam>
+        </member>
+        <member name="P:Decks.Internal.Events.EmptyDeckEvents`1.Singleton">
+            <summary>
+            Gets the one and only version of this.
+            </summary>
+        </member>
+        <member name="P:Decks.Internal.IDeckInternal`1.Events">
+            <summary>
+            The collection of events that are in use.
+            </summary>
+        </member>
+        <member name="P:Decks.Internal.IDeckInternal`1.DrawPileStack">
+            <summary>
+            The internal representation of the <see cref="T:Decks.IDrawPile`1"/>.
+            </summary>
+        </member>
+        <member name="P:Decks.Internal.IDeckInternal`1.DiscardPileStack">
+            <summary>
+            The internal representation of the <see cref="T:Decks.IDiscardPile`1"/>.
+            </summary>
+        </member>
+        <member name="P:Decks.Internal.IDeckInternal`1.TableauStack">
+            <summary>
+            The internal representation of the <see cref="T:Decks.ITableau`1"/>.
+            </summary>
+        </member>
+        <member name="P:Decks.Internal.IDeckInternal`1.TableStack">
+            <summary>
+            The internal representation of the <see cref="T:Decks.ITable`1"/>.
+            </summary>
+        </member>
+        <member name="P:Decks.Internal.IDeckInternal`1.ElementType">
+            <summary>
+            The type of elements in this <see cref="T:Decks.IDeck`1"/>.
+            </summary>
+            <remarks>This is very handy when dealing witih a derived (and no longer generic deck class.</remarks>
+        </member>
+        <member name="M:Decks.Internal.IDeckInternal`1.RemoveHand(Decks.IHand{`0})">
+            <summary>
+            Removes a hand from those that the deck is aware of.
+            </summary>
+            <param name="hand">The hand to remove.</param>
+        </member>
+        <member name="M:Decks.Internal.IDeckInternal`1.Dehydrating">
+            <summary>
+            Called before the deck is serialized.
+            </summary>
+        </member>
+        <member name="M:Decks.Internal.IDeckInternal`1.Rehydrated">
+            <summary>
+            Called after the deck has ben deserialized.
+            </summary>
+        </member>
+        <member name="T:Decks.Internal.IDeckStackInternal`1">
+            <summary>
+            The internal interface for dealing with any deck stack (draw pile, discards, table, etc.)
+            </summary>
+            <typeparam name="TElement">Type of the elements involved.</typeparam>
+        </member>
+        <member name="M:Decks.Internal.IDeckStackInternal`1.Add(`0)">
+            <summary>
+            Adds an eleemnt from one area to another.
+            </summary>
+            <param name="element">The element to add.</param>
+        </member>
+        <member name="M:Decks.Internal.IDeckStackInternal`1.CheckEnabled">
+            <summary>
+            Confirms that this stack is enabled, errors if it isn't.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">The stack is not enabled.</exception>
+        </member>
+        <member name="T:Decks.Internal.IDeckVisitable`1">
+            <summary>
+            An element that knows how to accept a <see cref="T:Decks.Internal.IDeckVisitor`1"/>.  An implementation of the
+            Visitor pattern.
+            </summary>
+            <typeparam name="TElement">The elements of the deck.</typeparam>
+        </member>
+        <member name="T:Decks.Internal.IDiscardPileInternal`1">
+            <summary>
+            The internal interface to the discard pile.
+            </summary>
+            <typeparam name="TElement">The elements in the discard pile.</typeparam>
+        </member>
+        <member name="M:Decks.Internal.IDiscardPileInternal`1.Add(`0,Decks.DeckSide)">
+            <summary>
+            Adds an eleemnt from one area to another.
+            </summary>
+            <param name="element">The element to add.</param>
+            <param name="side">The side to add to.</param>
+        </member>
+        <member name="T:Decks.Internal.IDrawPileInternal`1">
+            <summary>
+            The internal interface for dealing with the draw pile.  
+            </summary>
+            <typeparam name="TElement">The elements in the draw pile.</typeparam>
+        </member>
+        <member name="M:Decks.Internal.IDrawPileInternal`1.Add(`0,Decks.DeckSide)">
+            <summary>
+            Adds an eleemnt from one area to another.
+            </summary>
+            <param name="element">The element to add.</param>
+            <param name="side">The side to add to.</param>
+        </member>
+        <member name="M:Decks.Internal.IDrawPileInternal`1.Draw(Decks.DeckSide)">
+            <summary>
+            Draws a card, removing it from the drawpile.
+            </summary>
+            <param name="side">The side of the deck to draw from.</param>
+            <returns>The drawn card.</returns>
+        </member>
+        <member name="P:Decks.Internal.IDrawPileInternal`1.ShuffleCount">
+            <summary>
+            Gets the number of times that a given topdeck has been shuffled.  Some games fix this number.
+            </summary>
+        </member>
+        <member name="T:Decks.Internal.IHandInternal`1">
+            <summary>
+             The internal interface to a specific player hand.
+            </summary>
+            <typeparam name="TElement">The elements in that hand.</typeparam>
+        </member>
+        <member name="T:Decks.Internal.ITableauInternal`1">
+            <summary>
+            The internal interface to the tableau.
+            </summary>
+            <typeparam name="TElement">The elements that comprise the tableau.</typeparam>
+        </member>
+        <member name="T:Decks.Internal.ITableInternal`1">
+            <summary>
+            The internal interface to the table.
+            </summary>
+            <typeparam name="TElement">The elements on the table.</typeparam>
+        </member>
+        <member name="T:Decks.Internal.Serialization.SerializationVisitor`1">
+            <summary>
+            A visitor that implements serialization.
+            </summary>
+            <typeparam name="TElement">The elements of the deck to serialize</typeparam>
+        </member>
+        <member name="T:Decks.Location">
+            <summary>
+            Defines a location that's part of the stack.
+            </summary>
+        </member>
+        <member name="F:Decks.Location.TopDeck">
+            <summary>
+            The set that draws happen from.
+            </summary>
+        </member>
+        <member name="F:Decks.Location.DiscardPile">
+            <summary>
+            The set that have already been processed.
+            </summary>
+        </member>
+        <member name="F:Decks.Location.Hand">
+            <summary>
+            In a play-hand.
+            </summary>
+        </member>
+        <member name="F:Decks.Location.Table">
+            <summary>
+            On the "table".
+            </summary>
+        </member>
+        <member name="F:Decks.Location.Tableau">
+            <summary>
+            The visible cards sitting there to be drawn from.
+            </summary>
+        </member>
+        <member name="T:Decks.ITableau`1">
+            <summary>
+            A tableau is an area with face-up elements.  It is backfilled from the top-deck.
+            </summary>
+            <remarks>
+            Generally, the tableau exists to give players an set of options that they can opt
+            between.  Usually, you have a choice of either something in the tableau or the top
+            of the draw pile.  Sometimes, you have to pull from the tableau.
+            </remarks>
+        </member>
+        <member name="P:Decks.ITableau`1.Options">
+            <summary>
+            The options for this tableau.
+            </summary>
+        </member>
+        <member name="P:Decks.ITableau`1.Enabled">
+            <summary>
+            Whether or not this setup uses a tableau.
+            </summary>
+        </member>
+        <member name="M:Decks.ITableau`1.DrawUp(Decks.DeckSide)">
+            <summary>
+            Draws the tableau up to its configured size.
+            </summary>
+            <remarks>
+            This uses the <see cref="T:Decks.Configuration.TableauOverflowRule"/> set in the options to 
+            explain how to handle overage.  Underage is handled by drawing from 
+            the top deck.
+            </remarks>
+            <param name="from">Which side of the draw pile we're drawing from.</param>
+            <returns>This tableau (for fluent purposes).</returns>
+        </member>
+        <member name="M:Decks.ITableau`1.Play(`0)">
+            <summary>
+            Plays an element from this tableau to the table.
+            </summary>
+            <param name="element">The element to play to the table.</param>
+            <returns>This tableau (for fluent purposes).</returns>
+        </member>
+        <member name="M:Decks.ITableau`1.DrawInto(`0,Decks.IHand{`0})">
+            <summary>
+            Has a specific hand draw up a given element.
+            </summary>
+            <param name="element">The element to play to the table.</param>
+            <param name="hand">The hand to draw it into.</param>
+            <returns>This tableau (for fluent purposes).</returns>
+        </member>
+        <member name="T:Decks.Tableau`1">
+            <summary>
+            A tableau is an area with face-up elements.  It is backfilled from the top-deck.
+            </summary>
+            <remarks>
+            Generally, the tableau exists to give players an set of options that they can opt
+            between.  Usually, you have a choice of either something in the tableau or the top
+            of the draw pile.  Sometimes, you have to pull from the tableau.
+            </remarks>
+        </member>
+        <member name="M:Decks.Tableau`1.#ctor(Decks.Deck{`0})">
+            <summary>
+            Creates a tableau.
+            </summary>
+            <param name="deck">The deck we're part of.</param>
+        </member>
+        <member name="P:Decks.Tableau`1.Options">
+            <summary>
+            The options for this tableau.
+            </summary>
+        </member>
+        <member name="P:Decks.Tableau`1.Enabled">
+            <summary>
+            Whether or not this setup uses a tableau.
+            </summary>
+        </member>
+        <member name="P:Decks.Tableau`1.Decks#ITableau{TElement}#Options">
+            <summary>
+            The options for this tableau.
+            </summary>
+        </member>
+        <member name="P:Decks.Tableau`1.Decks#ITableau{TElement}#Enabled">
+            <summary>
+            Whether or not this setup uses a tableau.
+            </summary>
+        </member>
+        <member name="M:Decks.Tableau`1.DrawUp(Decks.DeckSide)">
+            <summary>
+            Draws the tableau up to its configured size.
+            </summary>
+            <remarks>
+            This uses the <see cref="T:Decks.Configuration.TableauOverflowRule"/> set in the options to 
+            explain how to handle overage.  Underage is handled by drawing from 
+            the top deck.
+            </remarks>
+            <param name="from">Which side of the draw pile we're drawing from.</param>
+            <returns>This tableau (for fluent purposes).</returns>
+        </member>
+        <member name="M:Decks.Tableau`1.Play(`0)">
+            <summary>
+            Plays an element from this tableau to the table.
+            </summary>
+            <param name="element">The element to play to the table.</param>
+            <returns>This tableau (for fluent purposes).</returns>
+        </member>
+        <member name="M:Decks.Tableau`1.DrawInto(`0,Decks.IHand{`0})">
+            <summary>
+            Has a specific hand draw up a given element.
+            </summary>
+            <param name="element">The element to play to the table.</param>
+            <param name="hand">The hand to draw it into.</param>
+            <returns>This tableau (for fluent purposes).</returns>
+        </member>
+        <member name="M:Decks.Tableau`1.CheckProperSize">
+            <summary>
+            Checks that this tableau is of the proper size.
+            </summary>
+        </member>
+        <member name="M:Decks.Tableau`1.Decks#Internal#IDeckStackInternal{TElement}#Add(`0)">
+            <summary>
+            Adds an element to this tableau.
+            </summary>
+            <param name="element">The element to add.</param>
+        </member>
+        <member name="M:Decks.Tableau`1.Decks#Internal#IDeckVisitable{TElement}#Accept(Decks.Internal.IDeckVisitor{`0})">
+            <summary>
+            Accepts a vistor at the tableau.
+            </summary>
+            <param name="visitor">The visitor to accept.</param>
+        </member>
+        <member name="M:Decks.Tableau`1.Decks#Internal#IDeckStackInternal{TElement}#CheckEnabled">
+            <summary>
+            Checks to see if the tableau should be usable.
+            </summary>
+        </member>
+        <member name="T:Decks.ITable`1">
+            <summary>
+            The table is the public/shared playspace.  Elements may be played from hands or the tableau to the table.
+            </summary>
+            <typeparam name="TElement">The elemenets on the table.</typeparam>
+        </member>
+        <member name="P:Decks.ITable`1.Options">
+            <summary>
+            The options pertainent to this table.
+            </summary>
+        </member>
+        <member name="M:Decks.ITable`1.Discard(`0)">
+            <summary>
+            Discards a single element from the table.
+            </summary>
+            <param name="element">The element to discard.</param>
+            <returns>The table (for fluent purposes).</returns>
+        </member>
+        <member name="M:Decks.ITable`1.Muck">
+            <summary>
+            Discards all elements from the table.  Unlike a <see cref="T:Decks.IHand`1"/>, the table persists 
+            after this operation.
+            </summary>
+            <returns>The table (for fluent purposes).</returns>
+        </member>
+        <member name="P:Decks.ITable`1.Enabled">
+            <summary>
+            Checks to see if the table is enabled (from <see cref="P:Decks.ITable`1.Options"/>).
+            </summary>
+        </member>
+        <member name="T:Decks.Table`1">
+            <summary>
+            The table is the public/shared playspace.  Elements may be played from hands or the tableau to the table.
+            </summary>
+            <typeparam name="TElement">The elemenets on the table.</typeparam>
+        </member>
+        <member name="M:Decks.Table`1.#ctor(Decks.Deck{`0})">
+            <summary>
+            Constructs a table.
+            </summary>
+            <param name="deck">The deck it's associated with.</param>
+        </member>
+        <member name="M:Decks.Table`1.Discard(`0)">
+            <summary>
+            Discards a single element from the table.
+            </summary>
+            <param name="element">The element to discard.</param>
+            <returns>The table (for fluent purposes).</returns>
+        </member>
+        <member name="M:Decks.Table`1.Muck">
+            <summary>
+            Discards all elements from the table.  Unlike a <see cref="T:Decks.IHand`1"/>, the table persists 
+            after this operation.
+            </summary>
+            <returns>The table (for fluent purposes).</returns>
+        </member>
+        <member name="P:Decks.Table`1.Enabled">
+            <summary>
+            Checks to see if the table is enabled (from <see cref="P:Decks.Table`1.Options"/>).
+            </summary>
+        </member>
+        <member name="P:Decks.Table`1.Options">
+            <summary>
+            The options pertainent to this table.
+            </summary>
+        </member>
+        <member name="M:Decks.Table`1.Decks#Internal#IDeckVisitable{TElement}#Accept(Decks.Internal.IDeckVisitor{`0})">
+            <summary>
+            Accepts a visitor at this table.
+            </summary>
+            <param name="visitor">The visitor to accept.</param>
+        </member>
+        <member name="M:Decks.Table`1.Decks#Internal#IDeckStackInternal{TElement}#Add(`0)">
+            <summary>
+            Adds an element to the table.
+            </summary>
+            <param name="element">The element to add.</param>
+        </member>
+        <member name="M:Decks.Table`1.Decks#Internal#IDeckStackInternal{TElement}#CheckEnabled">
+            <summary>
+            Confirms that we're enabled.
+            </summary>
+        </member>
+    </members>
+</doc>

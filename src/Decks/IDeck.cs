@@ -115,6 +115,9 @@ namespace Decks
         #endregion
 
         #region Discards
+        /// <summary>
+        /// The discard pile.
+        /// </summary>
         IDiscardPile<TElement> DiscardPile { get; }
         #endregion
     }

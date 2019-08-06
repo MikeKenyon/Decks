@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Decks.Configuration
 {
+    /// <summary>
+    /// Options for the discard pile.
+    /// </summary>
     public class DiscardOptions : PropertyChangedBase, IDiscardOptions
     {
         private bool _autoShuffle;

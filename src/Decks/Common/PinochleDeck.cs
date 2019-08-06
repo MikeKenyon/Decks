@@ -5,20 +5,34 @@ using System.Text;
 
 namespace Decks.Common
 {
+    /// <summary>
+    /// A representation of a deck to play pinochle with.
+    /// </summary>
     public class PinochleDeck : StandardCardDeck
     {
+        /// <summary>
+        /// Creates a pinochle deck.
+        /// </summary>
+        /// <param name="options">The options on how to play with a pinochle deck.</param>
+        /// <param name="doInitialize">Should the deck be initialized.</param>
         public PinochleDeck(PinochleOptions options, bool doInitialize = true) : base(options, doInitialize)
         {
-            ValidateOptions();
+            CheckOptions();
         }
 
+        /// <summary>
+        /// Signaled when the options are updated.
+        /// </summary>
         protected override void OnOptionsUpdated()
         {
             base.OnOptionsUpdated();
-            ValidateOptions();
+            CheckOptions();
         }
 
-        private void ValidateOptions()
+        /// <summary>
+        /// Validates the given options.
+        /// </summary>
+        private void CheckOptions()
         {
             if (CardOptions.AceMode != AceMode.High)
             {
@@ -30,6 +44,9 @@ namespace Decks.Common
             }
         }
 
+        /// <summary>
+        /// Initializes the deck.
+        /// </summary>
         protected override void Initialize()
         {
             var options = CardOptions;

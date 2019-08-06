@@ -56,8 +56,14 @@ namespace Decks
             set { _shuffleCount = value; NotifyOfPropertyChange(); NotifyOfPropertyChange(() => HasBeenShuffled); }
         }
 
+        /// <summary>
+        /// Checks whether the deck has previously been shuffled.
+        /// </summary>
         public bool HasBeenShuffled { get { return _shuffleCount > 0; } }
 
+        /// <summary>
+        /// Checks if it's okay to shuffle the deck.
+        /// </summary>
         private void CheckValidToShuffle()
         {
             if(Options.MaximumShuffleCount.HasValue && Options.MaximumShuffleCount <= _shuffleCount)
@@ -66,10 +72,20 @@ namespace Decks
             }
         }
 
+        /// <summary>
+        /// Accepts a visitor to the draw pile.
+        /// </summary>
+        /// <param name="visitor">The visitor to accept.</param>
         void IDeckVisitable<TElement>.Accept(IDeckVisitor<TElement> visitor)
         {
             visitor.Visit(this);
         }
+
+        /// <summary>
+        /// Adds an element to the draw pile.
+        /// </summary>
+        /// <param name="element">The element to add.</param>
+        /// <param name="side">Which side of the stack to add the element to.  Allows for putting cards on the bottom of the deck.</param>
         void IDrawPileInternal<TElement>.Add(TElement element, DeckSide side)
         {
             switch(side)
@@ -84,6 +100,11 @@ namespace Decks
             }
         }
 
+        /// <summary>
+        /// Draws a card from the deck.
+        /// </summary>
+        /// <param name="side">The side to draw from.  Allows for botom-dealing.</param>
+        /// <returns>The drawn element.</returns>
         TElement IDrawPileInternal<TElement>.Draw(DeckSide side)
         {
             if ((Count == 0 && Deck.DiscardPile.Count == 0) ||
@@ -96,7 +117,7 @@ namespace Decks
                 Shuffle();
             }
 
-            Deck.Events.Drawing();
+            Deck.Events.Drawing(this);
 
             TElement card = null;
             var index = 0;
@@ -114,16 +135,23 @@ namespace Decks
             card = Contents[index];
             Contents.RemoveAt(index);
 
-            Deck.Events.Drew(card);
+            Deck.Events.Drew(this, card);
 
             return card;
         }
 
+        /// <summary>
+        /// Adds an element to the draw pile.
+        /// </summary>
+        /// <param name="element">The element to add.</param>
         void IDeckStackInternal<TElement>.Add(TElement element)
         {
             ((IDrawPileInternal<TElement>)this).Add(element, DeckSide.Default);
         }
 
+        /// <summary>
+        /// Confirms that this stack is enabled.
+        /// </summary>
         void IDeckStackInternal<TElement>.CheckEnabled()
         {
             // No-op.

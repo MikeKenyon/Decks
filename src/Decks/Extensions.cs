@@ -6,9 +6,22 @@ using System.Text;
 
 namespace Decks
 {
+    /// <summary>
+    /// Extension methods, used in implementations.
+    /// </summary>
     internal static class Extensions
     {
-        public static Random Rand = new Random(); 
+        /// <summary>
+        /// The random number seed for this project.
+        /// </summary>
+        public static readonly Random Rand = new Random(); 
+
+        /// <summary>
+        /// Adds all elements to an observable collection.
+        /// </summary>
+        /// <typeparam name="T">The element type for the collection.</typeparam>
+        /// <param name="list">(this) The collection we add to.</param>
+        /// <param name="toAdd">The items to add.</param>
 
         public static void AddRange<T>(this ObservableCollection<T> list, IEnumerable<T> toAdd)
         {
@@ -21,6 +34,11 @@ namespace Decks
             }
         }
 
+        /// <summary>
+        /// Shuffles the contents of a list.
+        /// </summary>
+        /// <typeparam name="T">The element type for the collection.</typeparam>
+        /// <param name="list">(this) The collection we shuffle.</param>
         public static void Shuffle<T>(this ObservableCollection<T> list)
         {
             Contract.Requires(list != null);
@@ -36,6 +54,12 @@ namespace Decks
             }
         }
 
+        /// <summary>
+        /// Applies some action to every element of a collection.
+        /// </summary>
+        /// <typeparam name="T">The element type for the collection.</typeparam>
+        /// <param name="list">(this) The collection we act on.</param>
+        /// <param name="todo">The action to perform on each element.</param>
         public static void Apply<T>(this IEnumerable<T> list, Action<T> todo)
         {
             Contract.Requires(list != null);

@@ -5,14 +5,24 @@ using System.Text;
 
 namespace Decks.Common
 {
+    /// <summary>
+    /// A specialized deck of <see cref="PlayingCard"/>.
+    /// </summary>
     [JsonConverter(typeof(Internal.Serialization.DeckSerializer<PlayingCard>))]
     public class StandardCardDeck : Deck<PlayingCard>
     {
+        /// <summary>
+        /// Creates a deck of playing cards.
+        /// </summary>
+        /// <param name="options">The options used to create the deck.</param>
+        /// <param name="doInitialize">Whether or initialize this deck's contents or not.</param>
         public StandardCardDeck(PlayingCardOptions options, bool doInitialize = true): base(options, doInitialize)
         {
         }
 
-
+        /// <summary>
+        /// How to initialize this deck.
+        /// </summary>
         protected override void Initialize()
         {
             var options = CardOptions;
@@ -32,6 +42,9 @@ namespace Decks.Common
             }
         }
 
+        /// <summary>
+        /// How to handle rehydration from being serialized.
+        /// </summary>
         public override void Rehydrated()
         {
             base.Rehydrated();
@@ -42,6 +55,9 @@ namespace Decks.Common
             Hands.Apply(h => h.Apply(c => c.Options = CardOptions));
         }
 
+        /// <summary>
+        /// A quick accessor for the specialized options.
+        /// </summary>
         protected PlayingCardOptions CardOptions
         {
             get {

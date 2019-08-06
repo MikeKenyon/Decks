@@ -14,6 +14,10 @@ namespace Decks
     internal class Hand<TElement> : DeckStack<TElement>, IHand<TElement>, Internal.IHandInternal<TElement>
         where TElement : class
     {
+        /// <summary>
+        /// Creates a new hand.
+        /// </summary>
+        /// <param name="deck">The deck the hand is atttached to.</param>
         internal Hand(Deck<TElement> deck) : base(deck)
         {
         }
@@ -85,18 +89,30 @@ namespace Decks
 
             return this;
         }
-
+        /// <summary>
+        /// Checks to see if this hand contains a specific element.
+        /// </summary>
+        /// <param name="element"></param>
+        /// <returns></returns>
         public override bool Contains(TElement element)
         {
             InvalidCheck();
             return base.Contains(element);
         }
+
+        /// <summary>
+        /// Gets the elements of the hand.
+        /// </summary>
+        /// <returns></returns>
         public override IEnumerator<TElement> GetEnumerator()
         {
             InvalidCheck();
             return base.GetEnumerator();
         }
 
+        /// <summary>
+        /// Checks to see if this hand has been mucked.
+        /// </summary>
         private void InvalidCheck()
         {
             if(HasBeenMucked)
@@ -105,15 +121,27 @@ namespace Decks
             }
         }
 
+        /// <summary>
+        /// Accepts a visitor to this hand.
+        /// </summary>
+        /// <param name="visitor">The visitor to accept.</param>
         void IDeckVisitable<TElement>.Accept(IDeckVisitor<TElement> visitor)
         {
             visitor.Visit(this);
         }
+
+        /// <summary>
+        /// Adds an element to this hand.
+        /// </summary>
+        /// <param name="element">An element in this hand.</param>
         void IDeckStackInternal<TElement>.Add(TElement element)
         {
             Contents.Add(element);
         }
 
+        /// <summary>
+        /// Confirms this hand is enabled.
+        /// </summary>
         void IDeckStackInternal<TElement>.CheckEnabled()
         {
             // No-op

@@ -11,7 +11,12 @@
     <Version>1.2.0</Version>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Code\Decks\src\Decks\Decks.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
+    <None Remove="Decks.xml" />
     <None Remove="DrawPile\DrawPile.xaml" />
     <None Remove="DrawPile\DrawPileDetail.xaml" />
     <None Remove="DrawPile\DrawPileMaster.xaml" />

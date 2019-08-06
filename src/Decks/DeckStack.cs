@@ -17,11 +17,18 @@ namespace Decks
     /// <typeparam name="TElement"></typeparam
     internal class DeckStack<TElement> : PropertyChangedBase, IDeckStackInternal<TElement> where TElement : class
     {
+        /// <summary>
+        /// Creates a deck stack.
+        /// </summary>
+        /// <param name="deck">The deck this stack is attached to.</param>
         public DeckStack(Internal.IDeckInternal<TElement> deck)
         {
             Deck = deck;
         }
 
+        /// <summary>
+        /// Allows consumers to subscribe for when this collection is changed.
+        /// </summary>
         event NotifyCollectionChangedEventHandler INotifyCollectionChanged.CollectionChanged
         {
             add
@@ -35,9 +42,19 @@ namespace Decks
             }
         }
 
+        /// <summary>
+        /// The containing <see cref="IDeck{TElement}"/>
+        /// </summary>
         protected Internal.IDeckInternal<TElement> Deck { get; }
+
+        /// <summary>
+        /// The underlying collection for this stack.
+        /// </summary>
         protected ObservableCollection<TElement> Contents { get; } = new ObservableCollection<TElement>();
 
+        /// <summary>
+        /// The number of elements in this stack.
+        /// </summary>
         public int Count { get { return Contents.Count; } }
 
         /// <summary>
@@ -68,15 +85,28 @@ namespace Decks
             //No op
         }
 
+        /// <summary>
+        /// Gets an enumerator over this contents of this stack.
+        /// </summary>
+        /// <returns>A iterator over this collection.</returns>
         public virtual IEnumerator<TElement> GetEnumerator()
         {
             return Contents.GetEnumerator();
         }
 
+        /// <summary>
+        /// Gets an enumerator over this contents of this stack.
+        /// </summary>
+        /// <returns>A iterator over this collection.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
         }
+
+        /// <summary>
+        /// Accepts a visitor at this stack.
+        /// </summary>
+        /// <param name="visitor">The visitor to accept.</param>
         void IDeckVisitable<TElement>.Accept(IDeckVisitor<TElement> visitor)
         {
         }

@@ -4,6 +4,10 @@ using System.Text;
 
 namespace Decks
 {
+    /// <summary>
+    /// A hand is a collection of elements from a specific deck that are owned usually by a specific player.  
+    /// </summary>
+    /// <typeparam name="TElement">The type of the elements in this deck and it's hands.</typeparam>
     public interface IHand<TElement> : IDeckStack<TElement> where TElement : class
     {
         /// <summary>
@@ -17,6 +21,7 @@ namespace Decks
         /// Mucks this hand. You should remove this reference after mucking the hand.
         /// </summary>
         void Muck();
+
         /// <summary>
         /// Determines if this hand has previously been mucked.
         /// </summary>

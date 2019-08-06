@@ -7,6 +7,14 @@ using System.Text;
 
 namespace Decks
 {
+    /// <summary>
+    /// A tableau is an area with face-up elements.  It is backfilled from the top-deck.
+    /// </summary>
+    /// <remarks>
+    /// Generally, the tableau exists to give players an set of options that they can opt
+    /// between.  Usually, you have a choice of either something in the tableau or the top
+    /// of the draw pile.  Sometimes, you have to pull from the tableau.
+    /// </remarks>
     internal class Tableau<TElement> : DeckStack<TElement>, ITableau<TElement>, Internal.ITableauInternal<TElement>
         where TElement : class
     {
@@ -32,6 +40,9 @@ namespace Decks
             }
         }
 
+        /// <summary>
+        /// The options for this tableau.
+        /// </summary>
         ITableauOptions ITableau<TElement>.Options
         {
             get
@@ -40,6 +51,9 @@ namespace Decks
             }
         }
 
+        /// <summary>
+        /// Whether or not this setup uses a tableau.
+        /// </summary>
         bool ITableau<TElement>.Enabled
         {
             get
@@ -162,7 +176,9 @@ namespace Decks
         }
 
 
-
+        /// <summary>
+        /// Checks that this tableau is of the proper size.
+        /// </summary>
         private void CheckProperSize()
         {
             if (Options.MaintainSize)
@@ -170,11 +186,19 @@ namespace Decks
                 DrawUp();
             }
         }
-
+        
+        /// <summary>
+        /// Adds an element to this tableau.
+        /// </summary>
+        /// <param name="element">The element to add.</param>
         void IDeckStackInternal<TElement>.Add(TElement element)
         {
             Contents.Add(element);
         }
+        /// <summary>
+        /// Accepts a vistor at the tableau.
+        /// </summary>
+        /// <param name="visitor">The visitor to accept.</param>
         void IDeckVisitable<TElement>.Accept(IDeckVisitor<TElement> visitor)
         {
             visitor.Visit(this);
@@ -184,8 +208,6 @@ namespace Decks
         /// <summary>
         /// Checks to see if the tableau should be usable.
         /// </summary>
-        /// <param name="overrideSize">If greater than 0, this is the size to use to determin
-        /// enabled-ness.</param>
         void IDeckStackInternal<TElement>.CheckEnabled()
         {
             if (!Enabled)

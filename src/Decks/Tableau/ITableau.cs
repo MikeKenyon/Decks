@@ -27,7 +27,7 @@ namespace Decks
         /// Draws the tableau up to its configured size.
         /// </summary>
         /// <remarks>
-        /// This uses the <see cref="TableauOverflowRule"/> set in the options to 
+        /// This uses the <see cref="Configuration.TableauOverflowRule"/> set in the options to 
         /// explain how to handle overage.  Underage is handled by drawing from 
         /// the top deck.
         /// </remarks>

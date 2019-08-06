@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Decks.Configuration
 {
+    /// <summary>
+    /// The options for how to deal hands.
+    /// </summary>
     public class HandOptions : PropertyChangedBase, IHandOptions
     {
         private bool _enabled = true;

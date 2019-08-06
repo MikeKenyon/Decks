@@ -11,6 +11,9 @@ namespace Decks
     // Portion of the Deck that deals with hands.
     public partial class Deck<TElement> : IDeck<TElement> where TElement : class
     {
+        /// <summary>
+        /// The set of <see cref="IHand{TElement}"/> that have been drawn from this deck.
+        /// </summary>
         private ObservableCollection<IHand<TElement>> HandSet { get; } = new ObservableCollection<IHand<TElement>>();
         /// <summary>
         /// All of the hands that are currently dealt.
@@ -76,6 +79,10 @@ namespace Decks
             return this;
         }
 
+        /// <summary>
+        /// Removes a hand from those that the deck is aware of.
+        /// </summary>
+        /// <param name="hand">The hand to remove.</param>
         void Internal.IDeckInternal<TElement>.RemoveHand(IHand<TElement> hand)
         {
             HandSet.Remove(hand);

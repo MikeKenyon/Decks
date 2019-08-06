@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Decks
 {
+    /// <summary>
+    /// Defines a location that's part of the stack.
+    /// </summary>
     public enum Location
     {
         /// <summary>

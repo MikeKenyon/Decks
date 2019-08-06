@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Decks.Configuration
 {
+    /// <summary>
+    /// The general configuration for this deck.
+    /// </summary>
     public class DeckOptions : PropertyChangedBase, IDeckOptions
     {
         #region Data

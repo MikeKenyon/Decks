@@ -4,6 +4,11 @@ using System.Text;
 
 namespace Decks
 {
+    /// <summary>
+    /// This is the stack that contains elements that have been discarded from hands, the table, etc.  The discarded elements
+    /// can be readded to the <see cref="IDrawPile{TElement}"/>.
+    /// </summary>
+    /// <typeparam name="TElement">The elements in the discard pile.</typeparam>
     public interface IDiscardPile<TElement> : IDeckStack<TElement>
         where TElement : class
     {

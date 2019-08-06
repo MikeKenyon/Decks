@@ -44,7 +44,7 @@ namespace Decks.Internal.Events
 
         }
 
-        void IDeckEvents<TElement>.Drawing()
+        void IDeckEvents<TElement>.Drawing(IDrawPile<TElement> pile)
         {
 
         }
@@ -64,7 +64,7 @@ namespace Decks.Internal.Events
 
         }
 
-        void IDeckEvents<TElement>.Drew(TElement card)
+        void IDeckEvents<TElement>.Drew(IDrawPile<TElement> pile, TElement card)
         {
 
         }
