@@ -206,7 +206,7 @@ namespace Decks
         /// <param name="element">The element to look for.</param>
         /// <param name="location">The location to check.</param>
         /// <returns><see langword="true"/> if the element is in that location.</returns>
-        public bool Contains(TElement element, Location location = Location.TopDeck)
+        public bool Contains(TElement element, Location location = Location.DrawPile)
         {
             Contract.Requires(Enum.IsDefined(typeof(Location), location));
 
@@ -218,7 +218,7 @@ namespace Decks
                     return HandSet.Any(hand => hand.Contains(element));
                 case Location.Table:
                     return Table.Contains(element);
-                case Location.TopDeck:
+                case Location.DrawPile:
                     return DrawPile.Contains(element);
             }
             return false;
@@ -229,7 +229,7 @@ namespace Decks
         /// <param name="element">The element to add.</param>
         /// <param name="location">The location to add it to.</param>
         /// <returns>This same deck (for FLUID interface reasons).</returns>
-        public IDeck<TElement> Add(TElement element, Location location = Location.TopDeck)
+        public IDeck<TElement> Add(TElement element, Location location = Location.DrawPile)
         {
             Contract.Requires(Enum.IsDefined(typeof(Location), location));
             CheckAllowAdd();
@@ -259,7 +259,7 @@ namespace Decks
         /// <param name="side">What side of the deck the item goes to.</param>
         /// <param name="location">The location to add it to.</param>
         /// <returns>This same deck (for FLUID interface reasons).</returns>
-        public IDeck<TElement> Add(TElement element, DeckSide side, Location location = Location.TopDeck)
+        public IDeck<TElement> Add(TElement element, DeckSide side, Location location = Location.DrawPile)
         {
             Contract.Requires(Enum.IsDefined(typeof(DeckSide), side));
             Contract.Requires(Enum.IsDefined(typeof(Location), location));
@@ -267,7 +267,7 @@ namespace Decks
 
             switch (location)
             {
-                case Location.TopDeck:
+                case Location.DrawPile:
                     ((Internal.IDrawPileInternal<TElement>)_drawPile).Add(element, side);
                     break;
                 case Location.DiscardPile:

@@ -40,7 +40,7 @@ namespace Decks
         /// <param name="element">The element to look for.</param>
         /// <param name="location">The location to check.</param>
         /// <returns><see langword="true"/> if the element is in that location.</returns>
-        bool Contains(TElement element, Location location = Location.TopDeck);
+        bool Contains(TElement element, Location location = Location.DrawPile);
 
         /// <summary>
         /// The draw pile for this deck.
@@ -62,7 +62,7 @@ namespace Decks
         /// If you try to supply <see cref="Location.Hand"/> or you attempt to add to a deck that has been initialized 
         /// and declared to be unmodified by <see cref="IDeckOptions.Modifiable"/>.
         /// </exception>
-        IDeck<TElement> Add(TElement element, Location location = Location.TopDeck);
+        IDeck<TElement> Add(TElement element, Location location = Location.DrawPile);
         /// <summary>
         /// Adds a card to a specific location in the deck.
         /// </summary>
@@ -75,7 +75,7 @@ namespace Decks
         /// try to supply <see cref="Location.Hand"/> or you attempt to add to a deck that has been initialized and declared to 
         /// be unmodified by <see cref="IDeckOptions.Modifiable"/>.
         /// </exception>
-        IDeck<TElement> Add(TElement element, DeckSide side, Location location = Location.TopDeck);
+        IDeck<TElement> Add(TElement element, DeckSide side, Location location = Location.DrawPile);
         #endregion
 
         #region Hands

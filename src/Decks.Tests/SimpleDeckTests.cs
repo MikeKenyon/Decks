@@ -69,7 +69,7 @@ namespace Decks.Tests
             // Act
             // Assert
             Assert.IsTrue(deck.Contains("is", Location.DiscardPile));
-            Assert.IsFalse(deck.Contains("is", Location.TopDeck));
+            Assert.IsFalse(deck.Contains("is", Location.DrawPile));
             Assert.IsTrue(deck.Contains("This"));
             Assert.IsTrue(deck.Contains("a", Location.Table));
             Assert.IsTrue(deck.Contains("sample", Location.Hand));

@@ -1821,7 +1821,7 @@
             Defines a location that's part of the stack.
             </summary>
         </member>
-        <member name="F:Decks.Location.TopDeck">
+        <member name="F:Decks.Location.DrawPile">
             <summary>
             The set that draws happen from.
             </summary>

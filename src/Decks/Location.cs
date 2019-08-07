@@ -8,7 +8,7 @@
         /// <summary>
         /// The set that draws happen from.
         /// </summary>
-        TopDeck = 0,
+        DrawPile = 0,
         /// <summary>
         /// The set that have already been processed.
         /// </summary>
