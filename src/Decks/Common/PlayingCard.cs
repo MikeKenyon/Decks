@@ -208,6 +208,7 @@ namespace Decks.Common
         /// </summary>
         /// <param name="text">The text to parse.</param>
         /// <returns>The parsed result.</returns>
+        /// <exception cref="FormatException">If the <paramref name="text"/> isn't a playing card string.</exception>
         public static PlayingCard Parse(string text)
         {
             if (!TryParse(text, out var card))

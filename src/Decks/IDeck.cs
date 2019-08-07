@@ -58,6 +58,10 @@ namespace Decks
         /// <param name="element">The element to add.</param>
         /// <param name="location">The location to add it to.</param>
         /// <returns>This same deck (for FLUID interface reasons).</returns>
+        /// <exception cref="System.InvalidOperationException">
+        /// If you try to supply <see cref="Location.Hand"/> or you attempt to add to a deck that has been initialized 
+        /// and declared to be unmodified by <see cref="IDeckOptions.Modifiable"/>.
+        /// </exception>
         IDeck<TElement> Add(TElement element, Location location = Location.TopDeck);
         /// <summary>
         /// Adds a card to a specific location in the deck.
@@ -66,6 +70,11 @@ namespace Decks
         /// <param name="side">What side of the deck the item goes to.</param>
         /// <param name="location">The location to add it to.</param>
         /// <returns>This same deck (for FLUID interface reasons).</returns>
+        /// <exception cref="System.InvalidOperationException">
+        /// If the given <see cref="Location"/> cannot have an element added to the given <paramref name="side"/> or if you 
+        /// try to supply <see cref="Location.Hand"/> or you attempt to add to a deck that has been initialized and declared to 
+        /// be unmodified by <see cref="IDeckOptions.Modifiable"/>.
+        /// </exception>
         IDeck<TElement> Add(TElement element, DeckSide side, Location location = Location.TopDeck);
         #endregion
 

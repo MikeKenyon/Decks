@@ -36,6 +36,7 @@ namespace Decks
         /// <returns>This hand (for fluent purposes).</returns>
         public IHand<TElement> Draw(DeckSide side = DeckSide.Top)
         {
+            InvalidCheck();
             Contract.Requires(Enum.IsDefined(typeof(DeckSide), side));
 
             Deck.Events.DrawingInto(this);
@@ -52,14 +53,7 @@ namespace Decks
         /// </summary>
         public void Muck()
         {
-            Deck.Events.Mucking(this);
-
-            Contents.Apply(c => Deck.DiscardPileStack.Add(c));
-            Contents.Clear();
-            HasBeenMucked = true;
-            Deck.RemoveHand(this);
-
-            Deck.Events.Mucked(this);
+            Dispose();
         }
         /// <summary>
         /// Plays this element onto the table.
@@ -144,5 +138,38 @@ namespace Decks
         {
             // No-op
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        /// <summary>
+        /// For a hand, this is mucking the hand.
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    Deck.Events.Mucking(this);
+
+                    Contents.Apply(c => Deck.DiscardPileStack.Add(c));
+                    Contents.Clear();
+                    HasBeenMucked = true;
+                    Deck.RemoveHand(this);
+
+                    Deck.Events.Mucked(this);
+                }
+                disposedValue = true;
+            }
+        }
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+        #endregion
     }
 }

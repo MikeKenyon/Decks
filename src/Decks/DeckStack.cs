@@ -134,7 +134,7 @@ namespace Decks
             }
             if (checkMucked && hand.HasBeenMucked)
             {
-                throw new InvalidOperationException("Cannot use this hand, it's been mucked.");
+                throw new ObjectDisposedException("hand");
             }
         }
         /// <summary>

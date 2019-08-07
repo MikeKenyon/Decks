@@ -35,6 +35,7 @@
             </summary>
             <param name="options">The options on how to play with a pinochle deck.</param>
             <param name="doInitialize">Should the deck be initialized.</param>
+            <exception cref="T:System.ArgumentException">The options are inappropriate for a pinochle deck.</exception>
         </member>
         <member name="M:Decks.Common.PinochleDeck.OnOptionsUpdated">
             <summary>
@@ -138,6 +139,7 @@
             </summary>
             <param name="text">The text to parse.</param>
             <returns>The parsed result.</returns>
+            <exception cref="T:System.FormatException">If the <paramref name="text"/> isn't a playing card string.</exception>
         </member>
         <member name="M:Decks.Common.PlayingCard.TryParse(System.String,Decks.Common.PlayingCard@)">
             <summary>
@@ -1123,6 +1125,9 @@
             </summary>
             <param name="retreiveDiscards">Whether or not to clear out the discards.</param>
             <returns>Draw pile (for fluent purposes)</returns>
+            <exception cref="T:System.InvalidOperationException">
+            No more shuffles are allowed from <see cref="P:Decks.Configuration.IDrawPileOptions.MaximumShuffleCount"/>.
+            </exception>
         </member>
         <member name="T:Decks.Events.IDeckEvents">
             <summary>
@@ -1490,6 +1495,12 @@
             Confirms this hand is enabled.
             </summary>
         </member>
+        <member name="M:Decks.Hand`1.Dispose(System.Boolean)">
+            <summary>
+            For a hand, this is mucking the hand.
+            </summary>
+            <param name="disposing"></param>
+        </member>
         <member name="T:Decks.IHand`1">
             <summary>
             A hand is a collection of elements from a specific deck that are owned usually by a specific player.  
@@ -1502,6 +1513,7 @@
             </summary>
             <param name="from">Where to draw the card from, top or bottom of the deck.</param>
             <returns>This hand (for fluent purposes).</returns>
+            <exception cref="T:Decks.BottomDeckException">If there isn't a card to be dealt.</exception>
         </member>
         <member name="M:Decks.IHand`1.Muck">
             <summary>
@@ -1522,6 +1534,7 @@
             <exception cref="T:Decks.InvalidElementException">
             The element isn't part of this hand.
             </exception>
+            <exception cref="T:System.ObjectDisposedException">If the hand has previously been mucked.</exception>
         </member>
         <member name="T:Decks.IDeck`1">
             <summary>
@@ -1577,6 +1590,10 @@
             <param name="element">The element to add.</param>
             <param name="location">The location to add it to.</param>
             <returns>This same deck (for FLUID interface reasons).</returns>
+            <exception cref="T:System.InvalidOperationException">
+            If you try to supply <see cref="F:Decks.Location.Hand"/> or you attempt to add to a deck that has been initialized 
+            and declared to be unmodified by <see cref="P:Decks.Configuration.IDeckOptions.Modifiable"/>.
+            </exception>
         </member>
         <member name="M:Decks.IDeck`1.Add(`0,Decks.DeckSide,Decks.Location)">
             <summary>
@@ -1586,6 +1603,11 @@
             <param name="side">What side of the deck the item goes to.</param>
             <param name="location">The location to add it to.</param>
             <returns>This same deck (for FLUID interface reasons).</returns>
+            <exception cref="T:System.InvalidOperationException">
+            If the given <see cref="T:Decks.Location"/> cannot have an element added to the given <paramref name="side"/> or if you 
+            try to supply <see cref="F:Decks.Location.Hand"/> or you attempt to add to a deck that has been initialized and declared to 
+            be unmodified by <see cref="P:Decks.Configuration.IDeckOptions.Modifiable"/>.
+            </exception>
         </member>
         <member name="M:Decks.IDeck`1.Deal(System.Int32)">
             <summary>
@@ -1855,6 +1877,11 @@
             </remarks>
             <param name="from">Which side of the draw pile we're drawing from.</param>
             <returns>This tableau (for fluent purposes).</returns>
+            <exception cref="T:System.InvalidOperationException">
+                The tableau is not enabled, see <see cref="P:Decks.Configuration.ITableauOptions.Enabled"/> or
+                doing so is prohibited by <see cref="P:Decks.Configuration.ITableauOptions.CanDrawIntoHand"/>.
+            </exception>
+            <exception cref="T:Decks.BottomDeckException">If there are no remaining cards to draw from.</exception>
         </member>
         <member name="M:Decks.ITableau`1.Play(`0)">
             <summary>
@@ -1862,6 +1889,11 @@
             </summary>
             <param name="element">The element to play to the table.</param>
             <returns>This tableau (for fluent purposes).</returns>
+            <exception cref="T:System.InvalidOperationException">
+                The tableau is not enabled, see <see cref="P:Decks.Configuration.ITableauOptions.Enabled"/> or 
+                playing to a table is prohibited by <see cref="P:Decks.Configuration.ITableauOptions.CanPlayToTable"/>.
+            </exception>
+            <exception cref="T:Decks.InvalidElementException">The <paramref name="element"/> isn't part of this deck.</exception>
         </member>
         <member name="M:Decks.ITableau`1.DrawInto(`0,Decks.IHand{`0})">
             <summary>
@@ -1870,6 +1902,12 @@
             <param name="element">The element to play to the table.</param>
             <param name="hand">The hand to draw it into.</param>
             <returns>This tableau (for fluent purposes).</returns>
+            <exception cref="T:System.InvalidOperationException">
+                The tableau is not enabled, see <see cref="P:Decks.Configuration.ITableauOptions.Enabled"/> or the hand isn't from this
+                deck.
+            </exception>
+            <exception cref="T:System.ObjectDisposedException">The hand has previously been mucked.</exception>
+            <exception cref="T:Decks.InvalidElementException">The <paramref name="element"/> isn't part of this deck.</exception>
         </member>
         <member name="T:Decks.Tableau`1">
             <summary>
@@ -1973,6 +2011,10 @@
             </summary>
             <param name="element">The element to discard.</param>
             <returns>The table (for fluent purposes).</returns>
+            <exception cref="T:System.InvalidOperationException">
+                The table is not enabled, see <see cref="P:Decks.Configuration.ITableauOptions.Enabled"/>.
+            </exception>
+            <exception cref="T:Decks.InvalidElementException">The element isn't on the table.</exception>
         </member>
         <member name="M:Decks.ITable`1.Muck">
             <summary>
@@ -1980,11 +2022,17 @@
             after this operation.
             </summary>
             <returns>The table (for fluent purposes).</returns>
+            <exception cref="T:System.InvalidOperationException">
+                The table is not enabled, see <see cref="P:Decks.Configuration.ITableauOptions.Enabled"/>.
+            </exception>
         </member>
         <member name="P:Decks.ITable`1.Enabled">
             <summary>
             Checks to see if the table is enabled (from <see cref="P:Decks.ITable`1.Options"/>).
             </summary>
+            <exception cref="T:System.InvalidOperationException">
+                The table is not enabled, see <see cref="P:Decks.Configuration.ITableauOptions.Enabled"/>.
+            </exception>
         </member>
         <member name="T:Decks.Table`1">
             <summary>

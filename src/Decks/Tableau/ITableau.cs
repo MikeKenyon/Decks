@@ -29,6 +29,11 @@
         /// </remarks>
         /// <param name="from">Which side of the draw pile we're drawing from.</param>
         /// <returns>This tableau (for fluent purposes).</returns>
+        /// <exception cref="System.InvalidOperationException">
+        ///     The tableau is not enabled, see <see cref="Configuration.ITableauOptions.Enabled"/> or
+        ///     doing so is prohibited by <see cref="Configuration.ITableauOptions.CanDrawIntoHand"/>.
+        /// </exception>
+        /// <exception cref="BottomDeckException">If there are no remaining cards to draw from.</exception>
         ITableau<TElement> DrawUp(DeckSide from = DeckSide.Top);
 
         /// <summary>
@@ -36,6 +41,11 @@
         /// </summary>
         /// <param name="element">The element to play to the table.</param>
         /// <returns>This tableau (for fluent purposes).</returns>
+        /// <exception cref="System.InvalidOperationException">
+        ///     The tableau is not enabled, see <see cref="Configuration.ITableauOptions.Enabled"/> or 
+        ///     playing to a table is prohibited by <see cref="Configuration.ITableauOptions.CanPlayToTable"/>.
+        /// </exception>
+        /// <exception cref="InvalidElementException">The <paramref name="element"/> isn't part of this deck.</exception>
         ITableau<TElement> Play(TElement element);
 
         /// <summary>
@@ -44,6 +54,12 @@
         /// <param name="element">The element to play to the table.</param>
         /// <param name="hand">The hand to draw it into.</param>
         /// <returns>This tableau (for fluent purposes).</returns>
+        /// <exception cref="System.InvalidOperationException">
+        ///     The tableau is not enabled, see <see cref="Configuration.ITableauOptions.Enabled"/> or the hand isn't from this
+        ///     deck.
+        /// </exception>
+        /// <exception cref="System.ObjectDisposedException">The hand has previously been mucked.</exception>
+        /// <exception cref="InvalidElementException">The <paramref name="element"/> isn't part of this deck.</exception>
         ITableau<TElement> DrawInto(TElement element, IHand<TElement> hand);
     }
 }

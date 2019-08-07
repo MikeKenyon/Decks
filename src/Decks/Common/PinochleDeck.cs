@@ -12,6 +12,7 @@ namespace Decks.Common
         /// </summary>
         /// <param name="options">The options on how to play with a pinochle deck.</param>
         /// <param name="doInitialize">Should the deck be initialized.</param>
+        /// <exception cref="ArgumentException">The options are inappropriate for a pinochle deck.</exception>
         public PinochleDeck(PinochleOptions options, bool doInitialize = true) : base(options, doInitialize)
         {
             CheckOptions();

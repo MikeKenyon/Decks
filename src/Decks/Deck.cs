@@ -186,11 +186,11 @@ namespace Decks
                 {
                     if (Options.Events.GetType() == typeof(IDeckEvents))
                     {
-                        throw new InvalidCastException($"The deck events need to implement {typeof(IDeckEvents<TElement>).Name}, not the non-generic base.");
+                        throw new InvalidCastException($"The deck events need to implement {nameof(IDeckEvents<TElement>)}, not the non-generic base.");
                     }
                     else
                     {
-                        throw new InvalidCastException($"The deck events need to implement {typeof(IDeckEvents<TElement>).Name}, you provided {Options.Events.GetType().Name}.");
+                        throw new InvalidCastException($"The deck events need to implement {nameof(IDeckEvents<TElement>)}, you provided {Options.Events.GetType().Name}.");
                     }
                 }
                 else

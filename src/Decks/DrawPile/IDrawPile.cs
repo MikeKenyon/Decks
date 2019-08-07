@@ -16,6 +16,9 @@
         /// </summary>
         /// <param name="retreiveDiscards">Whether or not to clear out the discards.</param>
         /// <returns>Draw pile (for fluent purposes)</returns>
+        /// <exception cref="System.InvalidOperationException">
+        /// No more shuffles are allowed from <see cref="Configuration.IDrawPileOptions.MaximumShuffleCount"/>.
+        /// </exception>
         IDrawPile<TElement> Shuffle(bool retreiveDiscards = true);
     }
 }
