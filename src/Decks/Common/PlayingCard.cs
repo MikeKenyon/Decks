@@ -96,6 +96,8 @@ namespace Decks.Common
                         PlayingCardSuit.Diamonds,
                     };
                     break;
+                default:
+                    throw new NotImplementedException($"The value of {Options.Order} wasn't coded for.");
             }
             var compare = 0;
             if (Rank == PlayingCardRank.Ace || other.Rank == PlayingCardRank.Ace)
@@ -115,6 +117,8 @@ namespace Decks.Common
                         case AceMode.Low:
                             compare = -1;
                             break;
+                        default:
+                            throw new NotImplementedException($"The value of {Options.AceMode} wasn't coded for.");
                     }
                 }
             }

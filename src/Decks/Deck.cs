@@ -220,6 +220,8 @@ namespace Decks
                     return Table.Contains(element);
                 case Location.DrawPile:
                     return DrawPile.Contains(element);
+                default:
+                    throw new NotImplementedException($"The value of {location} wasn't coded for.");
             }
             return false;
         }

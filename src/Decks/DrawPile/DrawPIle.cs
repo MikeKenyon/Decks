@@ -94,6 +94,8 @@ namespace Decks
                 case DeckSide.Top:
                     Contents.Insert(0, element);
                     break;
+                default:
+                    throw new NotImplementedException($"The value of {side} wasn't coded for.");
             }
         }
 
@@ -127,6 +129,8 @@ namespace Decks
                 case DeckSide.Top:
                     index = 0;
                     break;
+                default:
+                    throw new NotImplementedException($"The value of {side} wasn't coded for.");
             }
 
             card = Contents[index];

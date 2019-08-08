@@ -1,4 +1,5 @@
 ﻿using Decks.Internal;
+using System;
 
 namespace Decks
 {
@@ -44,6 +45,8 @@ namespace Decks
                 case DeckSide.Top:
                     Contents.Insert(0, element);
                     break;
+                default:
+                    throw new NotImplementedException($"The value of {side} wasn't coded for.");
             }
         }
 
