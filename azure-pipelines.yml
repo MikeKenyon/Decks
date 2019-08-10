@@ -33,7 +33,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
-    packagesToPack: '**/*.csproj'
+    packagesToPack: '**/Decks.csproj'
     versioningScheme: 'off'
 
 - task: PublishBuildArtifacts@1
