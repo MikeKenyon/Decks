@@ -4,8 +4,19 @@ using System;
 
 namespace Decks.Internal
 {
-    [JsonConverter(typeof(Internal.Serialization.DeckSerializer<>))]
-    internal interface IDeckInternal<TElement> : IDeck<TElement>, IDeckVisitable<TElement> where TElement : class
+    [JsonConverter(typeof(Internal.Serialization.DeckSerializer))]
+    internal interface IDeckInternal : IDeck
+    {
+        /// <summary>
+        /// Called before the deck is serialized.
+        /// </summary>
+        void Dehydrating();
+        /// <summary>
+        /// Called after the deck has ben deserialized.
+        /// </summary>
+        void Rehydrated();
+    }
+    internal interface IDeckInternal<TElement> : IDeckInternal, IDeck<TElement>, IDeckVisitable<TElement> where TElement : class
     {
         /// <summary>
         /// The collection of events that are in use.
@@ -27,11 +38,6 @@ namespace Decks.Internal
         /// The internal representation of the <see cref="ITable{TElement}"/>.
         /// </summary>
         Internal.ITableInternal<TElement> TableStack { get; }
-        /// <summary>
-        /// The type of elements in this <see cref="IDeck{TElement}"/>.
-        /// </summary>
-        /// <remarks>This is very handy when dealing witih a derived (and no longer generic deck class.</remarks>
-        Type ElementType { get; }
 
         /// <summary>
         /// Removes a hand from those that the deck is aware of.
@@ -39,13 +45,5 @@ namespace Decks.Internal
         /// <param name="hand">The hand to remove.</param>
         void RemoveHand(IHand<TElement> hand);
 
-        /// <summary>
-        /// Called before the deck is serialized.
-        /// </summary>
-        void Dehydrating();
-        /// <summary>
-        /// Called after the deck has ben deserialized.
-        /// </summary>
-        void Rehydrated();
     }
 }

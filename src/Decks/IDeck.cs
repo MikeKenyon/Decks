@@ -1,4 +1,5 @@
 ﻿using Decks.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -21,8 +22,7 @@ namespace Decks
     /// circumstances through the <see cref="DeckOptions"/> class.
     /// </para>
     /// </remarks>
-    /// <typeparam name="TElement"></typeparam>
-    public interface IDeck<TElement> : INotifyPropertyChanged where TElement : class
+    public interface IDeck : INotifyPropertyChanged
     {
         /// <summary>
         /// The options that this deck is operating under.
@@ -30,9 +30,37 @@ namespace Decks
         IDeckOptions Options { get; }
 
         /// <summary>
+        /// The type of elements in this deck.
+        /// </summary>
+        /// <remarks>This is very handy when dealing witih a derived (and no longer generic deck class.</remarks>
+        Type ElementType { get; }
+
+
+        /// <summary>
         /// The total number of elements in the system.
         /// </summary>
         int Count { get; }
+    }
+
+    /// <summary>
+    /// A "deck" of game components.  They can be cards, tiles, chits, whatever.  Uniqueness is not
+    /// guaranteed.  
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Items are drawn from the "top deck" and returned to the "discard pile".  Each 
+    /// player gets a "hand" and when you draw, you draw into your hand and when you play from your
+    /// hand it goes automatically to the discard pile.  Elements are always in either someone's hand,
+    /// the top deck, the discard pile or possibly in play on the "table". 
+    /// </para>
+    /// <para>
+    /// When creating a deck, you provide rules that explain how the system should react to specific 
+    /// circumstances through the <see cref="DeckOptions"/> class.
+    /// </para>
+    /// </remarks>
+    /// <typeparam name="TElement">The type of the elements in the deck.</typeparam>
+    public interface IDeck<TElement> : IDeck where TElement : class
+    {
 
         /// <summary>
         /// Determines if an area contains an element.

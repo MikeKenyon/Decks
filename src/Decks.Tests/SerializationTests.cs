@@ -56,7 +56,7 @@ namespace Decks.Tests
             };
             // Act
             var text = JsonConvert.SerializeObject(deck, settings);
-            var created = JsonConvert.DeserializeObject<StandardCardDeck>(text);
+            var created = JsonConvert.DeserializeObject<Deck<string>>(text);
             // Assert
         }
         [TestMethod]

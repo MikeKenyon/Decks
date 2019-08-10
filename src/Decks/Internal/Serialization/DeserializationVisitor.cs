@@ -7,7 +7,7 @@ namespace Decks.Internal.Serialization
 {
     internal class DeserializationVisitor<TElement> : IDeckVisitor<TElement> where TElement : class
     {
-        internal DeserializationVisitor(Newtonsoft.Json.Linq.JObject content, JsonSerializer serializer)
+        public DeserializationVisitor(Newtonsoft.Json.Linq.JObject content, JsonSerializer serializer)
         {
             Content = content;
             Serializer = serializer;

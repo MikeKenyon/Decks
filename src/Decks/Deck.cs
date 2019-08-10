@@ -337,7 +337,7 @@ namespace Decks
         /// The type of elements in this <see cref="IDeck{TElement}"/>.
         /// </summary>
         /// <remarks>This is very handy when dealing witih a derived (and no longer generic deck class.</remarks>
-        Type IDeckInternal<TElement>.ElementType
+        Type IDeck.ElementType
         {
             get
             {

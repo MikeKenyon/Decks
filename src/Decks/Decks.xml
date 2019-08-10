@@ -806,7 +806,7 @@
             Called after the deck has ben deserialized.
             </summary>
         </member>
-        <member name="P:Decks.Deck`1.Decks#Internal#IDeckInternal{TElement}#ElementType">
+        <member name="P:Decks.Deck`1.Decks#IDeck#ElementType">
             <summary>
             The type of elements in this <see cref="T:Decks.IDeck`1"/>.
             </summary>
@@ -1536,6 +1536,40 @@
             </exception>
             <exception cref="T:System.ObjectDisposedException">If the hand has previously been mucked.</exception>
         </member>
+        <member name="T:Decks.IDeck">
+            <summary>
+            A "deck" of game components.  They can be cards, tiles, chits, whatever.  Uniqueness is not
+            guaranteed.  
+            </summary>
+            <remarks>
+            <para>
+            Items are drawn from the "top deck" and returned to the "discard pile".  Each 
+            player gets a "hand" and when you draw, you draw into your hand and when you play from your
+            hand it goes automatically to the discard pile.  Elements are always in either someone's hand,
+            the top deck, the discard pile or possibly in play on the "table". 
+            </para>
+            <para>
+            When creating a deck, you provide rules that explain how the system should react to specific 
+            circumstances through the <see cref="T:Decks.Configuration.DeckOptions"/> class.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Decks.IDeck.Options">
+            <summary>
+            The options that this deck is operating under.
+            </summary>
+        </member>
+        <member name="P:Decks.IDeck.ElementType">
+            <summary>
+            The type of elements in this deck.
+            </summary>
+            <remarks>This is very handy when dealing witih a derived (and no longer generic deck class.</remarks>
+        </member>
+        <member name="P:Decks.IDeck.Count">
+            <summary>
+            The total number of elements in the system.
+            </summary>
+        </member>
         <member name="T:Decks.IDeck`1">
             <summary>
             A "deck" of game components.  They can be cards, tiles, chits, whatever.  Uniqueness is not
@@ -1553,17 +1587,7 @@
             circumstances through the <see cref="T:Decks.Configuration.DeckOptions"/> class.
             </para>
             </remarks>
-            <typeparam name="TElement"></typeparam>
-        </member>
-        <member name="P:Decks.IDeck`1.Options">
-            <summary>
-            The options that this deck is operating under.
-            </summary>
-        </member>
-        <member name="P:Decks.IDeck`1.Count">
-            <summary>
-            The total number of elements in the system.
-            </summary>
+            <typeparam name="TElement">The type of the elements in the deck.</typeparam>
         </member>
         <member name="M:Decks.IDeck`1.Contains(`0,Decks.Location)">
             <summary>
@@ -1682,6 +1706,16 @@
             Gets the one and only version of this.
             </summary>
         </member>
+        <member name="M:Decks.Internal.IDeckInternal.Dehydrating">
+            <summary>
+            Called before the deck is serialized.
+            </summary>
+        </member>
+        <member name="M:Decks.Internal.IDeckInternal.Rehydrated">
+            <summary>
+            Called after the deck has ben deserialized.
+            </summary>
+        </member>
         <member name="P:Decks.Internal.IDeckInternal`1.Events">
             <summary>
             The collection of events that are in use.
@@ -1707,27 +1741,11 @@
             The internal representation of the <see cref="T:Decks.ITable`1"/>.
             </summary>
         </member>
-        <member name="P:Decks.Internal.IDeckInternal`1.ElementType">
-            <summary>
-            The type of elements in this <see cref="T:Decks.IDeck`1"/>.
-            </summary>
-            <remarks>This is very handy when dealing witih a derived (and no longer generic deck class.</remarks>
-        </member>
         <member name="M:Decks.Internal.IDeckInternal`1.RemoveHand(Decks.IHand{`0})">
             <summary>
             Removes a hand from those that the deck is aware of.
             </summary>
             <param name="hand">The hand to remove.</param>
-        </member>
-        <member name="M:Decks.Internal.IDeckInternal`1.Dehydrating">
-            <summary>
-            Called before the deck is serialized.
-            </summary>
-        </member>
-        <member name="M:Decks.Internal.IDeckInternal`1.Rehydrated">
-            <summary>
-            Called after the deck has ben deserialized.
-            </summary>
         </member>
         <member name="T:Decks.Internal.IDeckStackInternal`1">
             <summary>

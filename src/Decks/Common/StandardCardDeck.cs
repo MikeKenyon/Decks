@@ -5,7 +5,6 @@ namespace Decks.Common
     /// <summary>
     /// A specialized deck of <see cref="PlayingCard"/>.
     /// </summary>
-    [JsonConverter(typeof(Internal.Serialization.DeckSerializer<PlayingCard>))]
     public class StandardCardDeck : Deck<PlayingCard>
     {
         /// <summary>
