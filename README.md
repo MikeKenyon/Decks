@@ -37,6 +37,12 @@ and the process for submitting pull requests to us.
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/MikeKenyon/Decks/tags). 
 
+### What's New
+
+* **Version 1.0** - Initial release, draw and discards piles.
+* **Version 2.0** - Significant restructure, extensible framework, major standards compliance check, tables and tableaus added.
+* **Version 2.0.1** - Fix for a serialization issue on generic decks.
+
 ## Authors
 
 * **[Mike Kenyon](https://github.com/MikeKenyon)** - *Initial work* - 
