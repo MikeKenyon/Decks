@@ -15,10 +15,55 @@ namespace Decks.Tests
     public class SerializationTests
     {
         [TestMethod]
+        public void GenericSerialization()
+        {
+            // Arrange
+            var deck = new Deck<string>(MakeOptions());
+            deck.Add("This")
+                .Add("is")
+                .Add("a")
+                .Add("sample")
+                .Add("deck")
+                .Add("that")
+                .Add("contains")
+                .Add("several")
+                .Add("strings")
+                .Add("representing")
+                .Add("the")
+                .Add("card")
+                .Add("elements.")
+                .Add("There")
+                .Add("need")
+                .Add("to")
+                .Add("be")
+                .Add("enough")
+                .Add("blocks")
+                .Add("of")
+                .Add("text")
+                .Add("fascilitating")
+                .Add("drawing")
+                .Add("up")
+                .Add("five")
+                .Add("hands")
+                .Add("and")
+                .Add("tableau")
+                .Add("space")
+                ;
+            PutThroughPaces(deck);
+            var settings = new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented
+            };
+            // Act
+            var text = JsonConvert.SerializeObject(deck, settings);
+            var created = JsonConvert.DeserializeObject<StandardCardDeck>(text);
+            // Assert
+        }
+        [TestMethod]
         public void StandardDeckSerialization()
         {
             // Arrange
-            var deck = new StandardCardDeck(MakeOptions());
+            var deck = new StandardCardDeck(MakeCardOptions());
             PutThroughPaces(deck);
             var settings = new JsonSerializerSettings
             {
@@ -46,7 +91,24 @@ namespace Decks.Tests
             deck.Tableau.DrawUp();
         }
 
-        private PlayingCardOptions MakeOptions()
+        private DeckOptions MakeOptions()
+        {
+            return new DeckOptions
+            {
+                Discards = { AutoShuffle = false },
+                DrawPile = { MaximumShuffleCount = null },
+                Hands = { InitialHandSize = 5, Enabled = true },
+                Modifiable = true,
+                Table = { Enabled = true },
+                Tableau = {
+                    Enabled = true,
+                    CanDrawIntoHand = true, CanPlayToTable = true, DrawsUpSafely = true,
+                    InitialSize = 3, MaintainSize = false, MaximumSize = 3,
+                    OverflowRule = TableauOverflowRule.DiscardRandom
+                },
+            };
+        }
+        private PlayingCardOptions MakeCardOptions()
         {
             return new PlayingCardOptions
             {

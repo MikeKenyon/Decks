@@ -1,16 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using Microsoft.Extensions.CommandLineUtils;
 
 namespace Decks.Samples
 {
-    public class InteractiveCommand : CommandLineApplication
+    public class InteractiveCommand<TElement> : CommandLineApplication where TElement : class
     {
-        public InteractiveCommand(ExecutionContext context) : base(true)
+        public ExecutionContext<TElement> Context { get; }
+
+        public InteractiveCommand(ExecutionContext<TElement> context) : base(true)
         {
-            Commands.Add(new Commands.ExitCommand(context));
+            Commands.Add(new Commands.DescribeCommand<TElement>(context));
+            Commands.Add(new Commands.ExitCommand<TElement>(context));
             Commands.Add(new Commands.HelpCommand(this));
+            Commands.Add(new Commands.NewCommand<TElement>(context));
+            Commands.Add(new Commands.OptionsCommand<TElement>(context));
+            Context = context;
         }
 
         internal void Welcome()
@@ -18,6 +26,7 @@ namespace Decks.Samples
             Out.WriteLine("******************************************************");
             Out.WriteLine("**                                                  **");
             Out.WriteLine("**      Welcome to Decks Sample Application!        **");
+            Out.WriteLine($"**      (Element Type: {typeof(TElement).Name})".PadRight(52) + "**");
             Out.WriteLine("**                                                  **");
             Out.WriteLine("******************************************************");
         }
@@ -32,7 +41,7 @@ namespace Decks.Samples
             }
             catch (CommandParsingException)
             { 
-                Unhandled(command);
+                Unhandled(Context.LastCommand);
             }
         }
 
@@ -49,9 +58,35 @@ namespace Decks.Samples
             Console.ForegroundColor = old;
         }
 
-        private string ReadCommand()
+        private string[] ReadCommand()
         {
-            return Console.ReadLine();
+            var text = Console.ReadLine();
+            Context.LastCommand = text;
+            return SplitArguments(text);
+        }
+        public static string[] SplitArguments(string commandLine)
+        {
+            var parmChars = commandLine.ToCharArray();
+            var inSingleQuote = false;
+            var inDoubleQuote = false;
+            for (var index = 0; index < parmChars.Length; index++)
+            {
+                if (parmChars[index] == '"' && !inSingleQuote)
+                {
+                    inDoubleQuote = !inDoubleQuote;
+                    parmChars[index] = '\n';
+                }
+                if (parmChars[index] == '\'' && !inDoubleQuote)
+                {
+                    inSingleQuote = !inSingleQuote;
+                    parmChars[index] = '\n';
+                }
+                if (!inSingleQuote && !inDoubleQuote && parmChars[index] == ' ')
+                {
+                    parmChars[index] = '\n';
+                }
+            }
+            return (new string(parmChars)).Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
         }
 
         private void ShowPrompt()

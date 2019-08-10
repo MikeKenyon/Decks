@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Decks.Samples.Commands
 {
-    public class ExitCommand : CommandLineApplication
+    public class ExitCommand<TElement> : CommandLineApplication where TElement : class
     {
-        private ExecutionContext Context { get; set; }
+        private ExecutionContext<TElement> Context { get; set; }
 
-        public ExitCommand(ExecutionContext context) : base(true)
+        public ExitCommand(ExecutionContext<TElement> context) : base(true)
         {
             Name = "Exit";
             Description = "Quits this application.";

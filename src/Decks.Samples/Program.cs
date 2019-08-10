@@ -6,14 +6,20 @@ namespace Decks.Samples
     {
         static void Main(string[] args)
         {
-            var context = new ExecutionContext();
-            var root = new InteractiveCommand(context);
+            DoLoop<Elements.SpaceSector>();
+        }
+
+        private static void DoLoop<TElement>() where TElement : class
+        {
+            var context = new ExecutionContext<TElement>();
+            var root = new InteractiveCommand<TElement>(context);
 
             root.Welcome();
 
-            while(!context.Done)
+            while (!context.Done)
             {
                 root.ProcessCommand();
+                root = new InteractiveCommand<TElement>(context);
             }
         }
     }
