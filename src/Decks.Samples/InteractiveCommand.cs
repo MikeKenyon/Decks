@@ -18,6 +18,7 @@ namespace Decks.Samples
             Commands.Add(new Commands.HelpCommand(this));
             Commands.Add(new Commands.NewCommand<TElement>(context));
             Commands.Add(new Commands.OptionsCommand<TElement>(context));
+            Commands.Add(new Commands.ShuffleCommand<TElement>(context));
             Context = context;
         }
 
