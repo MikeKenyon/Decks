@@ -7,15 +7,16 @@
     <Authors>Mike Kenyon</Authors>
     <Description>A library that provides stuctures for supporting board games.    The structures here are Decks of cards/tiles/etc.</Description>
     <Copyright>2019</Copyright>
-    <AssemblyVersion>2.0.1.0</AssemblyVersion>
-    <Version>2.0.1</Version>
+    <AssemblyVersion>2.0.2.0</AssemblyVersion>
+    <Version>2.0.2</Version>
     <PackageProjectUrl>http://github.com/MikeKenyon/Decks/</PackageProjectUrl>
-    <RepositoryUrl>http://github.com/MikeKenyon/Decks/</RepositoryUrl>
+    <RepositoryUrl>https://github.com/MikeKenyon/Decks.git</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReleaseNotes>v1.0.0 - Initial release, functional draw pile and discards.
 v2.0.0 - Major refactor.  Added table and tableau capabilities.
-v2.0.1 - Quick fix of a serialization issue.</PackageReleaseNotes>
+v2.0.1 - Quick fix of a serialization issue.
+v2.0.2 - Update to correct information in Nuget configuration</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
